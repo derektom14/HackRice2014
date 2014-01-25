@@ -1,6 +1,7 @@
 // AAssignment
 // Author: Jenna
 // Single Assignment information
+// 
 
 package hwo;
 import java.time.Duration;
