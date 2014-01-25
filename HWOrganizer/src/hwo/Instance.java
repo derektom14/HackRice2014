@@ -1,6 +1,7 @@
 package hwo;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Date;
 
 import java.io.IOException;
 
@@ -38,5 +39,10 @@ public class Instance {
 		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public SingleAssignment[] filter(int semesterIndex, Date startDate, Date endDate, Course course)
+	{
+		return semesters[semesterIndex].filter(startDate, endDate, course);
 	}
 }

@@ -1,4 +1,4 @@
-// RepeatAssignment
+// RepeatAssignment 
 // Author: Michael (Jenna - commenting and constructor) 
 // Repeat Assignment information - Contains SingleAssignments
 // 	Unique Fields: assignments, frequency 
