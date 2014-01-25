@@ -4,6 +4,7 @@
 // 	Unique Fields: assignments, frequency 
 package hwo;
 import java.sql.Time;
+import java.util.GregorianCalendar;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
@@ -59,6 +60,8 @@ public class RepeatAssignment extends AAssignment
 	// Extension of constructor to populate this.assignments
 	public void createSingleAssignments()
 	{
+		
+		GregorianCalendar g = new GregorianCalendar(getStartDate().get());
 		Calendar c = Calendar.getInstance();
 		
 		// Loop through all dates in range
