@@ -9,10 +9,6 @@ import java.time.Duration;
 public interface IAssignment 
 {
 	// Get Methods
-	public Date getDueDate();
-	public int getProgress();
-	public int getPriority();
-	public boolean isCompleted();
 	public Course getCourse();
 	public String getAssignmentLoc();
 	public String getTurninLoc();
@@ -26,12 +22,6 @@ public interface IAssignment
 	public boolean[] getFrequency();
 	
 	// Set Methods
-	public void setDueDate(Date d);
-	// -p is from 0 to 100
-	public void setProgress(int p);
-	// -p is from 1 to 5
-	public void setPriority(int p);
-	public void setCompletion(boolean c);
 	public void setCourse(Course c);
 	public void setAssignmentLoc(String s);
 	public void setTurninLoc(String s);
