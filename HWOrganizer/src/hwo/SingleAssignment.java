@@ -104,8 +104,18 @@ public class SingleAssignment extends AAssignment
 	// Get+
 	public String getTimeString()
 	{
-		Calendar t = this.getDueTime();
-		return "";
+		Calendar time = this.getDueTime();
+		int hours = time.get(Calendar.HOUR_OF_DAY);
+		int minutes = time.get(Calendar.MINUTE);
+		String am_pm = "am";
+		if (hours == 0)
+			hours = 12;
+		if (hours > 12)
+		{
+			hours -= 12;
+			am_pm = "pm";
+		}
+		return hours + ":" + minutes + " " + am_pm;
 	}
 	
 	// Set methods
