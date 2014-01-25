@@ -11,5 +11,4 @@ public interface ISemester {
 	public void setEndDate(Date endDate);
 	public void addClass(IClass newClass);
 	public ArrayList<IClass> getClasses();
-	
 }
