@@ -14,6 +14,7 @@ public class SingleAssignment extends AAssignment
 	private boolean completed;
 	private RepeatAssignment parent;
 	
+	// Constructor
 	public SingleAssignment(Date dueDate, RepeatAssignment parent)
 	{
 		this.dueDate = dueDate;
