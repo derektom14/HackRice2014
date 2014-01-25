@@ -13,12 +13,35 @@ public class RepeatAssignment extends AAssignment
 	private boolean[] frequency;
 	
 	// Constructor
-	public RepeatAssignment (boolean [] frequency, Course course, Date startDate, Date endDate, String hwName, String addNotes, Duration estTime, String assignmentLoc, String turninLoc, String resorces, String typeOfAssignment)
+	public RepeatAssignment (boolean [] frequency, Course course, Date startDate, Date endDate, String hwName, String addNotes, Duration estTime, String assignmentLoc, String turninLoc, String resources, String typeOfAssignment)
+	{
+		this.assignments = new ArrayList<SingleAssignment>();
+		if (frequency.length == 7)
+			this.frequency = frequency;
+		super.setCourse(course);
+		super.setStartDate(startDate);
+		super.setEndDate(endDate);
+		super.setHWName(hwName);
+		super.setNotes(addNotes);
+		super.setCompletionTime(estTime);
+		super.setAssignmentLoc(assignmentLoc);
+		super.setTurninLoc(turninLoc);
+		super.setResources(resources);
+		super.setAssignmentType(typeOfAssignment);
+		
+		createSingleAssignments();
+	}
+	
+	// Extension of constructor to populate this.assignments
+	public void createSingleAssignments()
 	{
 		
 	}
 	
 	//Accessor methods
+	public boolean[] getFrequency(){return this.frequency;}
+	public ArrayList<SingleAssignment> getAssignments(){return this.assignments;}
+	// Return course value if this value is null
 	public String getAssignmentLoc()
 	{
 		if (super.getAssignmentLoc() == null)
@@ -43,6 +66,4 @@ public class RepeatAssignment extends AAssignment
 			return getCourse().getAssignmentType();
 		return super.getAssignmentType();
 	}
-	public boolean[] getFrequency(){return this.frequency;}
-	public ArrayList<SingleAssignment> getAssignments(){return this.assignments;}
 }
