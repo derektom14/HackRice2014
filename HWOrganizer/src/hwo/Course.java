@@ -1,5 +1,4 @@
 package hwo;
-import java.sql.Time; 
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -12,7 +11,7 @@ public class Course implements ICourse
 	private String assignmentType;
 	private ArrayList<RepeatAssignment> assignments;
 	private ISemester semester;
-	private Time dueTime;
+	private Calendar dueTime;
 	private Calendar startDate;
 	private Calendar endDate;
 	
@@ -32,7 +31,7 @@ public class Course implements ICourse
 	}
 	
 	// Complete Constructor
-	public Course (ISemester semester, String name, String assignmentLoc, String turninLoc, String resources, String assignmentType, Time dueTime)
+	public Course (ISemester semester, String name, String assignmentLoc, String turninLoc, String resources, String assignmentType, Calendar dueTime)
 	{
 		this.semester = semester;
 		this.name = name;
@@ -51,7 +50,7 @@ public class Course implements ICourse
 	public String getAssignmentType() {return assignmentType;}
 	public ArrayList<RepeatAssignment> getAssignments() {return assignments;}
 	public ISemester getSemester() {return semester;}
-	public Time getDueTime() {return dueTime;}
+	public Calendar getDueTime() {return dueTime;}
 	// Return semester value if this value is null
 	public Calendar getStartDate() 
 	{
@@ -73,7 +72,7 @@ public class Course implements ICourse
 	public void setResources(String resources) {this.resources = resources;}
 	public void setAssignmentType(String type) {this.assignmentType = type;}
 	public void setSemester(ISemester semester) {this.semester = semester;}
-	public void setDueTime(Time time) {this.dueTime = time;}
+	public void setDueTime(Calendar time) {this.dueTime = time;}
 	public void setStartDate(Calendar date) {this.startDate = date;}
 	public void setEndDate(Calendar date) {this.endDate = date;}
 	public void addAssignment(RepeatAssignment assignment) {this.assignments.add(assignment);}

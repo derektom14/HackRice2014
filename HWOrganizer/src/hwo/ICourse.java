@@ -1,7 +1,6 @@
 // Author: Michael
 
 package hwo;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -14,7 +13,7 @@ public interface ICourse {
 	public String getResources();
 	public String getAssignmentType();
 	public ISemester getSemester();
-	public Time getDueTime();
+	public Calendar getDueTime();
 	public ArrayList<RepeatAssignment> getAssignments();
 	public Calendar getStartDate();
 	public Calendar getEndDate();
@@ -26,7 +25,7 @@ public interface ICourse {
 	public void setResources(String resources);
 	public void setAssignmentType(String type);
 	public void setSemester(ISemester semester);
-	public void setDueTime(Time t);
+	public void setDueTime(Calendar t);
 	public void setStartDate(Calendar date);
 	public void setEndDate(Calendar date);
 }
