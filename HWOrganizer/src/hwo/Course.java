@@ -25,6 +25,8 @@ public class Course implements ICourse
 		this.turninLoc = "";
 		this.resources = "";
 		this.assignmentType = "";
+		
+		this.semester.addCourse(this);
 	}
 	
 	// Complete Constructor
