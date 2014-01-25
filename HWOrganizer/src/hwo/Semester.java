@@ -19,5 +19,4 @@ public class Semester implements ISemester, java.io.Serializable{
 	public void addClass(ICourse course) {courses.add(course);}
 	public ArrayList<ICourse> getClasses() {return courses;}
 	
-	
 }
