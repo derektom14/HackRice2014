@@ -1,7 +1,7 @@
 // AAssignment
 // Author: Jenna
 // Single Assignment information
-// 
+// 	Unique Fields: dueDate, progress, priority, completed, (parent)
 
 package hwo;
 import java.time.Duration;
