@@ -4,8 +4,8 @@
 
 package hwo;
 import java.time.Duration;
+import java.util.Calendar;
 import java.sql.Time;
-import java.util.Date;
 
 public abstract class AAssignment implements IAssignment
 {
@@ -17,8 +17,8 @@ public abstract class AAssignment implements IAssignment
 	private String name;
 	private String notes;
 	private Duration completionTime;
-	private Date startDate;
-	private Date endDate;
+	private Calendar startDate;
+	private Calendar endDate;
 	private Time dueTime;
 	
 	// Get Methods  
@@ -30,8 +30,8 @@ public abstract class AAssignment implements IAssignment
 	public String getHWName(){return this.name;}
 	public String getNotes(){return this.notes;}
 	public Duration getCompletionTime(){return this.completionTime;}
-	public Date getStartDate(){return this.startDate;}
-	public Date getEndDate(){return this.endDate;}
+	public Calendar getStartDate(){return this.startDate;}
+	public Calendar getEndDate(){return this.endDate;}
 	public Time getDueTime(){return this.dueTime;}
 	
 	// Set Methods
@@ -43,7 +43,7 @@ public abstract class AAssignment implements IAssignment
 	public void setHWName(String s){this.name = s;}
 	public void setNotes(String s){this.notes = s;}
 	public void setCompletionTime(Duration d){this.completionTime = d;} 
-	public void setStartDate(Date d){this.startDate = d;}
-	public void setEndDate(Date d){this.endDate = d;}
+	public void setStartDate(Calendar d){this.startDate = d;}
+	public void setEndDate(Calendar d){this.endDate = d;}
 	public void setDueTime(Time t){this.dueTime = t;}
 }
