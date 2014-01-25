@@ -8,6 +8,7 @@ import java.util.Date;
 
 public class SingleAssignment extends AAssignment
 {
+	// Fields specific to single assignments
 	private Date dueDate;
 	private int progress;
 	private int priority;
@@ -23,6 +24,7 @@ public class SingleAssignment extends AAssignment
 		this.completed = false;
 		this.parent = parent;
 		
+		// A null value indicates that the parent RepeatAssignment's values should be used
 		super.setCourse(null);
 		super.setTurninLoc(null);
 		super.setResources(null);
@@ -39,7 +41,7 @@ public class SingleAssignment extends AAssignment
 	public int getPriority(){return this.priority;}
 	public boolean isCompleted(){return this.completed;}
 	public RepeatAssignment getParentAssignment(){return this.parent;}
-	// Possible Parent Get Methods
+	// Return parent RepeatAssignment value if this value is null
 	public Course getCourse()
 	{
 		if (super.getCourse() == null)
@@ -88,7 +90,7 @@ public class SingleAssignment extends AAssignment
 			return this.parent.getCompletionTime();
 		return super.getCompletionTime();
 	}
-	// Overridden
+	// Changed for SingleAssignments
 	public Date getStartDate(){return this.dueDate;}
 	public Date getEndDate(){return this.dueDate;}
 	
@@ -96,8 +98,16 @@ public class SingleAssignment extends AAssignment
 	// Set methods
 	public void setDueDate(Date d){this.dueDate = d;}
 	// -p is from 0 to 100
-	public void setProgress(int p){this.progress = p;}
+	public void setProgress(int p)
+	{
+		if (p >= 0 && p <= 100)
+			this.progress = p;
+	}
 	// -p is from 1 to 5
-	public void setPriority(int p){this.priority = p;}
+	public void setPriority(int p)
+	{
+		if (p >= 1 && p <= 5)
+			this.priority = p;
+	}
 	public void setCompletion(boolean c){this.completed = c;}
 }
