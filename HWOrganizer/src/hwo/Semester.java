@@ -4,7 +4,7 @@ package hwo;
 import java.util.Date;
 import java.util.ArrayList;
 
-public class Semester implements ISemester{
+public class Semester implements ISemester, java.io.Serializable{
 	private Date startDate;
 	private Date endDate;
 	private ArrayList<ICourse> courses;
