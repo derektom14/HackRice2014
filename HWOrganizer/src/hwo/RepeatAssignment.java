@@ -15,14 +15,14 @@ public class RepeatAssignment extends AAssignment
 	private boolean[] frequency;
 	
 	// Partial Constructor
-	public RepeatAssignment (Course course, Calendar startDate, Calendar endDate)
+	public RepeatAssignment (Course course)
 	{
 		this.assignments = new ArrayList<SingleAssignment>();
 		this.frequency = new boolean[7];
 		super.setCourse(course);
-		super.setStartDate(startDate);
-		super.setEndDate(endDate);
 		
+		super.setStartDate(null);
+		super.setEndDate(null);
 		super.setHWName(null);
 		super.setNotes(null);
 		super.setCompletionTime(null);
@@ -62,8 +62,8 @@ public class RepeatAssignment extends AAssignment
 	public void createSingleAssignments()
 	{
 		
-		GregorianCalendar g = new GregorianCalendar();
-		Calendar c = Calendar.getInstance();
+		GregorianCalendar g = new GregorianCalendar(getStartDate().get(Calendar.YEAR),
+				getStartDate().get(Calendar.MONTH), getStartDate().get(Calendar.DAY_OF_MONTH));
 		
 		// Loop through all dates in range
 		// For each date
@@ -113,5 +113,11 @@ public class RepeatAssignment extends AAssignment
 		if (super.getDueTime() == null)
 			return getCourse().getDueTime();
 		return super.getDueTime();
+	}
+	public Calendar getStartDate()
+	{
+		if (super.getStartDate() == null)
+			return getCourse().getStartDate();
+		return super.getStartDate();
 	}
 }
