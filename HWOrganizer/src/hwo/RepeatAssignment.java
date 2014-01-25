@@ -1,5 +1,5 @@
 // RepeatAssignment
-// Author: Michael (Jenna - commenting and constructor)
+// Author: Michael (Jenna - commenting and constructor) 
 // Repeat Assignment information - Contains SingleAssignments
 // 	Unique Fields: assignments, frequency
 package hwo;
