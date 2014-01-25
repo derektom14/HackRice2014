@@ -64,20 +64,10 @@ public class RepeatAssignment extends AAssignment
 		
 		GregorianCalendar g = new GregorianCalendar(getStartDate().get(Calendar.YEAR),
 				getStartDate().get(Calendar.MONTH), getStartDate().get(Calendar.DAY_OF_MONTH));
-		
-		// Loop through all dates in range
-		// For each date
-			// Find what day of the week it is
-		c.setTime(date);
-		int dayOfWeek - c.get(Calendar.DAY_OF_WEEK);
-			// if the frequency incudes that day of the week
-			if frequency[dayOfWeek]
-				// add it to the dueDates list
-					add date to dueDates
-		// For each dueDate in the dueDates list
-		for (dueDate : dueDates)
-			// create a new SingleAssignment with that due date
-			this.assignments.append(new SingleAssignment(dueDate, this));
+		do {
+			if (frequency[g.get(Calendar.DAY_OF_WEEK) - 1])
+				this.assignments.add(new SingleAssignment(g, this));
+		} while (g.before(getEndDate()));
 	}
 	
 	//Accessor methods
