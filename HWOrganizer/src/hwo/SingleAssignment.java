@@ -101,7 +101,7 @@ public class SingleAssignment extends AAssignment
 	// -p is from 0 to 100
 	public void setProgress(int p)
 	{
-		if (p >= 0 && p <= 100)
+		if (p >= 0 && p <= 100)  
 			this.progress = p;
 	}
 	// -p is from 1 to 5
