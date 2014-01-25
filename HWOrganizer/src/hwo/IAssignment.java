@@ -3,7 +3,7 @@
 // Interface for SingleAssignment and RepeatAssignment objects
 
 package hwo;
-import java.util.Date;
+import java.util.Calendar;
 import java.sql.Time;
 import java.time.Duration;
 
@@ -18,8 +18,8 @@ public interface IAssignment
 	public String getHWName();
 	public String getNotes();
 	public Duration getCompletionTime();
-	public Date getStartDate();
-	public Date getEndDate();
+	public Calendar getStartDate();
+	public Calendar getEndDate();
 	public Time getDueTime();
 	
 	// Set Methods
@@ -32,9 +32,9 @@ public interface IAssignment
 	public void setNotes(String s);
 	public void setCompletionTime(Duration d);
 	// -d must be earlier than the current start date
-	public void setStartDate(Date d);
+	public void setStartDate(Calendar d);
 	// -d must be later than the current end date
-	public void setEndDate(Date d);
+	public void setEndDate(Calendar d);
 	public void setDueTime(Time t);
 	
 

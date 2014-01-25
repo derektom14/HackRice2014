@@ -6,19 +6,19 @@
 package hwo;
 import java.time.Duration;
 import java.sql.Time;
-import java.util.Date;
+import java.util.Calendar;
 
 public class SingleAssignment extends AAssignment
 {
 	// Fields specific to single assignments
-	private Date dueDate;
+	private Calendar dueDate;
 	private int progress;
 	private int priority;
 	private boolean completed;
 	private RepeatAssignment parent;
 	
 	// Constructor
-	public SingleAssignment(Date dueDate, RepeatAssignment parent)
+	public SingleAssignment(Calendar dueDate, RepeatAssignment parent)
 	{
 		this.dueDate = dueDate;
 		this.progress = 0;
@@ -39,7 +39,7 @@ public class SingleAssignment extends AAssignment
 	}
 	
 	// Get methods
-	public Date getDueDate(){return this.dueDate;}
+	public Calendar getDueDate(){return this.dueDate;}
 	public int getProgress() {return this.progress;}
 	public int getPriority(){return this.priority;}
 	public boolean isCompleted(){return this.completed;}
@@ -100,11 +100,11 @@ public class SingleAssignment extends AAssignment
 		return super.getDueTime();
 	}
 	// Changed for SingleAssignments
-	public Date getStartDate(){return this.dueDate;}
-	public Date getEndDate(){return this.dueDate;}
+	public Calendar getStartDate(){return this.dueDate;}
+	public Calendar getEndDate(){return this.dueDate;}
 	
 	// Set methods
-	public void setDueDate(Date d){this.dueDate = d;}
+	public void setDueDate(Calendar d){this.dueDate = d;}
 	// -p is from 0 to 100
 	public void setProgress(int p)
 	{

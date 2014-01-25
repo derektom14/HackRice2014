@@ -1,7 +1,7 @@
 package hwo;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 import java.io.IOException;
 
@@ -41,7 +41,7 @@ public class Instance {
 		}
 	}
 	
-	public ArrayList<SingleAssignment> filter(int semesterIndex, Date startDate, Date endDate, Course course)
+	public ArrayList<SingleAssignment> filter(int semesterIndex, Calendar startDate, Calendar endDate, Course course)
 	{
 		ArrayList<SingleAssignment> results = new ArrayList<SingleAssignment>();
 		for (ICourse c : semesters[semesterIndex].getCourses()) {

@@ -7,7 +7,6 @@ import java.sql.Time;
 import java.util.GregorianCalendar;
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Calendar;
 
 public class RepeatAssignment extends AAssignment
@@ -16,7 +15,7 @@ public class RepeatAssignment extends AAssignment
 	private boolean[] frequency;
 	
 	// Partial Constructor
-	public RepeatAssignment (Course course, Date startDate, Date endDate)
+	public RepeatAssignment (Course course, Calendar startDate, Calendar endDate)
 	{
 		this.assignments = new ArrayList<SingleAssignment>();
 		this.frequency = new boolean[7];
@@ -37,7 +36,9 @@ public class RepeatAssignment extends AAssignment
 	}
 	
 	// Full Constructor
-	public RepeatAssignment (boolean [] frequency, Course course, Date startDate, Date endDate, Time dueTime, String hwName, String addNotes, Duration estTime, String assignmentLoc, String turninLoc, String resources, String typeOfAssignment)
+	public RepeatAssignment (boolean [] frequency, Course course, Calendar startDate, Calendar endDate,
+			Time dueTime, String hwName, String addNotes, Duration estTime, String assignmentLoc,
+			String turninLoc, String resources, String typeOfAssignment)
 	{
 		this.assignments = new ArrayList<SingleAssignment>();
 		if (frequency.length == 7)
@@ -61,7 +62,7 @@ public class RepeatAssignment extends AAssignment
 	public void createSingleAssignments()
 	{
 		
-		GregorianCalendar g = new GregorianCalendar(getStartDate().get());
+		GregorianCalendar g = new GregorianCalendar();
 		Calendar c = Calendar.getInstance();
 		
 		// Loop through all dates in range

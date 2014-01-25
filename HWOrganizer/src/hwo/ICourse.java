@@ -2,6 +2,7 @@
 
 package hwo;
 import java.sql.Time;
+import java.util.ArrayList;
 
 public interface ICourse {
 	
@@ -13,6 +14,7 @@ public interface ICourse {
 	public String getAssignmentType();
 	public ISemester getSemester();
 	public Time getDueTime();
+	public ArrayList<RepeatAssignment> getAssignments();
 	
 	//Setter methods
 	public void setName(String name);

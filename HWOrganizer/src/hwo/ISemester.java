@@ -1,16 +1,16 @@
 // Author: Michael
 
 package hwo;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.ArrayList;
 
 public interface ISemester {
 	//Accessor methods
-	public Date getStartDate();
-	public Date getEndDate();
+	public Calendar getStartDate();
+	public Calendar getEndDate();
 	//Setter methods
-	public void setStartDate(Date startDate);
-	public void setEndDate(Date endDate);
+	public void setStartDate(Calendar startDate);
+	public void setEndDate(Calendar endDate);
 	public void addCourse(ICourse newCourse);
 	public ArrayList<ICourse> getCourses();
 }
