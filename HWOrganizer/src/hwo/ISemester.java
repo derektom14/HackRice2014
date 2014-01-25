@@ -1,4 +1,7 @@
-// Author: Michael
+// ISemester
+// Author: Michael Pierce
+// Owner: Jenna Netland
+// An interface for semesters - semesters
 
 package hwo;
 import java.util.Calendar;

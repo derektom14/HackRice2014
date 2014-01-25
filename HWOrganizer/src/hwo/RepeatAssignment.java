@@ -3,7 +3,6 @@
 // Repeat Assignment information - Contains SingleAssignments
 // 	Unique Fields: assignments, frequency 
 package hwo;
-import java.sql.Time;
 import java.util.GregorianCalendar;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ public class RepeatAssignment extends AAssignment
 	
 	// Full Constructor
 	public RepeatAssignment (boolean [] frequency, Course course, Calendar startDate, Calendar endDate,
-			Time dueTime, String hwName, String addNotes, Duration estTime, String assignmentLoc,
+			Calendar dueTime, String hwName, String addNotes, Duration estTime, String assignmentLoc,
 			String turninLoc, String resources, String typeOfAssignment)
 	{
 		this.assignments = new ArrayList<SingleAssignment>();
@@ -60,7 +59,7 @@ public class RepeatAssignment extends AAssignment
 		createSingleAssignments();
 	}
 	
-	// Extension of constructor to populate this.assignments
+	// Extension of constructor to populate this.assignments -- Michael
 	public void createSingleAssignments()
 	{
 		
@@ -100,7 +99,7 @@ public class RepeatAssignment extends AAssignment
 			return getCourse().getAssignmentType();
 		return super.getAssignmentType();
 	}
-	public Time getDueTime()
+	public Calendar getDueTime()
 	{
 		if (super.getDueTime() == null)
 			return getCourse().getDueTime();

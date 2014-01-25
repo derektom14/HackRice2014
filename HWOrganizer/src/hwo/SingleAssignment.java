@@ -5,7 +5,6 @@
 
 package hwo;
 import java.time.Duration;
-import java.sql.Time;
 import java.util.Calendar;
 
 public class SingleAssignment extends AAssignment
@@ -93,7 +92,7 @@ public class SingleAssignment extends AAssignment
 			return this.parent.getCompletionTime();
 		return super.getCompletionTime();
 	}
-	public Time getDueTime()
+	public Calendar getDueTime()
 	{
 		if (super.getDueTime() == null)
 			return this.parent.getDueTime();
@@ -102,6 +101,22 @@ public class SingleAssignment extends AAssignment
 	// Changed for SingleAssignments
 	public Calendar getStartDate(){return this.dueDate;}
 	public Calendar getEndDate(){return this.dueDate;}
+	// Get+
+	public String getTimeString()
+	{
+		Calendar time = this.getDueTime();
+		int hours = time.get(Calendar.HOUR_OF_DAY);
+		int minutes = time.get(Calendar.MINUTE);
+		String am_pm = "am";
+		if (hours == 0)
+			hours = 12;
+		if (hours > 12)
+		{
+			hours -= 12;
+			am_pm = "pm";
+		}
+		return hours + ":" + minutes + " " + am_pm;
+	}
 	
 	// Set methods
 	public void setDueDate(Calendar d){this.dueDate = d;}

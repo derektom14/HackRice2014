@@ -5,7 +5,6 @@
 package hwo;
 import java.time.Duration;
 import java.util.Calendar;
-import java.sql.Time;
 
 public abstract class AAssignment implements IAssignment
 {
@@ -19,7 +18,7 @@ public abstract class AAssignment implements IAssignment
 	private Duration completionTime;
 	private Calendar startDate;
 	private Calendar endDate;
-	private Time dueTime;
+	private Calendar dueTime;
 	
 	// Get Methods  
 	public Course getCourse(){return this.course;}
@@ -32,7 +31,7 @@ public abstract class AAssignment implements IAssignment
 	public Duration getCompletionTime(){return this.completionTime;}
 	public Calendar getStartDate(){return this.startDate;}
 	public Calendar getEndDate(){return this.endDate;}
-	public Time getDueTime(){return this.dueTime;}
+	public Calendar getDueTime(){return this.dueTime;}
 	
 	// Set Methods
 	public void setCourse(Course c){this.course = c;}
@@ -45,5 +44,5 @@ public abstract class AAssignment implements IAssignment
 	public void setCompletionTime(Duration d){this.completionTime = d;} 
 	public void setStartDate(Calendar d){this.startDate = d;}
 	public void setEndDate(Calendar d){this.endDate = d;}
-	public void setDueTime(Time t){this.dueTime = t;}
+	public void setDueTime(Calendar t){this.dueTime = t;}
 }
