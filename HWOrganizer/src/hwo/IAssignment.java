@@ -27,7 +27,9 @@ public interface IAssignment
 	
 	// Set Methods
 	public void setDueDate(Date d);
+	// -p is from 0 to 100
 	public void setProgress(int p);
+	// -p is from 1 to 5
 	public void setPriority(int p);
 	public void setCompletion(boolean c);
 	public void setCourse(Course c);
@@ -38,8 +40,11 @@ public interface IAssignment
 	public void setHWName(String s);
 	public void setNotes(String s);
 	public void setCompletionTime(Duration d);
+	// -d must be earlier than the current start date
 	public void setStartDate(Date d);
+	// -d must be later than the current end date
 	public void setEndDate(Date d);
+	// - b must have a length of 7
 	public boolean[] setFrequency(boolean[] b);
 	
 
