@@ -13,7 +13,7 @@ public class RepeatAssignment extends AAssignment
 	private boolean[] frequency;
 	
 	// Constructor
-	public RepeatAssignment ()
+	public RepeatAssignment (boolean [] frequency, Course course, Date startDate, Date endDate, String hwName, String addNotes, Duration estTime, String assignmentLoc, String turninLoc, String resorces, String typeOfAssignment)
 	{
 		
 	}
