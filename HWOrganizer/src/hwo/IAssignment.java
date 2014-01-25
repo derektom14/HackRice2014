@@ -23,6 +23,7 @@ public interface IAssignment
 	public Duration getCompletionTime();
 	public Date getStartDate();
 	public Date getEndDate();
+	public boolean[] getFrequency();
 	
 	// Set Methods
 	public void setDueDate(Date d);
@@ -39,6 +40,7 @@ public interface IAssignment
 	public void setCompletionTime(Duration d);
 	public void setStartDate(Date d);
 	public void setEndDate(Date d);
+	public boolean[] setFrequency(boolean[] b);
 	
 
 }
