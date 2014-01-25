@@ -1,4 +1,10 @@
+// ICourse
+// Author: Michael Pierce
+// Owner: Jenna Netland
+// Concrete Course class: Courses hold default values and assignments
+
 package hwo;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -9,11 +15,16 @@ public class Course implements ICourse
 	private String turninLoc;
 	private String resources;
 	private String assignmentType;
+	private Calendar dueTime;
 	private ArrayList<RepeatAssignment> assignments;
 	private ISemester semester;
-	private Calendar dueTime;
+	// Can be from semester
 	private Calendar startDate;
 	private Calendar endDate;
+	
+	//-------------------------------------------------
+	// Constructors
+	//-------------------------------------------------
 	
 	// Partial Constructor
 	public Course (ISemester semester, String name)
@@ -42,16 +53,18 @@ public class Course implements ICourse
 		this.dueTime = dueTime;
 	}
 	
-	//Accessor methods
+	//-------------------------------------------------
+	// Getter Methods
+	//-------------------------------------------------
 	public String getName() {return name;}
 	public String getAssignmentLoc() {return assignmentLoc;}
 	public String getTurninLoc() {return turninLoc;}
 	public String getResources() {return resources;}
 	public String getAssignmentType() {return assignmentType;}
+	public Calendar getDueTime() {return dueTime;}
 	public ArrayList<RepeatAssignment> getAssignments() {return assignments;}
 	public ISemester getSemester() {return semester;}
-	public Calendar getDueTime() {return dueTime;}
-	// Return semester value if this value is null
+	// Can be from semester
 	public Calendar getStartDate() 
 	{
 		if (this.startDate == null)
@@ -65,15 +78,18 @@ public class Course implements ICourse
 		return this.endDate;
 	}
 	
-	//Setter methods
+	//-------------------------------------------------
+	// Setter methods
+	//-------------------------------------------------
 	public void setName(String name) {this.name = name;}
 	public void setAssignmentLoc(String location) {this.assignmentLoc = location;}
 	public void setTurninLoc(String location) {this.turninLoc = location;}
 	public void setResources(String resources) {this.resources = resources;}
 	public void setAssignmentType(String type) {this.assignmentType = type;}
-	public void setSemester(ISemester semester) {this.semester = semester;}
 	public void setDueTime(Calendar time) {this.dueTime = time;}
+	public void addAssignment(RepeatAssignment assignment) {this.assignments.add(assignment);}
+	public void setSemester(ISemester semester) {this.semester = semester;}
+	// Overrides link to semester
 	public void setStartDate(Calendar date) {this.startDate = date;}
 	public void setEndDate(Calendar date) {this.endDate = date;}
-	public void addAssignment(RepeatAssignment assignment) {this.assignments.add(assignment);}
 } 
