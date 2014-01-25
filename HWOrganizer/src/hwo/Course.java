@@ -19,6 +19,8 @@ public class Course implements ICourse
 	// Partial Constructor
 	public Course (ISemester semester, String name)
 	{
+		this.assignments = new ArrayList<RepeatAssignment>();
+		
 		this.semester = semester;
 		this.name = name;
 		this.assignmentLoc = "";
@@ -74,4 +76,5 @@ public class Course implements ICourse
 	public void setDueTime(Time time) {this.dueTime = time;}
 	public void setStartDate(Calendar date) {this.startDate = date;}
 	public void setEndDate(Calendar date) {this.endDate = date;}
+	public void addAssignment(RepeatAssignment assignment) {this.assignments.add(assignment);}
 } 
