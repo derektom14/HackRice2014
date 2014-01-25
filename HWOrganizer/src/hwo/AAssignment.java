@@ -8,10 +8,6 @@ import java.util.Date;
 
 public abstract class AAssignment implements IAssignment
 {
-	private Date dueDate;
-	private int progress;
-	private int priority;
-	private boolean completed;
 	private Course course;
 	private String assignmentLoc;
 	private String turninLoc;
@@ -25,10 +21,6 @@ public abstract class AAssignment implements IAssignment
 	private boolean[] frequency;
 	
 	// Get Methods
-	public Date getDueDate(){return this.dueDate;}
-	public int getProgress() {return this.progress;}
-	public int getPriority(){return this.priority;}
-	public boolean isCompleted(){return this.completed;}
 	public Course getCourse(){return this.course;}
 	public String getAssignmentLoc(){return this.assignmentLoc;}
 	public String getTurninLoc(){return this.turninLoc;}
@@ -42,10 +34,6 @@ public abstract class AAssignment implements IAssignment
 	public boolean[] getFrequency(){return this.frequency;}
 	
 	// Set Methods
-	public void setDueDate(Date d){this.dueDate = d;}
-	public void setProgress(int p){this.progress = p;}
-	public void setPriority(int p){this.priority = p;}
-	public void setCompletion(boolean c){this.completed = c;}
 	public void setCourse(Course c){this.course = c;}
 	public void setAssignmentLoc(String s){this.assignmentLoc = s;}
 	public void setTurninLoc(String s){this.turninLoc = s;}
