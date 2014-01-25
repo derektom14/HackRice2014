@@ -1,5 +1,5 @@
 package hwo;
-import java.sql.Time;
+import java.sql.Time; 
 
 public class Course implements ICourse{
 	private String name;

@@ -21,5 +21,5 @@ public interface ICourse {
 	public void setResources(String resources);
 	public void setAssignmentType(String type);
 	public void setSemester(ISemester semester);
-	public Time setDueTime(Time t);
+	public void setDueTime(Time t);
 }
