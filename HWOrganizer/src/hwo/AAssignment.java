@@ -19,12 +19,12 @@ public abstract class AAssignment implements IAssignment
 	private Date startDate;
 	private Date endDate;
 	
-	// Get Methods
+	// Get Methods  
 	public Course getCourse(){return this.course;}
 	public String getAssignmentLoc(){return this.assignmentLoc;}
 	public String getTurninLoc(){return this.turninLoc;}
 	public String getResources(){return this.resources;}
-	public String getAssignemntType(){return this.assignmentType;}
+	public String getAssignmentType(){return this.assignmentType;}
 	public String getHWName(){return this.name;}
 	public String getNotes(){return this.notes;}
 	public Duration getCompletionTime(){return this.completionTime;}
@@ -36,7 +36,7 @@ public abstract class AAssignment implements IAssignment
 	public void setAssignmentLoc(String s){this.assignmentLoc = s;}
 	public void setTurninLoc(String s){this.turninLoc = s;}
 	public void setResources(String s){this.resources = s;}
-	public void setAssignemntType(String s){this.assignmentType = s;}
+	public void setAssignmentType(String s){this.assignmentType = s;}
 	public void setHWName(String s){this.name = s;}
 	public void setNotes(String s){this.notes = s;}
 	public void setCompletionTime(Duration d){this.completionTime = d;} 
