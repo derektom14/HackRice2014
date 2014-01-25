@@ -8,9 +8,11 @@ public interface IClass {
 	public String getTurnInLocation();
 	public String getResources();
 	public String getAssignmentType();
-	public void setName();
-	public void setAssignmentLocation();
-	public void setTurnInLocation();
-	public void setResources();
-	public void setAssignmentType();
+	public ISemester getSemester();
+	public void setName(String name);
+	public void setAssignmentLocation(String location);
+	public void setTurnInLocation(String location);
+	public void setResources(String resources);
+	public void setAssignmentType(String type);
+	public void setSemester(ISemester semester);
 }
