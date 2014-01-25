@@ -13,7 +13,7 @@ public class RepeatAssignment extends AAssignment
 	private ArrayList<SingleAssignment> assignments;
 	private boolean[] frequency;
 	
-	// Constructor
+	// Full Constructor
 	public RepeatAssignment (boolean [] frequency, Course course, Date startDate, Date endDate, Time dueTime, String hwName, String addNotes, Duration estTime, String assignmentLoc, String turninLoc, String resources, String typeOfAssignment)
 	{
 		this.assignments = new ArrayList<SingleAssignment>();
