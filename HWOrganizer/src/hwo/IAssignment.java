@@ -1,6 +1,6 @@
 // IAssignment
 // Author: Jenna
-// Interface for SingleAssignment and RepetedAssignment objects
+// Interface for SingleAssignment and RepeatAssignment objects
 
 package hwo;
 import java.util.Date;

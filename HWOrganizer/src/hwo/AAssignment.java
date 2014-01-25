@@ -1,6 +1,6 @@
 // AAssignment
 // Author: Jenna
-// Abstract Class for SingleAssignment and RepetedAssignment objects
+// Abstract Class for SingleAssignment and RepeatAssignment objects
 
 package hwo;
 import java.time.Duration;
