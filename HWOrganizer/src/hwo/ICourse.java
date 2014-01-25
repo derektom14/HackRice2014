@@ -2,6 +2,10 @@
 
 package hwo;
 
+import java.util.Collection;
+import java.util.Date;
+import java.util.ArrayList;
+
 public interface ICourse {
 	
 	//Accessor methods

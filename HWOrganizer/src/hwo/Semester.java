@@ -16,7 +16,6 @@ public class Semester implements ISemester, java.io.Serializable{
 	//Setter methods
 	public void setStartDate(Date startDate){this.startDate = startDate;}
 	public void setEndDate(Date endDate) {this.endDate = endDate;}
-	public void addClass(ICourse course) {courses.add(course);}
-	public ArrayList<ICourse> getClasses() {return courses;}
-	
+	public void addCourse(ICourse course) {courses.add(course);}
+	public ArrayList<ICourse> getCourses() {return courses;}
 }

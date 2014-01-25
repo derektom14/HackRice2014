@@ -11,6 +11,6 @@ public interface ISemester {
 	//Setter methods
 	public void setStartDate(Date startDate);
 	public void setEndDate(Date endDate);
-	public void addClass(ICourse newClass);
-	public ArrayList<ICourse> getClasses();
+	public void addCourse(ICourse newCourse);
+	public ArrayList<ICourse> getCourses();
 }
