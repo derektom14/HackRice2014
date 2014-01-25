@@ -103,7 +103,6 @@ public class SingleAssignment extends AAssignment
 	public Date getStartDate(){return this.dueDate;}
 	public Date getEndDate(){return this.dueDate;}
 	
-	
 	// Set methods
 	public void setDueDate(Date d){this.dueDate = d;}
 	// -p is from 0 to 100
