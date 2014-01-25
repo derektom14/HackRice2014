@@ -5,6 +5,7 @@
 
 package hwo;
 import java.time.Duration;
+import java.sql.Time;
 import java.util.Date;
 
 public class SingleAssignment extends AAssignment
@@ -33,6 +34,7 @@ public class SingleAssignment extends AAssignment
 		super.setHWName(null);
 		super.setNotes(null);
 		super.setCompletionTime(null);
+		super.setDueTime(null);
 		
 	}
 	
@@ -90,6 +92,12 @@ public class SingleAssignment extends AAssignment
 		if (super.getCompletionTime() == null)
 			return this.parent.getCompletionTime();
 		return super.getCompletionTime();
+	}
+	public Time getDueTime()
+	{
+		if (super.getDueTime() == null)
+			return this.parent.getDueTime();
+		return super.getDueTime();
 	}
 	// Changed for SingleAssignments
 	public Date getStartDate(){return this.dueDate;}

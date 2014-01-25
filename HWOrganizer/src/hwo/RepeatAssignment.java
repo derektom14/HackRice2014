@@ -3,6 +3,7 @@
 // Repeat Assignment information - Contains SingleAssignments
 // 	Unique Fields: assignments, frequency
 package hwo;
+import java.sql.Time;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,7 +14,7 @@ public class RepeatAssignment extends AAssignment
 	private boolean[] frequency;
 	
 	// Constructor
-	public RepeatAssignment (boolean [] frequency, Course course, Date startDate, Date endDate, String hwName, String addNotes, Duration estTime, String assignmentLoc, String turninLoc, String resources, String typeOfAssignment)
+	public RepeatAssignment (boolean [] frequency, Course course, Date startDate, Date endDate, Time dueTime, String hwName, String addNotes, Duration estTime, String assignmentLoc, String turninLoc, String resources, String typeOfAssignment)
 	{
 		this.assignments = new ArrayList<SingleAssignment>();
 		if (frequency.length == 7)
@@ -28,6 +29,7 @@ public class RepeatAssignment extends AAssignment
 		super.setTurninLoc(turninLoc);
 		super.setResources(resources);
 		super.setAssignmentType(typeOfAssignment);
+		super.setDueTime(dueTime);
 		
 		createSingleAssignments();
 	}
@@ -65,5 +67,11 @@ public class RepeatAssignment extends AAssignment
 		if (super.getAssignmentType() == null)
 			return getCourse().getAssignmentType();
 		return super.getAssignmentType();
+	}
+	public Time getDueTime()
+	{
+		if (super.getDueTime() == null)
+			return getCourse().getDueTime();
+		return super.getDueTime();
 	}
 }
