@@ -7,6 +7,7 @@ import java.sql.Time;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Calendar;
 
 public class RepeatAssignment extends AAssignment
 {
@@ -58,7 +59,21 @@ public class RepeatAssignment extends AAssignment
 	// Extension of constructor to populate this.assignments
 	public void createSingleAssignments()
 	{
+		Calendar c = Calendar.getInstance();
 		
+		// Loop through all dates in range
+		// For each date
+			// Find what day of the week it is
+		c.setTime(date);
+		int dayOfWeek - c.get(Calendar.DAY_OF_WEEK);
+			// if the frequency incudes that day of the week
+			if frequency[dayOfWeek]
+				// add it to the dueDates list
+					add date to dueDates
+		// For each dueDate in the dueDates list
+		for (dueDate : dueDates)
+			// create a new SingleAssignment with that due date
+			this.assignments.append(new SingleAssignment(dueDate, this));
 	}
 	
 	//Accessor methods
