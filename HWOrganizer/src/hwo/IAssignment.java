@@ -13,7 +13,7 @@ public interface IAssignment
 	public int getProgress();
 	public int getPriority();
 	public boolean isCompleted();
-	public Class getClass();
+	public Course getCourse();
 	public String getAssignmentLoc();
 	public String getTurninLoc();
 	public String getResources();
@@ -30,7 +30,7 @@ public interface IAssignment
 	public void setProgress(int p);
 	public void setPriority(int p);
 	public void setCompletion(boolean c);
-	public void setClass(Class c);
+	public void setCourse(Course c);
 	public void setAssignmentLoc(String s);
 	public void setTurninLoc(String s);
 	public void setResources(String s);
