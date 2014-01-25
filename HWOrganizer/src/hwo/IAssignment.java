@@ -45,7 +45,7 @@ public interface IAssignment
 	// -d must be later than the current end date
 	public void setEndDate(Date d);
 	// - b must have a length of 7
-	public boolean[] setFrequency(boolean[] b);
+	public void setFrequency(boolean[] b);
 	
 
 }
