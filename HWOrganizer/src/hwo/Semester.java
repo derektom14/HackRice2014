@@ -9,6 +9,13 @@ public class Semester implements ISemester, java.io.Serializable{
 	private Calendar endDate;
 	private ArrayList<ICourse> courses;
 	
+	// Constructor
+	public Semester(Calendar startDate, Calendar endDate)
+	{
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+	
 	//Accessor methods
 	public Calendar getStartDate(){return startDate;}
 	public Calendar getEndDate() {return endDate;}
