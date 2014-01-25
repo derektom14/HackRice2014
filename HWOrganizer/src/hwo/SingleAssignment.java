@@ -53,12 +53,41 @@ public class SingleAssignment extends AAssignment
 		return super.getAssignmentLoc();
 	}
 	public String getTurninLoc()
-	{return this.turninLoc;}
-	public String getResources(){return this.resources;}
-	public String getAssignemntType(){return this.assignmentType;}
-	public String getHWName(){return this.name;}
-	public String getNotes(){return this.notes;}
-	public Duration getCompletionTime(){return this.completionTime;}
+	{
+		if (super.getTurninLoc() == null)
+			return this.parent.getTurninLoc();
+		return super.getTurninLoc();
+	}
+	public String getResources()
+	{
+		if (super.getResources() == null)
+			return this.parent.getResources();
+		return super.getResources();
+	}
+	public String getAssignmentType()
+	{
+		if(super.getAssignmentType() == null)
+			return this.parent.getAssignmentType();
+		return super.getAssignmentType();
+	}
+	public String getHWName()
+	{
+		if (super.getHWName() == null)
+			return this.parent.getHWName();
+		return super.getHWName();
+	}
+	public String getNotes()
+	{
+		if (super.getNotes() == null)
+			return this.parent.getNotes();
+		return super.getNotes();
+	}
+	public Duration getCompletionTime()
+	{
+		if (super.getCompletionTime() == null)
+			return this.parent.getCompletionTime();
+		return super.getCompletionTime();
+	}
 	// Overridden
 	public Date getStartDate(){return this.dueDate;}
 	public Date getEndDate(){return this.dueDate;}
