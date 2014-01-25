@@ -22,10 +22,10 @@ public abstract class AAssignment implements IAssignment
 	
 	// Get Methods
 	public Course getCourse(){return this.course;}
-	public String getAssignmentLoc(){return this.assignmentLoc;}
+	public String getAssignmentLoc(){return course.getAssignmentLoc();}
 	public String getTurninLoc(){return this.turninLoc;}
 	public String getResources(){return this.resources;}
-	public String getAssignemntType(){return this.assignmentType;}
+	public String getAssignmentType(){return this.assignmentType;}
 	public String getHWName(){return this.name;}
 	public String getNotes(){return this.notes;}
 	public Duration getCompletionTime(){return this.completionTime;}
