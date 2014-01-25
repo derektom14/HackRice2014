@@ -13,6 +13,25 @@ public class RepeatAssignment extends AAssignment
 	private ArrayList<SingleAssignment> assignments;
 	private boolean[] frequency;
 	
+	// Partial Constructor
+	public RepeatAssignment (Course course, Date startDate, Date endDate)
+	{
+		this.assignments = new ArrayList<SingleAssignment>();
+		this.frequency = new boolean[7];
+		super.setCourse(course);
+		super.setStartDate(startDate);
+		super.setEndDate(endDate);
+		
+		super.setHWName(null);
+		super.setNotes(null);
+		super.setCompletionTime(null);
+		super.setAssignmentLoc(null);
+		super.setTurninLoc(null);
+		super.setResources(null);
+		super.setAssignmentType(null);
+		super.setDueTime(null);
+	}
+	
 	// Full Constructor
 	public RepeatAssignment (boolean [] frequency, Course course, Date startDate, Date endDate, Time dueTime, String hwName, String addNotes, Duration estTime, String assignmentLoc, String turninLoc, String resources, String typeOfAssignment)
 	{
