@@ -18,7 +18,6 @@ public abstract class AAssignment implements IAssignment
 	private Duration completionTime;
 	private Date startDate;
 	private Date endDate;
-	private boolean[] frequency;
 	
 	// Get Methods
 	public Course getCourse(){return this.course;}
@@ -31,7 +30,6 @@ public abstract class AAssignment implements IAssignment
 	public Duration getCompletionTime(){return this.completionTime;}
 	public Date getStartDate(){return this.startDate;}
 	public Date getEndDate(){return this.endDate;}
-	public boolean[] getFrequency(){return this.frequency;}
 	
 	// Set Methods
 	public void setCourse(Course c){this.course = c;}
@@ -44,6 +42,5 @@ public abstract class AAssignment implements IAssignment
 	public void setCompletionTime(Duration d){this.completionTime = d;} 
 	public void setStartDate(Date d){this.startDate = d;}
 	public void setEndDate(Date d){this.endDate = d;}
-	public void setFrequency(boolean[] b){this.frequency = b;}
 	
 }
