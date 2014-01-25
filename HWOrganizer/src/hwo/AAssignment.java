@@ -19,7 +19,7 @@ public abstract class AAssignment implements IAssignment
 	private Date startDate;
 	private Date endDate;
 	
-	// Get Methods
+	// Get Methods  
 	public Course getCourse(){return this.course;}
 	public String getAssignmentLoc(){return this.assignmentLoc;}
 	public String getTurninLoc(){return this.turninLoc;}
