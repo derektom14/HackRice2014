@@ -1,7 +1,7 @@
 // RepeatAssignment
 // Author: Michael (Jenna - commenting and constructor) 
 // Repeat Assignment information - Contains SingleAssignments
-// 	Unique Fields: assignments, frequency
+// 	Unique Fields: assignments, frequency 
 package hwo;
 import java.sql.Time;
 import java.time.Duration;
