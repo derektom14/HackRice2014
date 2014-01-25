@@ -4,17 +4,41 @@
 // 	Unique Fields: assignments, frequency 
 package hwo;
 import java.sql.Time;
+import java.util.GregorianCalendar;
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 public class RepeatAssignment extends AAssignment
 {
 	private ArrayList<SingleAssignment> assignments;
 	private boolean[] frequency;
 	
-	// Constructor
-	public RepeatAssignment (boolean [] frequency, Course course, Date startDate, Date endDate, Time dueTime, String hwName, String addNotes, Duration estTime, String assignmentLoc, String turninLoc, String resources, String typeOfAssignment)
+	// Partial Constructor
+	public RepeatAssignment (Course course, Calendar startDate, Calendar endDate)
+	{
+		this.assignments = new ArrayList<SingleAssignment>();
+		this.frequency = new boolean[7];
+		super.setCourse(course);
+		super.setStartDate(startDate);
+		super.setEndDate(endDate);
+		
+		super.setHWName(null);
+		super.setNotes(null);
+		super.setCompletionTime(null);
+		super.setAssignmentLoc(null);
+		super.setTurninLoc(null);
+		super.setResources(null);
+		super.setAssignmentType(null);
+		super.setDueTime(null);
+		
+		createSingleAssignments();
+	}
+	
+	// Full Constructor
+	public RepeatAssignment (boolean [] frequency, Course course, Calendar startDate, Calendar endDate,
+			Time dueTime, String hwName, String addNotes, Duration estTime, String assignmentLoc,
+			String turninLoc, String resources, String typeOfAssignment)
 	{
 		this.assignments = new ArrayList<SingleAssignment>();
 		if (frequency.length == 7)
@@ -38,6 +62,22 @@ public class RepeatAssignment extends AAssignment
 	public void createSingleAssignments()
 	{
 		
+		GregorianCalendar g = new GregorianCalendar();
+		Calendar c = Calendar.getInstance();
+		
+		// Loop through all dates in range
+		// For each date
+			// Find what day of the week it is
+		c.setTime(date);
+		int dayOfWeek - c.get(Calendar.DAY_OF_WEEK);
+			// if the frequency incudes that day of the week
+			if frequency[dayOfWeek]
+				// add it to the dueDates list
+					add date to dueDates
+		// For each dueDate in the dueDates list
+		for (dueDate : dueDates)
+			// create a new SingleAssignment with that due date
+			this.assignments.append(new SingleAssignment(dueDate, this));
 	}
 	
 	//Accessor methods

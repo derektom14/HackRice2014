@@ -54,6 +54,8 @@ public class CreateEditAssignment extends JDialog {
 	private JTextField tfFileLoc;
 	private JButton btnBrowse;
 	private static Course[] courses;
+	private JLabel lblStart;
+	private JSpinner spinner_1;
 
 	public static RepeatAssignment createNewAssignment(Semester semester, Course[] courses, Frame parent){
 		CreateEditAssignment.courses = courses;
@@ -94,7 +96,7 @@ public class CreateEditAssignment extends JDialog {
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(new MigLayout("", "[][grow][grow][grow]", "[][][][][][][][grow][]"));
+		contentPanel.setLayout(new MigLayout("", "[][grow][grow][grow]", "[][][][][][][][][grow][]"));
 		{
 			JLabel lblName = new JLabel("Name:");
 			contentPanel.add(lblName, "cell 0 0,alignx trailing");
@@ -113,85 +115,94 @@ public class CreateEditAssignment extends JDialog {
 			contentPanel.add(cbCourse, "cell 1 1,growx");
 		}
 		{
+			lblStart = new JLabel("Start:");
+			contentPanel.add(lblStart, "cell 0 2,alignx trailing");
+		}
+		{
+			spinner_1 = new JSpinner();
+			spinner_1.setModel(new SpinnerDateModel(new Date(1390629600000L), null, null, Calendar.DAY_OF_YEAR));
+			contentPanel.add(spinner_1, "cell 1 2");
+		}
+		{
 			JLabel lblDueDate = new JLabel("Due:");
-			contentPanel.add(lblDueDate, "cell 0 2,alignx trailing");
+			contentPanel.add(lblDueDate, "cell 0 3,alignx trailing");
 		}
 		{
 			spinner = new JSpinner();
 			spinner.setModel(new SpinnerDateModel(new Date(1390629600000L), new Date(1390629600000L), null, Calendar.MINUTE));
-			contentPanel.add(spinner, "cell 1 2");
+			contentPanel.add(spinner, "cell 1 3");
 		}
 		{
 			cbRepeating = new JCheckBox("Repeating");
-			contentPanel.add(cbRepeating, "cell 0 3,alignx trailing");
+			contentPanel.add(cbRepeating, "cell 0 4,alignx trailing");
 		}
 		{
 			cbSu = new JCheckBox("Su");
-			contentPanel.add(cbSu, "flowx,cell 1 3");
+			contentPanel.add(cbSu, "flowx,cell 1 4");
 		}
 		{
 			cbM = new JCheckBox("M");
-			contentPanel.add(cbM, "cell 1 3");
+			contentPanel.add(cbM, "cell 1 4");
 		}
 		{
 			cbT = new JCheckBox("T");
 			cbT.setToolTipText("");
-			contentPanel.add(cbT, "cell 1 3,alignx center");
+			contentPanel.add(cbT, "cell 1 4,alignx center");
 		}
 		{
 			cbW = new JCheckBox("W");
-			contentPanel.add(cbW, "cell 1 3");
+			contentPanel.add(cbW, "cell 1 4");
 		}
 		{
 			cbTh = new JCheckBox("Th");
-			contentPanel.add(cbTh, "cell 1 3");
+			contentPanel.add(cbTh, "cell 1 4");
 		}
 		{
 			cbF = new JCheckBox("F");
-			contentPanel.add(cbF, "cell 1 3");
+			contentPanel.add(cbF, "cell 1 4");
 		}
 		{
 			cbS = new JCheckBox("S");
-			contentPanel.add(cbS, "cell 1 3");
+			contentPanel.add(cbS, "cell 1 4");
 		}
 		{
 			tfWeekFreq = new JComboBox();
-			contentPanel.add(tfWeekFreq, "cell 1 3");
+			contentPanel.add(tfWeekFreq, "cell 1 4");
 		}
 		{
 			JLabel lblAssignmentLocation = new JLabel("Assignment Location:");
-			contentPanel.add(lblAssignmentLocation, "cell 0 4,alignx trailing");
+			contentPanel.add(lblAssignmentLocation, "cell 0 5,alignx trailing");
 		}
 		{
 			tfAssignmentLoc = new JTextField();
-			contentPanel.add(tfAssignmentLoc, "cell 1 4,growx");
+			contentPanel.add(tfAssignmentLoc, "cell 1 5,growx");
 			tfAssignmentLoc.setColumns(10);
 		}
 		{
 			JLabel lblTurninLocation = new JLabel("Turn-In Location:");
-			contentPanel.add(lblTurninLocation, "cell 0 5,alignx trailing");
+			contentPanel.add(lblTurninLocation, "cell 0 6,alignx trailing");
 		}
 		{
 			tfTurnInLoc = new JTextField();
-			contentPanel.add(tfTurnInLoc, "cell 1 5,growx");
+			contentPanel.add(tfTurnInLoc, "cell 1 6,growx");
 			tfTurnInLoc.setColumns(10);
 		}
 		{
 			JLabel lblResources = new JLabel("Resources:");
-			contentPanel.add(lblResources, "cell 0 6,alignx trailing");
+			contentPanel.add(lblResources, "cell 0 7,alignx trailing");
 		}
 		{
 			tfResources = new JTextField();
-			contentPanel.add(tfResources, "cell 1 6,growx");
+			contentPanel.add(tfResources, "cell 1 7,growx");
 			tfResources.setColumns(10);
 		}
 		{
 			JLabel lblFileLocation = new JLabel("File Location:");
-			contentPanel.add(lblFileLocation, "cell 0 7,alignx trailing");
+			contentPanel.add(lblFileLocation, "cell 0 8,alignx trailing");
 		}
 		{
 			panel = new JPanel();
-			contentPanel.add(panel, "cell 1 7,grow");
+			contentPanel.add(panel, "cell 1 8,grow");
 			panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 			{
 				tfFileLoc = new JTextField();
@@ -211,12 +222,12 @@ public class CreateEditAssignment extends JDialog {
 		{
 			JLabel lblProgress = new JLabel("Progress:");
 			lblProgress.setHorizontalAlignment(SwingConstants.TRAILING);
-			contentPanel.add(lblProgress, "cell 0 8,alignx trailing");
+			contentPanel.add(lblProgress, "cell 0 9,alignx trailing");
 		}
 		{
 			progress = new JSlider();
 			progress.setValue(0);
-			contentPanel.add(progress, "cell 1 8");
+			contentPanel.add(progress, "cell 1 9");
 		}
 		{
 			JPanel buttonPane = new JPanel();

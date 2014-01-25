@@ -1,22 +1,21 @@
 //Author: Michael
 
 package hwo;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.ArrayList;
 
 public class Semester implements ISemester, java.io.Serializable{
-	private Date startDate;
-	private Date endDate;
+	private Calendar startDate;
+	private Calendar endDate;
 	private ArrayList<ICourse> courses;
 	
 	//Accessor methods
-	public Date getStartDate(){return startDate;}
-	public Date getEndDate() {return endDate;}
+	public Calendar getStartDate(){return startDate;}
+	public Calendar getEndDate() {return endDate;}
 	
 	//Setter methods
-	public void setStartDate(Date startDate){this.startDate = startDate;}
-	public void setEndDate(Date endDate) {this.endDate = endDate;}
-	public void addClass(ICourse course) {courses.add(course);}
-	public ArrayList<ICourse> getClasses() {return courses;}
-	
+	public void setStartDate(Calendar startDate){this.startDate = startDate;}
+	public void setEndDate(Calendar endDate) {this.endDate = endDate;}
+	public void addCourse(ICourse course) {courses.add(course);}
+	public ArrayList<ICourse> getCourses() {return courses;}
 }
