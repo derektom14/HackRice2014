@@ -52,7 +52,8 @@ public class SingleAssignment extends AAssignment
 			return this.parent.getAssignmentLoc();
 		return super.getAssignmentLoc();
 	}
-	public String getTurninLoc(){return this.turninLoc;}
+	public String getTurninLoc()
+	{return this.turninLoc;}
 	public String getResources(){return this.resources;}
 	public String getAssignemntType(){return this.assignmentType;}
 	public String getHWName(){return this.name;}
