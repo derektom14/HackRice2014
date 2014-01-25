@@ -7,14 +7,17 @@ import java.util.ArrayList;
 public class Semester implements ISemester{
 	private Date startDate;
 	private Date endDate;
-	private ArrayList<IClass> classes;
+	private ArrayList<ICourse> courses;
 	
+	//Accessor methods
 	public Date getStartDate(){return startDate;}
 	public Date getEndDate() {return endDate;}
+	
+	//Setter methods
 	public void setStartDate(Date startDate){this.startDate = startDate;}
 	public void setEndDate(Date endDate) {this.endDate = endDate;}
-	public void addClass(IClass newClass) {classes.add(newClass);}
-	public ArrayList<IClass> getClasses() {return classes;}
+	public void addClass(ICourse course) {courses.add(course);}
+	public ArrayList<ICourse> getClasses() {return courses;}
 	
 	
 }

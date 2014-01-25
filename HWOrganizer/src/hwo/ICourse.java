@@ -2,13 +2,17 @@
 
 package hwo;
 
-public interface IClass {
+public interface ICourse {
+	
+	//Accessor methods
 	public String getName();
 	public String getAssignmentLocation();
 	public String getTurnInLocation();
 	public String getResources();
 	public String getAssignmentType();
 	public ISemester getSemester();
+	
+	//Setter methods
 	public void setName(String name);
 	public void setAssignmentLocation(String location);
 	public void setTurnInLocation(String location);
