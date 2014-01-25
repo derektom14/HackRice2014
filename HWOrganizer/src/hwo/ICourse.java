@@ -1,6 +1,7 @@
 // Author: Michael
 
 package hwo;
+import java.sql.Time;
 
 import java.util.Collection;
 import java.util.Date;
@@ -15,6 +16,7 @@ public interface ICourse {
 	public String getResources();
 	public String getAssignmentType();
 	public ISemester getSemester();
+	public Time getDueTime();
 	
 	//Setter methods
 	public void setName(String name);
@@ -23,4 +25,5 @@ public interface ICourse {
 	public void setResources(String resources);
 	public void setAssignmentType(String type);
 	public void setSemester(ISemester semester);
+	public void setDueTime(Time t);
 }

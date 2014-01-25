@@ -4,6 +4,7 @@
 
 package hwo;
 import java.util.Date;
+import java.sql.Time;
 import java.time.Duration;
 
 public interface IAssignment 
@@ -19,6 +20,7 @@ public interface IAssignment
 	public Duration getCompletionTime();
 	public Date getStartDate();
 	public Date getEndDate();
+	public Time getDueTime();
 	
 	// Set Methods
 	public void setCourse(Course c);
@@ -33,6 +35,7 @@ public interface IAssignment
 	public void setStartDate(Date d);
 	// -d must be later than the current end date
 	public void setEndDate(Date d);
+	public void setDueTime(Time t);
 	
 
 }

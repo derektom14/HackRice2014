@@ -1,4 +1,5 @@
 package hwo;
+import java.sql.Time; 
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +12,7 @@ public class Course implements ICourse{
 	private String assignmentType;
 	private ArrayList<RepeatAssignment> assignments;
 	private ISemester semester;
+	private Time dueTime;
 	
 	//Accessor methods
 	public String getName() {return name;}
@@ -20,6 +22,7 @@ public class Course implements ICourse{
 	public String getAssignmentType() {return assignmentType;}
 	public ArrayList<RepeatAssignment> getAssignments() {return assignments;}
 	public ISemester getSemester() {return semester;}
+	public Time getDueTime() {return dueTime;}
 	
 	//Setter methods
 	public void setName(String name) {this.name = name;}
@@ -28,4 +31,5 @@ public class Course implements ICourse{
 	public void setResources(String resources) {this.resources = resources;}
 	public void setAssignmentType(String type) {this.assignmentType = type;}
 	public void setSemester(ISemester semester) {this.semester = semester;}
+	public void setDueTime(Time time) {this.dueTime = time;}
 }
