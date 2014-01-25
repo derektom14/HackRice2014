@@ -1,4 +1,4 @@
-// AAssignment
+// SingleAssignment
 // Author: Jenna
 // Single Assignment information
 // 	Unique Fields: dueDate, progress, priority, completed, (parent)
