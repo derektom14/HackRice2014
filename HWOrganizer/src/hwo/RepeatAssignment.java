@@ -32,7 +32,7 @@ public class RepeatAssignment extends AAssignment
 		super.setAssignmentType(null);
 		super.setDueTime(null);
 		
-		createSingleAssignments();
+		super.getCourse().addAssignment(this);
 	}
 	
 	// Full Constructor
@@ -54,6 +54,8 @@ public class RepeatAssignment extends AAssignment
 		super.setResources(resources);
 		super.setAssignmentType(typeOfAssignment);
 		super.setDueTime(dueTime);
+		
+		super.getCourse().addAssignment(this);
 		
 		createSingleAssignments();
 	}
