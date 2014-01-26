@@ -70,11 +70,11 @@ public class AssignmentDisplay extends JPanel {
 		lblDueVal = new JLabel("");
 		add(lblDueVal, "cell 1 2");
 		
-		JLabel lblPriority = new JLabel("Priority:");
-		add(lblPriority, "cell 0 3");
-		
-		lblPriorityVal = new JLabel("");
-		add(lblPriorityVal, "cell 1 3,alignx left,aligny bottom");
+//		JLabel lblPriority = new JLabel("Priority:");
+//		add(lblPriority, "cell 0 3");
+//		
+//		lblPriorityVal = new JLabel("");
+//		add(lblPriorityVal, "cell 1 3,alignx left,aligny bottom");
 		
 		JLabel lblInformation = new JLabel("Location:");
 		add(lblInformation, "cell 0 4");
@@ -121,7 +121,7 @@ public class AssignmentDisplay extends JPanel {
 		lblAssignmentName.setText(assignment.getName());
 		lblCourseVal.setText(assignment.getCourse().getName());
 		lblDueVal.setText(dateFormat.format(assignment.getDueDate().getTime()));
-		lblPriorityVal.setText(String.valueOf(assignment.getPriority()));
+		//lblPriorityVal.setText(String.valueOf(assignment.getPriority()));
 		progressBar.setValue(assignment.getProgress());
 		linkify(lblInfoVal, assignment.getAssignmentLoc());
 		linkify(lblTurninVal, assignment.getTurninLoc());
@@ -138,7 +138,7 @@ public class AssignmentDisplay extends JPanel {
 		lblAssignmentName.setText("");
 		lblCourseVal.setText("");
 		lblDueVal.setText("");
-		lblPriorityVal.setText("");
+		//lblPriorityVal.setText("");
 		progressBar.setValue(0);
 		delinkify(lblInfoVal);
 		delinkify(lblTurninVal);

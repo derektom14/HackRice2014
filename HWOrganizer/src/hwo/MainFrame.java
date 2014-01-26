@@ -71,6 +71,7 @@ public class MainFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public MainFrame() {
+		setTitle("Homework Organizer");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 916, 476);
 		
@@ -111,6 +112,14 @@ public class MainFrame extends JFrame {
 				
 			}
 		});
+		
+		JMenuItem mntmEditCourses = new JMenuItem("Edit Courses...");
+		mntmEditCourses.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				editCourses();
+			}
+		});
+		mnFile.add(mntmEditCourses);
 		mnFile.add(mntmNewSemester);
 		mnFile.add(mntmSave);
 		
@@ -233,7 +242,7 @@ public class MainFrame extends JFrame {
 	}
 	
 	private void addNewCourse(){
-		ICourse newCourse = CreateEditCourse.createNewCourse(instance.getCurSemester(), this);
+		ICourse newCourse = CreateEditCourse.createNewCourse(instance.getCurSemester(), this, instance);
 		if (newCourse != null)
 			instance.addChange(new DeleteCourse(newCourse));
 		fillListOfDays();
@@ -283,6 +292,11 @@ public class MainFrame extends JFrame {
 	private void filterAssignments(){
 		FilterSettings.changeSettings(instance, this);
 		fillListOfDays();
+	}
+	
+	private void editCourses(){
+		ICourse course = CourseSelector.selectCourse(instance.getCurSemester().getCourses(), "Edit");
+		CreateEditCourse.editCourse(course, this, instance);
 	}
 }
 

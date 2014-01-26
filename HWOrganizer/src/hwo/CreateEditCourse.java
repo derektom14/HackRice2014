@@ -25,9 +25,10 @@ public class CreateEditCourse extends JDialog {
 	private FileBrowser locPanel;
 	private FileBrowser turninPanel;
 	private FileBrowser[] resourcePanels = new FileBrowser[3];
+	private Instance instance;
 
-	public static ICourse createNewCourse(ISemester semester, Frame parent){
-		CreateEditCourse dialog = new CreateEditCourse(parent, semester, null);
+	public static ICourse createNewCourse(ISemester semester, Frame parent, Instance instance){
+		CreateEditCourse dialog = new CreateEditCourse(parent, semester, null, instance);
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setModal(true);
 		dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
@@ -35,29 +36,24 @@ public class CreateEditCourse extends JDialog {
 		System.out.println("new course: " + dialog.course.getName() + dialog.course);
 		return dialog.course;
 	}
+
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			CreateEditCourse dialog = new CreateEditCourse(null, new Instance().getCurSemester(), null);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-			System.out.println(dialog.course);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public static void editCourse(ICourse course, Frame parent, Instance instance){
+		CreateEditCourse dialog = new CreateEditCourse(parent, course.getSemester(), course, instance);
+		dialog.setModal(true);
+		dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+		dialog.setVisible(true);
 	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public CreateEditCourse(Frame parent, ISemester semester, Course course) {
+	public CreateEditCourse(Frame parent, ISemester semester, ICourse course, Instance instance) {
 		super(parent, true);
 		this.course = course;
 		this.semester = semester;
-		setTitle("Create New Course");
+		this.instance = instance;
+		setTitle(course == null ? "Create New Course" : "Edit Course");
 		setBounds(100, 100, 589, 313);
 		getContentPane().setLayout(new BorderLayout());
 		{
@@ -108,6 +104,15 @@ public class CreateEditCourse extends JDialog {
 				resourcePanels[2] = rPanel3;
 				contentPanel.add(rPanel3, "cell 1 5,grow");
 			}
+			if (course != null){
+				tfCourseName.setText(course.getName());
+				locPanel.setInfo(course.getAssignmentLoc());
+				turninPanel.setInfo(course.getTurninLoc());
+				ArrayList<FileInfo> resources = course.getResources();
+				for (int k = 0; k < resources.size(); k++){
+					resourcePanels[k].setInfo(resources.get(k));
+				}
+			}
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -126,6 +131,16 @@ public class CreateEditCourse extends JDialog {
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
+			if (course != null){
+				JButton deleteButton = new JButton("Delete");
+				deleteButton.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent e){
+						deleteCourse();
+						setVisible(false);
+					}
+				});
+				buttonPane.add(deleteButton);
+			}
 			{
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
@@ -138,7 +153,6 @@ public class CreateEditCourse extends JDialog {
 			}
 		}
 	}
-
 	
 	
 	private void storeCourse(){
@@ -155,5 +169,11 @@ public class CreateEditCourse extends JDialog {
 			course.setTurninLoc(turninPanel.getInfo());
 			course.setResources(resources);
 		}
+	}
+	
+	private void deleteCourse(){
+		System.out.println("Deleting " + course);
+		course.removeSelf();
+		instance.addChange(new AddCourse(course));
 	}
 }

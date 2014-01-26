@@ -267,15 +267,15 @@ public class CreateEditAssignment extends JDialog {
 				panel_1.add(btnComplete);
 			}
 		}
-		{
-			lblPriority = new JLabel("Priority:");
-			contentPanel.add(lblPriority, "cell 0 11,alignx trailing");
-		}
-		{
-			spnPriority = new JSpinner();
-			spnPriority.setModel(new SpinnerNumberModel(2, 1, 5, 1));
-			contentPanel.add(spnPriority, "cell 1 11");
-		}
+//		{
+//			lblPriority = new JLabel("Priority:");
+//			contentPanel.add(lblPriority, "cell 0 11,alignx trailing");
+//		}
+//		{
+//			spnPriority = new JSpinner();
+//			spnPriority.setModel(new SpinnerNumberModel(2, 1, 5, 1));
+//			contentPanel.add(spnPriority, "cell 1 11");
+//		}
 		{
 			lblNotes = new JLabel("Notes:");
 			contentPanel.add(lblNotes, "cell 0 12,alignx trailing");
@@ -338,11 +338,9 @@ public class CreateEditAssignment extends JDialog {
 			ArrayList<FileInfo> resources = assignment.getResources();
 			for (int k = 0; k < 3; k++)
 				resourcePanels[k].setInfo(resources.get(k));
-			spnPriority.setValue(assignment.getPriority());
-			System.out.println("Selected Course: " + assignment.getCourse().getName());
+			//spnPriority.setValue(assignment.getPriority());
 			cbCourse.setSelectedItem(assignment.getCourse().getName());
 			progress.setValue(((SingleAssignment)assignment).getProgress());
-			System.out.println("Got progress  " + ((SingleAssignment)assignment).getProgress());
 			lblStart.setVisible(false);
 			spnStart.setVisible(false);
 			cbRepeating.setVisible(false);
@@ -354,7 +352,6 @@ public class CreateEditAssignment extends JDialog {
 			cbF.setVisible(false);
 			cbS.setVisible(false);
 			tfWeekFreq.setVisible(false);
-			System.out.println("HERE");
 		}
 		else {
 			progress.setVisible(false);
@@ -412,7 +409,7 @@ public class CreateEditAssignment extends JDialog {
 		
 		int frequency = tfWeekFreq.getSelectedIndex() + 1;
 		int prog = progress.getValue();
-		int priority = (Integer)spnPriority.getValue();
+		int priority = 0;//(Integer)spnPriority.getValue();
 		
 		String hwName = tfName.getText();
 		FileInfo assignmentLoc = locPanel.getInfo();
@@ -435,7 +432,7 @@ public class CreateEditAssignment extends JDialog {
 			assignment.setName(hwName);
 			assignment.setResources(resources);
 			assignment.setTurninLoc(turninLoc);
-			assignment.setPriority((Integer)spnPriority.getValue());
+			//assignment.setPriority((Integer)spnPriority.getValue());
 			((SingleAssignment)assignment).setProgress(prog);
 			System.out.println("Set progress " + prog);
 		}

@@ -72,7 +72,7 @@ public class Semester implements ISemester
 	}
 	public void removeCourse(ICourse course)
 	{
-		this.courses.remove(course);
+		this.courses.remove(course.getName());
 	}
 	public String validateCourse(ICourse course) {
 		if (courses.containsKey(course.getName()))
