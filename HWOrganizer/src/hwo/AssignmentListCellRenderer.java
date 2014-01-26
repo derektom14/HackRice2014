@@ -1,5 +1,6 @@
 package hwo;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -12,6 +13,7 @@ import javax.swing.ListCellRenderer;
 
 class AssignmentListCellRenderer extends JLabel implements ListCellRenderer<SingleAssignment> {
      final static ImageIcon completeIcon = new ImageIcon("resources/check.png");
+     final static Color color = new Color(240, 240, 240);
 	private AssignmentDisplay assignmentInfo;
 
      // This is the only method defined by ListCellRenderer.
@@ -30,6 +32,7 @@ class AssignmentListCellRenderer extends JLabel implements ListCellRenderer<Sing
      {
          String s = assignment.getName() + " - " + assignment.getCourse().getName() + " - " + assignment.getTimeString();
          setText(s);
+         setBackground(color);
          if (assignment.isCompleted())
         	 setIcon(completeIcon);
          addMouseListener(new MouseAdapter(){

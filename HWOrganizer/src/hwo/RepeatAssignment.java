@@ -38,7 +38,7 @@ public class RepeatAssignment extends AAssignment
 			super.getCourse().addAssignment(this);
 		}
 		else
-			throw new IllegalArgumentException("Tried to set an assignment's course to null.");
+			throw new IllegalArgumentException("Cannot create an assignment without a course");
 		
 		// Signals to refer to the parent course
 		super.setAssignmentLoc(null);
@@ -67,7 +67,7 @@ public class RepeatAssignment extends AAssignment
 		else
 			throw new IllegalArgumentException("Tried to use a validDays array of a length that wasn't 7.");
 		if (startDate.after(endDate))
-			throw new IllegalArgumentException("Tried to set an assignment's start date to be later than its end date.");
+			throw new IllegalArgumentException("End date cannot be earlier than start date.");
 		this.assignments = new ArrayList<SingleAssignment>();
 		
 		super.setName(name);
@@ -82,7 +82,7 @@ public class RepeatAssignment extends AAssignment
 			super.getCourse().addAssignment(this);
 		}
 		else
-			throw new IllegalArgumentException("Tried to set an assignment's course to null.");
+			throw new IllegalArgumentException("Cannot have an assignment without a course");
 		
 		// Can refer to course
 		super.setAssignmentLoc(assignmentLoc);
