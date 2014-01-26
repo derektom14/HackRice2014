@@ -18,6 +18,8 @@ public class Semester implements ISemester
 	//-------------------------------------------------
 	// Constructor
 	//-------------------------------------------------
+	
+	// Normal Constructor
 	public Semester(Calendar startDate, Calendar endDate)
 	{
 		if (startDate.after(endDate))
@@ -27,6 +29,12 @@ public class Semester implements ISemester
 			this.startDate = startDate;
 			this.endDate = endDate;
 		}
+	}
+	
+	// Shallow Copy Constructor
+	public Semester(Semester orig)
+	{
+		this.changeTo(orig);
 	}
 	
 	//-------------------------------------------------
@@ -75,10 +83,10 @@ public class Semester implements ISemester
 	//-------------------------------------------------
 	// Class methods
 	//-------------------------------------------------
-	public Semester shallowCopy()
+	public void changeTo(Semester from)
 	{
-		Semester newSemester = new Semester(this.startDate, this.endDate);
-		newSemester.courses = this.courses;
-		return newSemester;
+		this.startDate = from.startDate;
+		this.endDate = from.endDate;
+		this.courses = from.courses;
 	}
 }
