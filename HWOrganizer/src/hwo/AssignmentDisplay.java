@@ -115,7 +115,7 @@ public class AssignmentDisplay extends JPanel {
 		this.assignment = assignment;
 		lblAssignmentName.setText(assignment.getName());
 		lblCourseVal.setText(assignment.getCourse().getName());
-		lblDueVal.setText(dateFormat.format(assignment.getDueTime().getTime()));
+		lblDueVal.setText(dateFormat.format(assignment.getDueDate().getTime()));
 		lblPriorityVal.setText(String.valueOf(assignment.getPriority()));
 		linkify(lblInfoVal, assignment.getAssignmentLoc());
 		linkify(lblTurninVal, assignment.getTurninLoc());
@@ -173,7 +173,7 @@ public class AssignmentDisplay extends JPanel {
 	
 	public void edit(){
 		CreateEditAssignment.editAssignment(assignment, (Frame)SwingUtilities.windowForComponent(AssignmentDisplay.this), instance);
-		if (assignment.getParentAssignment() != null)
+		if (assignment.getParentAssignment().getAssignments().contains(assignment))
 			setAssignment(assignment);
 		else{
 			setVisible(false);
