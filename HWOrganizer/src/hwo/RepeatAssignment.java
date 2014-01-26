@@ -7,9 +7,8 @@ package hwo;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 import javax.xml.datatype.Duration;
+import java.util.GregorianCalendar;
 
 public class RepeatAssignment extends AAssignment
 {
@@ -22,9 +21,8 @@ public class RepeatAssignment extends AAssignment
 	//-------------------------------------------------
 	
 	// Partial Constructor (*does not create SingleAssignments)
-	private RepeatAssignment (ICourse course)
+	public RepeatAssignment (Course course)
 	{
-		System.out.println("Creating repeat assignment a");
 		this.frequency = 1;
 		this.validDays = new boolean[7];
 		this.assignments = new ArrayList<SingleAssignment>();
@@ -56,12 +54,10 @@ public class RepeatAssignment extends AAssignment
 	}
 	
 	// Full Constructor
-	public RepeatAssignment (ICourse course, int frequency, boolean[] validDays, String name, String notes, Duration completionTime,
-			String assignmentLoc, String turninLoc, String resources, String assignmentType, Calendar dueTime, Calendar startDate, Calendar endDate,
-			boolean repeating)
+	public RepeatAssignment (Course course, int frequency, boolean[] validDays, String name, String notes, Duration completionTime,
+			String assignmentLoc, String turninLoc, String resources, String assignmentType, Calendar dueTime, Calendar startDate, Calendar endDate)
 	{
-		System.out.println("Creating repeat assignment b");
-		if (frequency >= 1)
+		if (frequency > 1)
 			this.frequency = frequency;
 		else
 			throw new IllegalArgumentException("Tried to set an assignment's frequency to a negative value.");
@@ -97,10 +93,7 @@ public class RepeatAssignment extends AAssignment
 		super.setEndDate(endDate);
 		
 		// Populates single assignments
-		if (repeating)
-			createSingleAssignments();
-		else
-			createSingleAssignment();
+		createSingleAssignments();
 	}
 	
 	// Creates SingleAssignments - used by full constructor
@@ -124,13 +117,6 @@ public class RepeatAssignment extends AAssignment
 			g.add(Calendar.DAY_OF_MONTH, 1);
 			weekCounter += 1;
 		} while (g.before(getEndDate()));
-	}
-	
-	// for non-repeating assignments, creates single instance
-	public void createSingleAssignment(){
-		GregorianCalendar g = new GregorianCalendar(getStartDate().get(Calendar.YEAR),
-				getStartDate().get(Calendar.MONTH), getStartDate().get(Calendar.DAY_OF_MONTH));
-		this.assignments.add(new SingleAssignment(this, g));
 	}
 	
 	//-------------------------------------------------
@@ -193,6 +179,6 @@ public class RepeatAssignment extends AAssignment
 		if (priority < 1 || priority > 5)
 			throw new IllegalArgumentException("Tried to set an assignment's priority to a value outside the range 1-5.");
 		else
-			this.priority = priority;
+			super.setPriority(priority);
 	}
 }

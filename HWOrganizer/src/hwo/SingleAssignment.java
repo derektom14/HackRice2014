@@ -6,7 +6,7 @@
 package hwo;
 
 import java.util.Calendar;
-import java.time.Duration;
+import javax.xml.datatype.Duration;
 
 public class SingleAssignment extends AAssignment
 {

@@ -6,8 +6,8 @@
 package hwo;
 
 import java.util.ArrayList;
-import java.io.Serializable;
 import java.util.Calendar;
+import java.io.Serializable;
 
 public interface ISemester extends Serializable 
 {

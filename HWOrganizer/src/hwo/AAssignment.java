@@ -6,7 +6,6 @@
 package hwo;
 
 import java.util.Calendar;
-
 import javax.xml.datatype.Duration;
 
 public abstract class AAssignment implements IAssignment
