@@ -26,7 +26,10 @@ public class SingleAssignment extends AAssignment
 		this.progress = 0;
 		this.priority = 2;
 		
-		this.parent = parent;
+		if (parent != null)
+			this.parent = parent;
+		else
+			throw new IllegalArgumentException("Tried to set a SingleAssignment's parent to null.");
 		
 		// Signals to refer to the parent RepeatAssignment
 		super.setName(null);
@@ -132,7 +135,25 @@ public class SingleAssignment extends AAssignment
 	// Setter methods
 	//-------------------------------------------------
 	public void setDueDate(Calendar d) {this.dueDate = d;}
-	public void setProgress(int p) {this.progress = p;}
-	public void setPriority(int p) {this.priority = p;}
+	public void setProgress(int p) 
+	{
+		if (p < 0)
+			throw new IllegalArgumentException("Tried to set an assignment's progress to a negative value.");
+		else if (p > 100)
+			throw new IllegalArgumentException("Tried to set an assignment's progress to greater than 100.");
+		else
+			this.progress = p;
+	}
+	public void setPriority(int p) 
+	{
+		if (p < 1 || p > 5)
+			throw new IllegalArgumentException("Tried to set an assignment's priority to a value outside the range 1-5.");
+		else
+			this.priority = p;
+	}
 	public void setCompletion(boolean c) {this.progress = 100;}
 }
+
+
+
+
