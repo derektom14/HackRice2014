@@ -9,6 +9,14 @@ public class Instance {
 	private Semester[] semesters;
 	private String name;
 	private Settings settings;
+	private int currentSemester;
+	
+	Instance () {
+		semesters = new Semester[]{new Semester(null, null)};
+		name = "Name";
+		settings = null;
+		currentSemester = 0;
+	}
 	
 	public void save(String fileName) {
 		try{
@@ -42,15 +50,15 @@ public class Instance {
 		}
 	}
 
-	public ArrayList<SingleAssignment> filter(int semesterIndex)
+	public ArrayList<SingleAssignment> filter()
 	{
 		ArrayList<SingleAssignment> results = new ArrayList<SingleAssignment>();
-		for (ICourse c : semesters[semesterIndex].getCourses()) {
+		for (ICourse c : semesters[currentSemester].getCourses()) {
 			if (settings.getCourse() == null || settings.getCourse() == c) {
 				for (RepeatAssignment r : c.getAssignments()) {
 					for (SingleAssignment s : r.getAssignments()) {
 						if (settings.getStartDate() == null || s.getDueDate().after(settings.getStartDate())
-							&& settings.getEndDate() == null || s.getDueDate().before(settings.getEndDate())) {
+							&& settings.getEndDate() == null || s.getDueDate().before(settings.getEndDate()))
 								results.add(s);
 					}
 				}
