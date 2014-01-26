@@ -26,7 +26,9 @@ public class Instance {
 	
 	public void save() {
 		try{
-			FileOutputStream saveFile = new FileOutputStream("/.hworganizer.ser");
+			File f = new File(".hworganizer.ser");
+			f.createNewFile();
+			FileOutputStream saveFile = new FileOutputStream(f);
 			ObjectOutputStream out = new ObjectOutputStream(saveFile);
 			out.writeObject(name);
 			out.writeObject(semesters.length);
