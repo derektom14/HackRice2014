@@ -15,9 +15,9 @@ public interface ICourse extends Serializable
 	// Getter methods
 	//-------------------------------------------------
 	public String getName();
-	public String getAssignmentLoc();
-	public String getTurninLoc();
-	public String getResources();
+	public FileInfo getAssignmentLoc();
+	public FileInfo getTurninLoc();
+	public ArrayList<FileInfo> getResources();
 	public String getAssignmentType();
 	public Calendar getDueTime();
 	public ArrayList<RepeatAssignment> getAssignments();
@@ -30,9 +30,9 @@ public interface ICourse extends Serializable
 	// Setter methods
 	//-------------------------------------------------
 	public void setName(String name);
-	public void setAssignmentLoc(String location);
-	public void setTurninLoc(String location);
-	public void setResources(String resources);
+	public void setAssignmentLoc(FileInfo location);
+	public void setTurninLoc(FileInfo location);
+	public void setResources(ArrayList<FileInfo> resources);
 	public void setAssignmentType(String type);
 	public void setDueTime(Calendar time);
 	public void addAssignment(RepeatAssignment assignment);
