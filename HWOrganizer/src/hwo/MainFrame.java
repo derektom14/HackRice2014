@@ -165,7 +165,7 @@ public class MainFrame extends JFrame {
 		JButton btnFilterSearch = new JButton("Filter / Search");
 		sideBar.add(btnFilterSearch);
 		
-		JPanel assignmentList = new JPanel();
+		JPanel assignmentList = new DayOfAssignments(Calendar.getInstance());
 		contentPane.add(assignmentList, "cell 1 0,grow");
 		
 		dayList = new JList<DayOfAssignments>();

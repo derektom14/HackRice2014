@@ -103,6 +103,15 @@ public class CreateEditCourse extends JDialog {
 			tfResources.setColumns(10);
 		}
 		{
+			JButton btnBrowse = new JButton("Browse...");
+			btnBrowse.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Util.browseForFile(tfResources, CreateEditCourse.this);
+				}
+			});
+			contentPanel.add(btnBrowse, "cell 0 3");
+		}
+		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
