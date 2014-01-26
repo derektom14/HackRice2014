@@ -96,8 +96,8 @@ public class Instance {
 					System.out.println("Repeating: " + r);
 					for (SingleAssignment s : r.getAssignments()) {
 						System.out.println("Single: " + s);
-						if (settings.getStartDate() == null || s.getDueDate().after(settings.getStartDate())
-							&& settings.getEndDate() == null || s.getDueDate().before(settings.getEndDate()))
+						if ((settings.getStartDate() == null || s.getDueDate().after(settings.getStartDate()))
+							&& (settings.getEndDate() == null || s.getDueDate().before(settings.getEndDate())))
 								results.add(s);
 					}
 				}
