@@ -80,6 +80,12 @@ public class Instance {
 		}
 		return results;
 	}
+	
+	public void delete() {
+		ArrayList<SingleAssignment> toDelete = filter();
+		for (SingleAssignment a : toDelete)
+			a.removeSelf();
+	}
 
 	public Settings getSettings() {
 		return settings;
