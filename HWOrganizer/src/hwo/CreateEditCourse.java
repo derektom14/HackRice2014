@@ -27,7 +27,6 @@ public class CreateEditCourse extends JDialog {
 	private boolean complete = false;
 
 	public static Course createNewCourse(Semester semester, Frame parent){
-		Course course = new Course(semester, "");
 		CreateEditCourse dialog = new CreateEditCourse(course, null);
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setVisible(true);

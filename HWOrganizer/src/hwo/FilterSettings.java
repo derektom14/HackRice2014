@@ -57,7 +57,7 @@ public class FilterSettings extends JDialog {
 		}
 		{
 			courseMap = instance.getCurSemester().getCourses();
-			String[] courseNames = new String[courseMap.size()];
+			String[] courseNames = new String[courseMap.size() + 1];
 			courseNames[0] = "";
 			int k = 1;
 			for (String cName : courseMap.keySet())

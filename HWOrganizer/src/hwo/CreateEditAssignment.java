@@ -6,10 +6,12 @@ import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
@@ -25,14 +27,13 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.xml.datatype.Duration;
 
 import net.miginfocom.swing.MigLayout;
 
 public class CreateEditAssignment extends JDialog {
 	
 	private IAssignment assignment;
-	private ArrayList<ICourse> courses;
+	private Map<String, ICourse> courseMap;
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField tfName;
@@ -48,7 +49,7 @@ public class CreateEditAssignment extends JDialog {
 	private JCheckBox cbS;
 	private JComboBox<String> tfWeekFreq;
 	private JSlider progress;
-	private JComboBox<ICourse> cbCourse;
+	private JComboBox<String> cbCourse;
 	private JSpinner spnDue;
 	private JPanel panel;
 	private JTextField tfFileLoc;
@@ -59,10 +60,10 @@ public class CreateEditAssignment extends JDialog {
 	private JButton btnComplete;
 	private JLabel lblProgress;
 
-	public static RepeatAssignment createNewAssignment(ArrayList<ICourse> courses, Frame parent){
-		if (courses.size() == 0)
+	public static RepeatAssignment createNewAssignment(HashMap<String, ICourse> courseMap, Frame parent){
+		if (courseMap.size() == 0)
 			throw new IllegalArgumentException("Cannot create assignment with no courses");
-		CreateEditAssignment dialog = new CreateEditAssignment(parent, courses, null);
+		CreateEditAssignment dialog = new CreateEditAssignment(parent, courseMap, null);
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setModal(true);
 		dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
@@ -71,8 +72,8 @@ public class CreateEditAssignment extends JDialog {
 		return (RepeatAssignment) dialog.assignment;
 	}
 	
-	public static void editAssignment(ArrayList<ICourse> courses, Frame parent, SingleAssignment assignment){
-		CreateEditAssignment dialog = new CreateEditAssignment(parent, courses, assignment);
+	public static void editAssignment(HashMap<String, ICourse> courseMap, Frame parent, SingleAssignment assignment){
+		CreateEditAssignment dialog = new CreateEditAssignment(parent, courseMap, assignment);
 		dialog.setModal(true);
 		dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
 		dialog.setVisible(true);
@@ -82,17 +83,17 @@ public class CreateEditAssignment extends JDialog {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		new CreateEditAssignment(null, new ArrayList<ICourse>(), null).setVisible(true);
+		new CreateEditAssignment(null, new HashMap<String, ICourse>(), null).setVisible(true);
 	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public CreateEditAssignment(Frame parent, ArrayList<ICourse> courses, SingleAssignment assignment) {
+	public CreateEditAssignment(Frame parent, HashMap<String, ICourse> courseMap, SingleAssignment assignment) {
 		super(parent, true);
 		setTitle("Create New Assignment");
 		this.assignment = assignment;
-		this.courses = courses;
+		this.courseMap = courseMap;
 		setBounds(100, 100, 575, 396);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -112,12 +113,14 @@ public class CreateEditAssignment extends JDialog {
 			contentPanel.add(lblCourse, "cell 0 1,alignx trailing");
 		}
 		{
-			String[] courseNames = new String[courses.size() + 1];
+			System.out.println(courseMap);
+			String[] courseNames = new String[courseMap.size() + 1];
 			courseNames[0] = "";
-			for (int k = 0; k < courses.size(); k++)
-				courseNames[k + 1] = courses.get(k).getName();
-			System.out.println(courseNames);
-			cbCourse = new JComboBox(courseNames);
+			int k = 0;
+			for (String cName : courseMap.keySet())
+				courseNames[k++] = cName;
+			System.out.println(Arrays.toString(courseNames));
+			cbCourse = new JComboBox<String>(courseNames);
 			cbCourse.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					switchCourse(getCourse((String)cbCourse.getSelectedItem()));
@@ -303,11 +306,10 @@ public class CreateEditAssignment extends JDialog {
 	}
 	
 	private ICourse getCourse(String cName){
-		for (ICourse c : courses)
-			if (c.getName().equals(cName))
-				return c;
-		if (cName.equals(""))
+		if (cName == null || cName.length() == 0)
 			return null;
+		if (courseMap.containsKey(cName))
+			return courseMap.get(cName);
 		throw new IllegalStateException("Chose nonexistent course");
 	}
 	
@@ -338,7 +340,7 @@ public class CreateEditAssignment extends JDialog {
 		String resources = tfFileLoc.getText();
 		
 		if (assignment == null){
-			assignment = new RepeatAssignment(course, frequency, validDays, hwName, "", null, assignmentLoc, turninLoc, resources, "", dueCal, startCal, dueCal, cbRepeating.isSelected());
+			assignment = new RepeatAssignment(course, frequency, validDays, hwName, "", null, assignmentLoc, turninLoc, resources, "", dueCal, startCal, dueCal, cbRepeating.isSelected(), 2);
 		}
 		else {
 			assignment.setAssignmentLoc(assignmentLoc);
