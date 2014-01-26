@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -25,11 +26,11 @@ import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
-import javax.swing.SpinnerNumberModel;
 
 public class CreateEditAssignment extends JDialog {
 	
@@ -38,8 +39,6 @@ public class CreateEditAssignment extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField tfName;
-	private JTextField tfAssignmentLoc;
-	private JTextField tfTurnInLoc;
 	private JCheckBox cbRepeating;
 	private JCheckBox cbSu;
 	private JCheckBox cbM;
@@ -52,9 +51,7 @@ public class CreateEditAssignment extends JDialog {
 	private JSlider progress;
 	private JComboBox<String> cbCourse;
 	private JSpinner spnDue;
-	private JPanel panel;
-	private JTextField tfFileLoc;
-	private JButton btnBrowse;
+	private MultiFileBrowser resourcesPanel;
 	private JLabel lblStart;
 	private JSpinner spnStart;
 	private JPanel panel_1;
@@ -62,6 +59,8 @@ public class CreateEditAssignment extends JDialog {
 	private JLabel lblProgress;
 	private JLabel lblPriority;
 	private JSpinner spnPriority;
+	private FileBrowser locPanel;
+	private FileBrowser panelTurnInLoc;
 
 	public static RepeatAssignment createNewAssignment(HashMap<String, ICourse> courseMap, Frame parent){
 		if (courseMap.size() == 0)
@@ -102,7 +101,7 @@ public class CreateEditAssignment extends JDialog {
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(new MigLayout("hidemode 3", "[][grow][grow][grow]", "[][][][][][][][][][]"));
+		contentPanel.setLayout(new MigLayout("hidemode 3", "[][grow][grow][grow]", "[][][][][][grow][grow][][][]"));
 		{
 			JLabel lblName = new JLabel("Name:");
 			contentPanel.add(lblName, "cell 0 0,alignx trailing");
@@ -124,7 +123,7 @@ public class CreateEditAssignment extends JDialog {
 			for (String cName : courseMap.keySet())
 				courseNames[k++] = cName;
 			System.out.println(Arrays.toString(courseNames));
-			cbCourse = new JComboBox<String>(courseNames);
+			cbCourse = new JComboBox();//<String>(courseNames);
 			cbCourse.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					switchCourse(getCourse((String)cbCourse.getSelectedItem()));
@@ -193,41 +192,25 @@ public class CreateEditAssignment extends JDialog {
 			contentPanel.add(lblAssignmentLocation, "cell 0 5,alignx trailing");
 		}
 		{
-			tfAssignmentLoc = new JTextField();
-			contentPanel.add(tfAssignmentLoc, "cell 1 5,growx");
-			tfAssignmentLoc.setColumns(10);
+			locPanel = new FileBrowser(null, null);
+			contentPanel.add(locPanel, "cell 1 5,grow");
 		}
 		{
 			JLabel lblTurninLocation = new JLabel("Turn-In Location:");
 			contentPanel.add(lblTurninLocation, "cell 0 6,alignx trailing");
 		}
 		{
-			tfTurnInLoc = new JTextField();
-			contentPanel.add(tfTurnInLoc, "cell 1 6,growx");
-			tfTurnInLoc.setColumns(10);
+			panelTurnInLoc = new FileBrowser(null, null);
+			contentPanel.add(panelTurnInLoc, "cell 1 6,grow");
 		}
 		{
 			JLabel lblFileLocation = new JLabel("Resources:");
 			contentPanel.add(lblFileLocation, "cell 0 7,alignx trailing");
 		}
 		{
-			panel = new JPanel();
-			contentPanel.add(panel, "cell 1 7,grow");
-			panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-			{
-				tfFileLoc = new JTextField();
-				panel.add(tfFileLoc);
-				tfFileLoc.setColumns(10);
-			}
-			{
-				btnBrowse = new JButton("Browse...");
-				btnBrowse.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						Util.browseForFile(tfFileLoc, CreateEditAssignment.this);
-					}
-				});
-				panel.add(btnBrowse);
-			}
+			resourcesPanel = new MultiFileBrowser(null, null);
+			contentPanel.add(resourcesPanel, "cell 1 7,grow");
+			resourcesPanel.setLayout(new BoxLayout(resourcesPanel, BoxLayout.X_AXIS));
 		}
 		{
 			lblProgress = new JLabel("Progress:");
@@ -287,9 +270,9 @@ public class CreateEditAssignment extends JDialog {
 		
 		if (assignment != null){
 			tfName.setText(assignment.getName());
-			tfAssignmentLoc.setText(assignment.getAssignmentLoc());
-			tfTurnInLoc.setText(assignment.getTurninLoc());
-			tfFileLoc.setText(assignment.getResources());
+			locPanel.setInfo(assignment.getAssignmentLoc());
+			panelTurnInLoc.setInfo(assignment.getTurninLoc());
+			resourcesPanel.setText(assignment.getResources());
 			spnPriority.setValue(assignment.getPriority());
 			
 			cbRepeating.setVisible(false);
@@ -353,6 +336,7 @@ public class CreateEditAssignment extends JDialog {
 		String hwName = tfName.getText();
 		String assignmentLoc = tfAssignmentLoc.getText();
 		String turninLoc = tfTurnInLoc.getText();
+		ArrayList<FileInfo> files = resourcesPanel.getFileInfos();
 		String resources = tfFileLoc.getText();
 		
 		if (assignment == null){
