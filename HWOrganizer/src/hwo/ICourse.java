@@ -42,5 +42,8 @@ public interface ICourse extends Serializable
 	public void setStartDate(Calendar date);
 	public void setEndDate(Calendar date);
 	
-	
+	//-------------------------------------------------
+	// Class methods
+	//-------------------------------------------------
+	public void removeSelf();
 }
