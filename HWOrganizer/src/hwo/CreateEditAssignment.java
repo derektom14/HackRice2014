@@ -320,7 +320,10 @@ public class CreateEditAssignment extends JDialog {
 			for (int k = 0; k < 3; k++)
 				resourcePanels[k].setInfo(resources.get(k));
 			spnPriority.setValue(assignment.getPriority());
-			
+			System.out.println("Selected Course: " + assignment.getCourse().getName());
+			cbCourse.setSelectedItem(assignment.getCourse().getName());
+			progress.setValue(((SingleAssignment)assignment).getProgress());
+			System.out.println("Got progress  " + ((SingleAssignment)assignment).getProgress());
 			lblStart.setVisible(false);
 			spnStart.setVisible(false);
 			cbRepeating.setVisible(false);
@@ -332,6 +335,7 @@ public class CreateEditAssignment extends JDialog {
 			cbF.setVisible(false);
 			cbS.setVisible(false);
 			tfWeekFreq.setVisible(false);
+			System.out.println("HERE");
 		}
 		else {
 			progress.setVisible(false);
@@ -374,12 +378,19 @@ public class CreateEditAssignment extends JDialog {
 				cbF.isSelected(),
 				cbS.isSelected()
 		};
-		Date dueDate = (Date)spnDue.getValue();
-		Calendar dueCal = new GregorianCalendar();
-		dueCal.setTime(dueDate);
+		
+		Date endDate = (Date)spnDue.getValue();
+		Calendar endCal = new GregorianCalendar();
+		endCal.setTime(endDate);
+		
 		Date startDate = (Date)spnStart.getValue();
 		Calendar startCal = new GregorianCalendar();
 		startCal.setTime(startDate);
+		
+		Date dueTime = (Date)dueTimeSpinner.getValue();
+		Calendar dueCal = new GregorianCalendar();
+		dueCal.setTime(dueTime);
+		
 		int frequency = tfWeekFreq.getSelectedIndex() + 1;
 		int prog = progress.getValue();
 		int priority = (Integer)spnPriority.getValue();
@@ -392,18 +403,22 @@ public class CreateEditAssignment extends JDialog {
 			resources.add(resourcePanels[k].getInfo());
 		
 		if (assignment == null){
-			assignment = new RepeatAssignment(course, frequency, validDays, hwName, "", null, assignmentLoc, turninLoc, resources, "", dueCal, startCal, dueCal, cbRepeating.isSelected(), priority);
+			System.out.println("Creating new assignment");
+			assignment = new RepeatAssignment(course, frequency, validDays, hwName, "", null, assignmentLoc, turninLoc, resources, "", dueCal, startCal, endCal, cbRepeating.isSelected(), priority);
 		}
 		else {
+			System.out.println("Storing into previous assignment");
 			assignment.setCourse(course);
 			assignment.setDueTime(dueCal);
-			assignment.setEndDate(dueCal);
+			assignment.setEndDate(endCal);
 			assignment.setName(hwName);
 			assignment.setAssignmentLoc(assignmentLoc);
 			assignment.setName(hwName);
 			assignment.setResources(resources);
 			assignment.setTurninLoc(turninLoc);
 			assignment.setPriority((Integer)spnPriority.getValue());
+			((SingleAssignment)assignment).setProgress(prog);
+			System.out.println("Set progress " + prog);
 		}
 	}
 
