@@ -33,7 +33,6 @@ public class CreateEditCourse extends JDialog {
 		dialog.setModal(true);
 		dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
 		dialog.setVisible(true);
-		System.out.println("new course: " + dialog.course.getName() + dialog.course);
 		return dialog.course;
 	}
 
@@ -172,7 +171,6 @@ public class CreateEditCourse extends JDialog {
 	}
 	
 	private void deleteCourse(){
-		System.out.println("Deleting " + course);
 		course.removeSelf();
 		instance.addChange(new AddCourse(course));
 	}

@@ -35,18 +35,7 @@ class AssignmentListCellRenderer extends JLabel implements ListCellRenderer<Sing
          setBackground(color);
          if (assignment.isCompleted())
         	 setIcon(completeIcon);
-         addMouseListener(new MouseAdapter(){
-        	 public void mouseClicked(MouseEvent e){
-        		 System.out.println("Got click");
-        		 assignmentInfo.setAssignment(assignment);
-        	 }
-         });
-         addMouseMotionListener(new MouseMotionAdapter(){
-        	 public void mouseMoved(MouseEvent e){
-        		 System.out.println("Got motion");
-        		 assignmentInfo.setAssignment(assignment);
-        	 }
-         });
+         
          return this;
      }
 }

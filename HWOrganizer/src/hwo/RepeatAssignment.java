@@ -117,7 +117,6 @@ public class RepeatAssignment extends AAssignment
 	// Creates SingleAssignments - used by full constructor
 	public void createSingleAssignments()
 	{
-		System.out.println("CreatingSingleAssignment");
 		// Convert Calendar to a changeable format
 		GregorianCalendar g = new GregorianCalendar(getStartDate().get(Calendar.YEAR),
 				getStartDate().get(Calendar.MONTH), getStartDate().get(Calendar.DAY_OF_MONTH));
@@ -130,7 +129,6 @@ public class RepeatAssignment extends AAssignment
 			{
 				int numWeeks = (weekCounter / 7) + 1;
 				if ((numWeeks + 1) % this.frequency == 0){
-					System.out.println("New Assignment: " + this.frequency + " " + (g.get(Calendar.DAY_OF_WEEK)- 1) + " " + weekCounter);
 					this.assignments.add(new SingleAssignment(this, new GregorianCalendar(g.get(Calendar.YEAR), g.get(Calendar.MONTH), g.get(Calendar.DAY_OF_MONTH))));
 				}
 			}

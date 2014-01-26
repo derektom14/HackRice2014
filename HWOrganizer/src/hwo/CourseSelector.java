@@ -47,7 +47,6 @@ public class CourseSelector extends JDialog {
 		contentPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		{
-			System.out.println(courses);
 			String[] courseNames = new String[courses.size()];
 			int k = 0;
 			for (String cName : courses.keySet())

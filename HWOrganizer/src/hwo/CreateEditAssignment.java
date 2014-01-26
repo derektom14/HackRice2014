@@ -82,7 +82,6 @@ public class CreateEditAssignment extends JDialog {
 		dialog.setModal(true);
 		dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
 		dialog.setVisible(true);
-		System.out.println("new assignment: " + dialog.assignment);
 		return (RepeatAssignment) dialog.assignment;
 	}
 	
@@ -102,7 +101,6 @@ public class CreateEditAssignment extends JDialog {
 		this.assignment = assignment;
 		this.instance = instance;
 		this.courseMap = semester.getCourses();
-		System.out.println(courseMap);
 		setBounds(100, 100, 575, 480);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -122,14 +120,12 @@ public class CreateEditAssignment extends JDialog {
 			contentPanel.add(lblCourse, "cell 0 1,alignx trailing");
 		}
 		{
-			System.out.println(courseMap);
 			int offset = assignment == null ? 1 : 0;
 			String[] courseNames = new String[courseMap.size() + offset];
 			courseNames[0] = "";
 			int k = offset;
 			for (String cName : courseMap.keySet())
 				courseNames[k++] = cName;
-			System.out.println(Arrays.toString(courseNames));
 			cbCourse = new JComboBox(courseNames);
 			cbCourse.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
@@ -153,7 +149,6 @@ public class CreateEditAssignment extends JDialog {
 				curDueDate = dueDate.getTime();
 			} else {
 				Calendar dueDate = assignment.getDueTime();
-				System.out.println(dueDate.get(Calendar.HOUR_OF_DAY) + ", " + assignment.getTimeString());
 				curDueDate = dueDate.getTime();
 			}
 			dueTimeSpinner.setModel(new SpinnerDateModel(curDueDate, null, null, Calendar.DAY_OF_YEAR));
@@ -390,7 +385,6 @@ public class CreateEditAssignment extends JDialog {
 	}
 	
 	private void storeAssignment(){
-		System.out.println("Storing assignment");
 		ICourse course = getCourse((String)cbCourse.getSelectedItem());
 		boolean[] validDays = {
 				cbSu.isSelected(),
@@ -426,12 +420,10 @@ public class CreateEditAssignment extends JDialog {
 			resources.add(resourcePanels[k].getInfo());
 		
 		if (assignment == null){
-			System.out.println("Creating new assignment");
 			assignment = new RepeatAssignment(course, frequency, validDays, hwName, "", null, assignmentLoc, turninLoc, resources, "", dueCal, startCal, endCal, cbRepeating.isSelected(), priority);
 			instance.addChange(new DeleteRepeatAssignment((RepeatAssignment)assignment));
 		}
 		else {
-			System.out.println("Storing into previous assignment");
 			instance.addChange(new EditSingleAssignment((SingleAssignment) assignment, new SingleAssignment((SingleAssignment)assignment)));
 			assignment.setCourse(course);
 			assignment.setDueTime(dueCal);
@@ -443,7 +435,6 @@ public class CreateEditAssignment extends JDialog {
 			assignment.setTurninLoc(turninLoc);
 			//assignment.setPriority((Integer)spnPriority.getValue());
 			((SingleAssignment)assignment).setProgress(prog);
-			System.out.println("Set progress " + prog);
 		}
 	}
 	

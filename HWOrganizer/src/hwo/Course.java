@@ -151,7 +151,6 @@ public class Course implements ICourse, Serializable
 	public void removeSelf()
 	{
 		this.semester.removeCourse(this);
-		System.out.println("Deleted: " + !semester.getCourses().values().contains(this));
 	}
 	public String validateAssignment(int frequency, boolean[] validDays, Calendar startDate, Calendar endDate)
 	{

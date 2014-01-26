@@ -142,7 +142,6 @@ public class AssignmentDisplay extends JPanel {
 	}
 	
 	public void clear(){
-		System.out.println("CLEAR");
 		this.assignment = null;
 		lblAssignmentName.setText("");
 		lblCourseVal.setText("");
@@ -161,7 +160,6 @@ public class AssignmentDisplay extends JPanel {
 		String name = info.getName();
 		boolean isFile = Util.isFile(loc);
 		boolean isURL = Util.isURL(loc);
-		System.out.println(name + " " + name.length());
 		if (isFile || isURL){
 			if (name.isEmpty())
 				if (isFile)

@@ -48,12 +48,12 @@ public class MainFrame extends JFrame {
 	private JList<DayOfAssignments> dayList;
 	
 	private AssignmentDisplay assignmentInfo;
+	private JButton btnNewAssignment;
 	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		System.out.println("BLAH");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -108,27 +108,7 @@ public class MainFrame extends JFrame {
 				save();
 			}
 		});
-		
-		JMenuItem mntmNewSemester = new JMenuItem("New Semester");
-		mntmNewSemester.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
-		
-		JMenuItem mntmEditCourses = new JMenuItem("Edit Courses...");
-		mntmEditCourses.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				editCourses();
-			}
-		});
-		mnFile.add(mntmEditCourses);
-		mnFile.add(mntmNewSemester);
 		mnFile.add(mntmSave);
-		
-		JMenuItem mntmSaveAsText = new JMenuItem("Save as Text");
-		mntmSaveAsText.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
-		mnFile.add(mntmSaveAsText);
 		
 		JMenu mnNewMenu = new JMenu("Edit\r\n");
 		menuBar.add(mnNewMenu);
@@ -151,20 +131,13 @@ public class MainFrame extends JFrame {
 		mntmRedo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		mnNewMenu.add(mntmRedo);
 		
-		JMenu mnOptions = new JMenu("Options");
-		menuBar.add(mnOptions);
-		
-		JMenuItem mntmShowButtons = new JMenuItem("Show buttons");
-		mnOptions.add(mntmShowButtons);
-		
-		JMenuItem mntmCompletedAssignmentOptions = new JMenuItem("Completed assignment options...");
-		mnOptions.add(mntmCompletedAssignmentOptions);
-		
-		JMenuItem mntmShowMoreOptions = new JMenuItem("Show more options");
-		mnOptions.add(mntmShowMoreOptions);
-		
-		JMenuItem mntmClearDays = new JMenuItem("Clear days...");
-		mnOptions.add(mntmClearDays);
+		JMenuItem mntmEditCourses = new JMenuItem("Edit Courses...");
+		mnNewMenu.add(mntmEditCourses);
+		mntmEditCourses.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				editCourses();
+			}
+		});
 		
 		JMenu mnHelp = new JMenu("Help");
 		menuBar.add(mnHelp);
@@ -186,14 +159,14 @@ public class MainFrame extends JFrame {
 		JPanel sideBar = new JPanel();
 		contentPane.add(sideBar, BorderLayout.WEST);
 		
-		JButton btnNewAssignment = new JButton("New Assignment");
+		btnNewAssignment = new JButton("New Assignment");
+		btnNewAssignment.setEnabled(!instance.getCurSemester().getCourses().isEmpty());
 		btnNewAssignment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				addNewAssignment();
 			}
 		});
 		sideBar.setLayout(new GridLayout(0, 1, 0, 0));
-		sideBar.add(btnNewAssignment);
 		
 		JButton btnNewCourse = new JButton("New Course");
 		btnNewCourse.addActionListener(new ActionListener() {
@@ -202,6 +175,7 @@ public class MainFrame extends JFrame {
 			}
 		});
 		sideBar.add(btnNewCourse);
+		sideBar.add(btnNewAssignment);
 		
 		JButton btnFilterSearch = new JButton("Filter / Search");
 		btnFilterSearch.addActionListener(new ActionListener(){
@@ -233,12 +207,6 @@ public class MainFrame extends JFrame {
 		contentPane.add(assignmentInfo, BorderLayout.EAST);
 		assignmentInfo.setVisible(false);
 		
-		addMouseListener(new MouseAdapter(){
-			public void mouseClicked(MouseEvent e){
-				System.out.println("Click in main frame");
-			}
-		});
-		
 		fillListOfDays();
 	}
 
@@ -252,8 +220,10 @@ public class MainFrame extends JFrame {
 	
 	private void addNewCourse(){
 		ICourse newCourse = CreateEditCourse.createNewCourse(instance.getCurSemester(), this, instance);
-		if (newCourse != null)
+		if (newCourse != null){
 			instance.addChange(new DeleteCourse(newCourse));
+			btnNewAssignment.setEnabled(true);
+		}
 		fillListOfDays();
 	}
 	
@@ -271,7 +241,6 @@ public class MainFrame extends JFrame {
 				Calendar curDate = assignments.get(index).getDueDate();
 				int year = curDate.get(Calendar.YEAR);
 				int day = curDate.get(Calendar.DAY_OF_YEAR);
-				System.out.println("Assignment info: " + assignmentInfo);
 				DayOfAssignments dayOfAssignments = new DayOfAssignments(curDate, assignmentInfo);
 				do {
 					dayOfAssignments.addAssignment(assignments.get(index));
@@ -307,6 +276,8 @@ public class MainFrame extends JFrame {
 		ICourse course = CourseSelector.selectCourse(instance.getCurSemester().getCourses(), "Edit");
 		CreateEditCourse.editCourse(course, this, instance);
 		fillListOfDays();
+		if (instance.getCurSemester().getCourses().isEmpty())
+			btnNewAssignment.setEnabled(false);
 	}
 }
 

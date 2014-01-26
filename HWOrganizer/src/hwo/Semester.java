@@ -64,7 +64,6 @@ public class Semester implements ISemester
 	public void addCourse(ICourse course) 
 	{
 		if (course != null) {
-			System.out.println("Adding " + course + ", name " + course.getName());
 			courses.put(course.getName(), course);
 		}
 		else
