@@ -121,7 +121,11 @@ public class Course implements ICourse, Serializable
 	public void setSemester(ISemester semester) 
 	{
 		if (semester != null)
+		{
+			this.semester.removeCourse(this);
 			this.semester = semester;
+			this.semester.addCourse(this);
+		}
 		else
 			throw new IllegalArgumentException("Tried to assign a course to a null semester.");
 	}
