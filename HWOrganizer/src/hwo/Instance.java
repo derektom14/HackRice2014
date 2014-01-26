@@ -24,9 +24,9 @@ public class Instance {
 	
 	public Semester getCurSemester() {return semesters[currentSemester];}
 	
-	public void save(String fileName) {
+	public void save() {
 		try{
-			FileOutputStream saveFile = new FileOutputStream(fileName);
+			FileOutputStream saveFile = new FileOutputStream("/.hworganizer.ser");
 			ObjectOutputStream out = new ObjectOutputStream(saveFile);
 			out.writeObject(name);
 			out.writeObject(semesters.length);
@@ -39,9 +39,9 @@ public class Instance {
 		}
 	}
 	
-	public void open(String fileName) {
+	public void open() {
 		try{
-			FileInputStream saveFile = new FileInputStream(fileName);
+			FileInputStream saveFile = new FileInputStream("/.hworganizer.ser");
 			ObjectInputStream in = new ObjectInputStream(saveFile);
 			name = (String) in.readObject();
 			semesters = new Semester[(int) in.readObject()];
