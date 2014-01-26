@@ -6,8 +6,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Vector;
 
+import javax.swing.AbstractListModel;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -161,6 +161,8 @@ public class MainFrame extends JFrame {
 		contentPane.add(assignmentList, "cell 1 0,grow");
 		
 		dayList = new JList<DayOfAssignments>();
+		dayListModel = new DefaultListModel<DayOfAssignments>();
+		dayList.setModel(dayListModel);
 		assignmentList.add(dayList);
 		fillListOfDays();
 	}
@@ -180,6 +182,7 @@ public class MainFrame extends JFrame {
 	
 	private void fillListOfDays() {
 		ArrayList<SingleAssignment> assignments = instance.filter();
+		System.out.println(assignments);
 		System.out.println("Filling list of days");
 		dayListModel.clear();
 		if (!assignments.isEmpty()){
@@ -189,6 +192,7 @@ public class MainFrame extends JFrame {
 				Calendar curDay = assignments.get(0).getDueDate();
 				DayOfAssignments day = new DayOfAssignments(curDay);
 				do {
+					System.out.println("Adding " + index);
 					day.addAssignment(assignments.get(index));
 					index++;
 				} while (index < assignments.size() && sameDay(assignments.get(index).getDueDate(), curDay));

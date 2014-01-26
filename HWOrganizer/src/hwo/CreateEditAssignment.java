@@ -6,7 +6,6 @@ import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,7 +17,6 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -27,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.xml.datatype.Duration;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -68,6 +67,7 @@ public class CreateEditAssignment extends JDialog {
 		dialog.setModal(true);
 		dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
 		dialog.setVisible(true);
+		System.out.println("new assignment: " + dialog.assignment);
 		return (RepeatAssignment) dialog.assignment;
 	}
 	
@@ -312,6 +312,7 @@ public class CreateEditAssignment extends JDialog {
 	}
 	
 	private void storeAssignment(){
+		System.out.println("Storing assignment");
 		ICourse course = getCourse((String)cbCourse.getSelectedItem());
 		boolean[] validDays = {
 				cbSu.isSelected(),
@@ -337,7 +338,7 @@ public class CreateEditAssignment extends JDialog {
 		String resources = tfFileLoc.getText();
 		
 		if (assignment == null){
-			//assignment = new RepeatAssignment(course, frequency, validDays, hwName, "", new Duration(), assignmentLoc, turninLoc, resources, "", dueCal, startCal, dueCal);
+			assignment = new RepeatAssignment(course, frequency, validDays, hwName, "", null, assignmentLoc, turninLoc, resources, "", dueCal, startCal, dueCal, cbRepeating.isSelected());
 		}
 		else {
 			assignment.setAssignmentLoc(assignmentLoc);
