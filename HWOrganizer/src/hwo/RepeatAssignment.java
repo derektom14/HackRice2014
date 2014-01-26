@@ -192,6 +192,7 @@ public class RepeatAssignment extends AAssignment
 		else
 			super.setPriority(priority);
 	}
+	public void addAssignment(SingleAssignment assignment) {this.assignments.add(assignment);}
 	
 	//-------------------------------------------------
 	// Class Methods
