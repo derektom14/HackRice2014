@@ -31,20 +31,32 @@ public class Course implements ICourse
 	{
 		this.assignments = new ArrayList<RepeatAssignment>();
 		
-		this.semester = semester;
+		if (semester != null)
+		{
+			this.semester = semester;
+			this.semester.addCourse(this);
+		}
+		else
+			throw new IllegalArgumentException("Tried to use a null semester to create a course.");
+		
 		this.name = name;
 		this.assignmentLoc = "";
 		this.turninLoc = "";
 		this.resources = "";
 		this.assignmentType = "";
-		
-		this.semester.addCourse(this);
 	}
 	
 	// Complete Constructor
 	public Course (ISemester semester, String name, String assignmentLoc, String turninLoc, String resources, String assignmentType, Calendar dueTime)
 	{
-		this.semester = semester;
+		if (semester != null)
+		{
+			this.semester = semester;
+			this.semester.addCourse(this);
+		}
+		else
+			throw new IllegalArgumentException("Tried to use a null semester to create a course.");
+		
 		this.name = name;
 		this.assignmentLoc = assignmentLoc;
 		this.turninLoc = turninLoc;
@@ -87,9 +99,33 @@ public class Course implements ICourse
 	public void setResources(String resources) {this.resources = resources;}
 	public void setAssignmentType(String type) {this.assignmentType = type;}
 	public void setDueTime(Calendar time) {this.dueTime = time;}
-	public void addAssignment(RepeatAssignment assignment) {this.assignments.add(assignment);}
-	public void setSemester(ISemester semester) {this.semester = semester;}
+	public void addAssignment(RepeatAssignment assignment) 
+	{
+		if (assignment != null)
+			this.assignments.add(assignment);
+		else
+			throw new IllegalArgumentException("Tried to add a null assignment to a course.");
+	}
+	public void setSemester(ISemester semester) 
+	{
+		if (semester != null)
+			this.semester = semester;
+		else
+			throw new IllegalArgumentException("Tried to assign a course to a null semester.");
+	}
 	// Overrides value from semester
-	public void setStartDate(Calendar date) {this.startDate = date;}
-	public void setEndDate(Calendar date) {this.endDate = date;}
+	public void setStartDate(Calendar date) 
+	{
+		if (date.after(this.getEndDate()))
+			throw new IllegalArgumentException("Tried to change a course's start date to be later than its end date.");
+		else
+			this.startDate = date;
+	}
+	public void setEndDate(Calendar date) 
+	{
+		if (date.before(this.getStartDate()))
+			throw new IllegalArgumentException("Tried to change a course's end date to be earlier than its start date.");
+		else
+			this.endDate = date;
+	}
 } 
