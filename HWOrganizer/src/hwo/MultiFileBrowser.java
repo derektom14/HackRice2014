@@ -46,4 +46,15 @@ public class MultiFileBrowser extends JPanel {
 		}
 		return info;
 	}
+	
+	public void setInfo(ArrayList<FileInfo> infos){
+		for (FileBrowser file : files)
+			remove(file);
+		files = new ArrayList<FileBrowser>();
+		for (FileInfo info : infos){
+			FileBrowser browser = new FileBrowser(null, info);
+			files.add(browser);
+			add(browser);
+		}
+	}
 }

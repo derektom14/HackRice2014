@@ -9,6 +9,7 @@ public class FileBrowser extends JPanel {
 	/**
 	 * 
 	 */
+	private boolean modified = false;
 	private static final long serialVersionUID = -292388213637019289L;
 	private JTextField textField;
 	private JTextField textField_1;

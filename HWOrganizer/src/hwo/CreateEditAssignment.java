@@ -31,6 +31,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
+import javax.swing.JTextArea;
 
 public class CreateEditAssignment extends JDialog {
 	
@@ -60,7 +61,13 @@ public class CreateEditAssignment extends JDialog {
 	private JLabel lblPriority;
 	private JSpinner spnPriority;
 	private FileBrowser locPanel;
-	private FileBrowser panelTurnInLoc;
+	private FileBrowser turninPanel;
+	
+	private boolean resourcePanelModified = false;
+	private boolean locPanelModified = false;
+	private boolean turninPanelModified = false;
+	private JLabel lblNotes;
+	private JTextArea textNotes;
 
 	public static RepeatAssignment createNewAssignment(HashMap<String, ICourse> courseMap, Frame parent){
 		if (courseMap.size() == 0)
@@ -101,7 +108,7 @@ public class CreateEditAssignment extends JDialog {
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(new MigLayout("hidemode 3", "[][grow][grow][grow]", "[][][][][][grow][grow][][][]"));
+		contentPanel.setLayout(new MigLayout("hidemode 3", "[][grow][grow][grow]", "[][][][][][center][][][][][grow]"));
 		{
 			JLabel lblName = new JLabel("Name:");
 			contentPanel.add(lblName, "cell 0 0,alignx trailing");
@@ -200,8 +207,8 @@ public class CreateEditAssignment extends JDialog {
 			contentPanel.add(lblTurninLocation, "cell 0 6,alignx trailing");
 		}
 		{
-			panelTurnInLoc = new FileBrowser(null, null);
-			contentPanel.add(panelTurnInLoc, "cell 1 6,grow");
+			turninPanel = new FileBrowser(null, null);
+			contentPanel.add(turninPanel, "cell 1 6,grow");
 		}
 		{
 			JLabel lblFileLocation = new JLabel("Resources:");
@@ -228,6 +235,11 @@ public class CreateEditAssignment extends JDialog {
 			}
 			{
 				btnComplete = new JButton("Complete!");
+				btnComplete.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						progress.setValue(100);
+					}
+				});
 				panel_1.add(btnComplete);
 			}
 		}
@@ -239,6 +251,14 @@ public class CreateEditAssignment extends JDialog {
 			spnPriority = new JSpinner();
 			spnPriority.setModel(new SpinnerNumberModel(2, 1, 5, 1));
 			contentPanel.add(spnPriority, "cell 1 9");
+		}
+		{
+			lblNotes = new JLabel("Notes:");
+			contentPanel.add(lblNotes, "cell 0 10,alignx trailing");
+		}
+		{
+			textNotes = new JTextArea();
+			contentPanel.add(textNotes, "cell 1 10,grow");
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -271,9 +291,10 @@ public class CreateEditAssignment extends JDialog {
 		if (assignment != null){
 			tfName.setText(assignment.getName());
 			locPanel.setInfo(assignment.getAssignmentLoc());
-			panelTurnInLoc.setInfo(assignment.getTurninLoc());
-			resourcesPanel.setText(assignment.getResources());
+			turninPanel.setInfo(assignment.getTurninLoc());
+			resourcesPanel.setInfo(assignment.getResources());
 			spnPriority.setValue(assignment.getPriority());
+			
 			
 			cbRepeating.setVisible(false);
 			cbSu.setVisible(false);
@@ -294,12 +315,12 @@ public class CreateEditAssignment extends JDialog {
 	
 	private void switchCourse(ICourse course){
 		if (course != null){
-			if (tfFileLoc.getText().equals(""))
-				tfFileLoc.setText(course.getResources());
-			if (tfAssignmentLoc.getText().equals(""))
-				tfAssignmentLoc.setText(course.getAssignmentLoc());
-			if (tfTurnInLoc.getText().equals(""))
-				tfTurnInLoc.setText(course.getTurninLoc());
+			if (!resourcePanelModified)
+				resourcesPanel.setInfos(course.getResources());
+			if (!locPanelModified)
+				locPanel.setInfo(course.getAssignmentLoc());
+			if (!turninPanelModified)
+				turninPanel.setInfo(course.getTurninLoc());
 		}
 	}
 	
@@ -334,16 +355,14 @@ public class CreateEditAssignment extends JDialog {
 		int priority = (Integer)spnPriority.getValue();
 		
 		String hwName = tfName.getText();
-		String assignmentLoc = tfAssignmentLoc.getText();
-		String turninLoc = tfTurnInLoc.getText();
-		ArrayList<FileInfo> files = resourcesPanel.getFileInfos();
-		String resources = tfFileLoc.getText();
+		FileInfo assignmentLoc = locPanel.getInfo();
+		FileInfo turninLoc = turninPanel.getInfo();
+		ArrayList<FileInfo> resources = resourcesPanel.getFileInfos();
 		
 		if (assignment == null){
 			assignment = new RepeatAssignment(course, frequency, validDays, hwName, "", null, assignmentLoc, turninLoc, resources, "", dueCal, startCal, dueCal, cbRepeating.isSelected(), priority);
 		}
 		else {
-			assignment.setAssignmentLoc(assignmentLoc);
 			assignment.setCourse(course);
 			assignment.setStartDate(startCal);
 			assignment.setDueTime(dueCal);
