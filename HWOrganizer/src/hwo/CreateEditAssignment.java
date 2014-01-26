@@ -29,9 +29,10 @@ import javax.swing.border.EmptyBorder;
 import javax.xml.datatype.Duration;
 
 import net.miginfocom.swing.MigLayout;
+import javax.swing.DefaultComboBoxModel;
 
-public class CreateAssignment extends JDialog {
-
+public class CreateEditAssignment extends JDialog {
+	
 	private AAssignment assignment;
 
 	private final JPanel contentPanel = new JPanel();
@@ -60,7 +61,7 @@ public class CreateAssignment extends JDialog {
 	public static RepeatAssignment createNewAssignment(Course[] courses, Frame parent){
 		if (courses.length == 0)
 			throw new IllegalArgumentException("Cannot create assignment with no courses");
-		CreateAssignment dialog = new CreateAssignment(parent, null);
+		CreateEditAssignment dialog = new CreateEditAssignment(parent, null);
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setModal(true);
 		dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
@@ -69,7 +70,7 @@ public class CreateAssignment extends JDialog {
 	}
 	
 	public static void editAssignment(Course[] courses, Frame parent, SingleAssignment assignment){
-		CreateAssignment dialog = new CreateAssignment(parent, assignment);
+		CreateEditAssignment dialog = new CreateEditAssignment(parent, assignment);
 		dialog.setModal(true);
 		dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
 		dialog.setVisible(true);
@@ -86,7 +87,7 @@ public class CreateAssignment extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public CreateAssignment(Frame parent, SingleAssignment assignment) {
+	public CreateEditAssignment(Frame parent, SingleAssignment assignment) {
 		super(parent, true);
 		setTitle("Create New Assignment");
 		this.assignment = assignment;
@@ -94,7 +95,7 @@ public class CreateAssignment extends JDialog {
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(new MigLayout("", "[][grow][grow][grow]", "[][][][][][][][grow][]"));
+		contentPanel.setLayout(new MigLayout("hidemode 3", "[][grow][grow][grow]", "[][][][][][][][][]"));
 		{
 			JLabel lblName = new JLabel("Name:");
 			contentPanel.add(lblName, "cell 0 0,alignx trailing");
@@ -165,6 +166,7 @@ public class CreateAssignment extends JDialog {
 		}
 		{
 			tfWeekFreq = new JComboBox();
+			tfWeekFreq.setModel(new DefaultComboBoxModel(new String[] {"Every week", "Every other week", "Every third week", "Every fourth week"}));
 			contentPanel.add(tfWeekFreq, "cell 1 4");
 		}
 		{
@@ -251,6 +253,15 @@ public class CreateAssignment extends JDialog {
 			tfAssignmentLoc.setText(assignment.getAssignmentLoc());
 			tfTurnInLoc.setText(assignment.getTurninLoc());
 			tfFileLoc.setText(assignment.getResources());
+			cbRepeating.setVisible(false);
+			cbSu.setVisible(false);
+			cbM.setVisible(false);
+			cbT.setVisible(false);
+			cbW.setVisible(false);
+			cbTh.setVisible(false);
+			cbF.setVisible(false);
+			cbS.setVisible(false);
+			tfWeekFreq.setVisible(false);
 		}
 	}
 	
@@ -269,7 +280,7 @@ public class CreateAssignment extends JDialog {
 	
 	private void storeAssignment(){
 		Course course = getCourse((String)cbCourse.getSelectedItem());
-		boolean[] freq = {
+		boolean[] validDays = {
 				cbSu.isSelected(),
 				cbM.isSelected(),
 				cbT.isSelected(),
@@ -284,23 +295,27 @@ public class CreateAssignment extends JDialog {
 		Date startDate = (Date)spnStart.getValue();
 		Calendar startCal = new GregorianCalendar();
 		startCal.setTime(startDate);
+		int frequency = tfWeekFreq.getSelectedIndex() + 1;
 		
 		String hwName = tfName.getText();
 		String assignmentLoc = tfAssignmentLoc.getText();
 		String turninLoc = tfTurnInLoc.getText();
-		String resources = tfResources.getText();
+		String resources = tfFileLoc.getText();
 		
 		if (assignment == null){
-			assignment = new RepeatAssignment(freq, course, startCal, dueCal, dueCal, hwName, "", new Duration(), assignmentLoc,
-				turninLoc, resources, "");
+			assignment = new RepeatAssignment(course, frequency, validDays, hwName, "", new Duration(), assignmentLoc, turninLoc, resources, "", dueCal, startCal, dueCal);
 		}
 		else {
 			assignment.setAssignmentLoc(assignmentLoc);
 			assignment.setCourse(course);
-			assignment.setDueTime(dueDate);
-			assignment.setEndDate(dueDate);
-			assignment.setHWName(hwName);
-			assignmentLoc.
+			assignment.setStartDate(startCal);
+			assignment.setDueTime(dueCal);
+			assignment.setEndDate(dueCal);
+			assignment.setName(hwName);
+			assignment.setAssignmentLoc(assignmentLoc);
+			assignment.setName(hwName);
+			assignment.setResources(resources);
+			assignment.setTurninLoc(turninLoc);
 		}
 	}
 
