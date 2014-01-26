@@ -206,7 +206,7 @@ public class MainFrame extends JFrame {
 
 	private void addNewAssignment(){
 		instance.addChange(new DeleteRepeatAssignment(
-				CreateEditAssignment.createNewAssignment(instance.getCurSemester().getCourses(), this));
+				CreateEditAssignment.createNewAssignment(instance.getCurSemester().getCourses(), this)));
 		fillListOfDays();
 	}
 	
