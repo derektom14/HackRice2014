@@ -199,11 +199,15 @@ public class RepeatAssignment extends AAssignment
 	//-------------------------------------------------
 	// Class Methods
 	//-------------------------------------------------
-	public void removeAssignment(SingleAssignment assignment)
+	public RepeatAssignment removeAssignment(SingleAssignment assignment)
 	{
 		this.assignments.remove(assignment);
 		if (this.assignments.size() == 0)
+		{
 			this.getCourse().removeAssignment(this);
+			return this;
+		}
+		return null;
 	}
 }
 
