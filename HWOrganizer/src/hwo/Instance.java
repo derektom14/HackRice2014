@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class Instance {
-	private Semester[] semesters;
+	private ArrayList<Semester> semesters;
 	private String name;
 	private Settings settings = new Settings(null, null, null);
 	private int currentSemester;
@@ -19,7 +19,14 @@ public class Instance {
 		open();
 	}
 	
-	public Semester getCurSemester() {return semesters[currentSemester];}
+	public Semester getCurSemester() {return semesters.get(currentSemester);}
+	public void addSemester(Semester semester, int index)
+	{
+		if (index <= semesters.size())
+			semesters.add(semester);
+		else
+			throw new IllegalArgumentException("Tried to add a semester past the length of the ArrayList.");
+	}
 	
 	public void save() {
 		try{
@@ -28,9 +35,9 @@ public class Instance {
 			FileOutputStream saveFile = new FileOutputStream(f);
 			ObjectOutputStream out = new ObjectOutputStream(saveFile);
 			out.writeObject(name);
-			out.writeObject(semesters.length);
-			for (int i = 0; i < semesters.length; i++)
-				out.writeObject(semesters[i]);
+			out.writeObject(semesters.size());
+			for (int i = 0; i < semesters.size(); i++)
+				out.writeObject(semesters.get(i));
 			out.close();
 			saveFile.close();
 		} catch(IOException e) {
@@ -43,16 +50,18 @@ public class Instance {
 			FileInputStream saveFile = new FileInputStream(".hworganizer.ser");
 			ObjectInputStream in = new ObjectInputStream(saveFile);
 			name = (String) in.readObject();
-			semesters = new Semester[(int) in.readObject()];
-			for (int i = 0; i < semesters.length; i++)
-				semesters[i] = (Semester) in.readObject();
+			semesters = new ArrayList<Semester>();
+			int size = (int) in.readObject();
+			for (int i = 0; i < size; i++)
+				semesters.add((Semester) in.readObject());
 			in.close();
 			saveFile.close();
 		} catch(IOException e) {
 			GregorianCalendar now = new GregorianCalendar();
 			GregorianCalendar future = (GregorianCalendar) now.clone();
 			future.add(Calendar.MONTH, 4);
-			semesters = new Semester[]{new Semester(now, future)};
+			semesters = new ArrayList<Semester>();
+			semesters.add(new Semester(now, future));
 			name = "Name";
 			currentSemester = 0;
 		} catch(ClassNotFoundException e) {
@@ -63,7 +72,7 @@ public class Instance {
 	public ArrayList<SingleAssignment> filter()
 	{
 		ArrayList<SingleAssignment> results = new ArrayList<SingleAssignment>();
-		for (ICourse c : semesters[currentSemester].getCourses().values()) {
+		for (ICourse c : semesters.get(currentSemester).getCourses().values()) {
 			System.out.println("Course: " + c);
 			if (settings.getCourse() == null || settings.getCourse() == c) {
 				System.out.println("Accepted");
