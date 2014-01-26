@@ -117,6 +117,7 @@ public class Instance {
 	}
 	
 	public void undo() {
+		System.out.println("undo");
 		if (!undoStack.empty()) {
 			Change change = undoStack.pop();
 			redoStack.push(change.act());
