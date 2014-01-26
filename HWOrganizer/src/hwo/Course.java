@@ -64,7 +64,7 @@ public class Course implements ICourse
 	public Calendar getDueTime() {return dueTime;}
 	public ArrayList<RepeatAssignment> getAssignments() {return assignments;}
 	public ISemester getSemester() {return semester;}
-	// Can be from semester
+	// Can refer to semester
 	public Calendar getStartDate() 
 	{
 		if (this.startDate == null)
