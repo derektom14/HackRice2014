@@ -1,40 +1,48 @@
 // IAssignment
-// Author: Jenna
-// Interface for SingleAssignment and RepeatAssignment objects
+// Author: Jenna Netland
+// Owner: Jenna Netland
+// Interface for SingleAssignment and RepeatAssignment objects: Assignments hold the details of homework assignments
 
 package hwo;
+
 import java.util.Calendar;
 import java.time.Duration;
 
 public interface IAssignment 
 {
-	// Get Methods
+	//-------------------------------------------------
+	// Getter Methods
+	//-------------------------------------------------
+	public String getName();
+	public String getNotes();
+	public Duration getCompletionTime();
 	public Course getCourse();
+	// Can be from course
 	public String getAssignmentLoc();
 	public String getTurninLoc();
 	public String getResources();
 	public String getAssignmentType();
-	public String getHWName();
-	public String getNotes();
-	public Duration getCompletionTime();
+	public Calendar getDueTime();
+	// Can be from course / semester
 	public Calendar getStartDate();
 	public Calendar getEndDate();
-	public Calendar getDueTime();
 	
-	// Set Methods
-	public void setCourse(Course c);
-	public void setAssignmentLoc(String s);
-	public void setTurninLoc(String s);
-	public void setResources(String s);
-	public void setAssignmentType(String s);
-	public void setHWName(String s);
-	public void setNotes(String s);
-	public void setCompletionTime(Duration d);
-	// -d must be earlier than the current start date
-	public void setStartDate(Calendar d);
-	// -d must be later than the current end date
-	public void setEndDate(Calendar d);
-	public void setDueTime(Calendar t);
+	//-------------------------------------------------
+	// Setter Methods
+	//-------------------------------------------------
+	public void setName(String name);
+	public void setNotes(String notes);
+	public void setCompletionTime(Duration time);
+	public void setCourse(Course course);
+	// Can override value from course
+	public void setAssignmentLoc(String location);
+	public void setTurninLoc(String location);
+	public void setResources(String resources);
+	public void setAssignmentType(String type);
+	public void setDueTime(Calendar time);
+	// Can override value from course / semester
+	public void setStartDate(Calendar date);
+	public void setEndDate(Calendar date);
 	
 
 }

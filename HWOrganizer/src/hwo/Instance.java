@@ -41,7 +41,7 @@ public class Instance {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public ArrayList<SingleAssignment> filter(int semesterIndex)
 	{
 		ArrayList<SingleAssignment> results = new ArrayList<SingleAssignment>();
@@ -49,11 +49,9 @@ public class Instance {
 			if (settings.getCourse() == null || settings.getCourse() == c) {
 				for (RepeatAssignment r : c.getAssignments()) {
 					for (SingleAssignment s : r.getAssignments()) {
-						if (settings.getStartDate() == null || s.getDueDate().after(settings.getStartDate())) {
-							if (settings.getEndDate() == null || s.getDueDate().before(settings.getEndDate())) {
+						if (settings.getStartDate() == null || s.getDueDate().after(settings.getStartDate())
+							&& settings.getEndDate() == null || s.getDueDate().before(settings.getEndDate())) {
 								results.add(s);
-							}
-						}
 					}
 				}
 			}

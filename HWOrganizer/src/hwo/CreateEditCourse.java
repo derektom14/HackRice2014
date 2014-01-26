@@ -1,8 +1,5 @@
 package hwo;
 
-import hwo.Course;
-import hwo.Semester;
-
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.FlowLayout;

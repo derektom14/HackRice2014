@@ -1,13 +1,11 @@
 package hwo;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.ListModel;
 import javax.swing.border.BevelBorder;
 
 public class DayOfAssignments extends JPanel {
@@ -34,5 +32,4 @@ public class DayOfAssignments extends JPanel {
 	public void addAssignment(SingleAssignment assignment){
 		model.addElement(assignment);
 	}
-	
 }
