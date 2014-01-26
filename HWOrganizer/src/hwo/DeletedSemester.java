@@ -4,8 +4,9 @@ public class DeletedSemester extends Change{
 	private Semester semester;
 	private int semesterIndex;
 	
-	DeletedSemester(Semester semester) {
+	DeletedSemester(Semester semester, int semesterIndex) {
 		this.semester = semester;
+		this.semesterIndex = semesterIndex;
 	}
 	
 	public void act (Instance instance) {
