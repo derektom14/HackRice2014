@@ -10,9 +10,9 @@ import java.util.Calendar;
 
 public class Semester implements ISemester, java.io.Serializable
 {
-	private Calendar startDate;
-	private Calendar endDate;
-	private ArrayList<ICourse> courses;
+	private Calendar startDate; // The day the semester starts (ignores hours and below)
+	private Calendar endDate; // The day the semester ends (ignores hours and below)
+	private ArrayList<ICourse> courses; // A list of the courses in this semester
 	
 	//-------------------------------------------------
 	// Constructor

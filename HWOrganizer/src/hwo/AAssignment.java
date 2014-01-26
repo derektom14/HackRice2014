@@ -10,10 +10,10 @@ import java.time.Duration;
 
 public abstract class AAssignment implements IAssignment
 {
-	private String name;
-	private String notes;
-	private Duration completionTime;
-	private Course course;
+	private String name; // Name of the assignment
+	private String notes; // Notes regarding assignment
+	private Duration completionTime; // Estimated amount of time to complete assignment
+	private Course course; // The course which assigned this assignment
 	// Can refer to course
 	private String assignmentLoc;
 	private String turninLoc;

@@ -10,14 +10,14 @@ import java.util.Calendar;
 
 public class Course implements ICourse
 {
-	private String name;
-	private String assignmentLoc;
-	private String turninLoc;
-	private String resources;
-	private String assignmentType;
-	private Calendar dueTime;
-	private ArrayList<RepeatAssignment> assignments;
-	private ISemester semester;
+	private String name; // Name of the course
+	private String assignmentLoc; // Location of assignment (page number, url...)
+	private String turninLoc; // Location where assignment should be turned in (building, website...)
+	private String resources; // Location of additional resources for assignment (handouts, forums...)
+	private String assignmentType; // Type of assignment (reading, P-set, studying)
+	private Calendar dueTime; // Time at which the assignment is due (only concerned with hours / minutes)
+	private ArrayList<RepeatAssignment> assignments; // A list of assignments for this course
+	private ISemester semester; // The semester when this course occurs
 	// Can be from semester
 	private Calendar startDate;
 	private Calendar endDate;
@@ -89,7 +89,7 @@ public class Course implements ICourse
 	public void setDueTime(Calendar time) {this.dueTime = time;}
 	public void addAssignment(RepeatAssignment assignment) {this.assignments.add(assignment);}
 	public void setSemester(ISemester semester) {this.semester = semester;}
-	// Overrides link to semester
+	// Overrides value from semester
 	public void setStartDate(Calendar date) {this.startDate = date;}
 	public void setEndDate(Calendar date) {this.endDate = date;}
 } 

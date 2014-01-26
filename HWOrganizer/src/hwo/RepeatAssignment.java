@@ -12,9 +12,9 @@ import java.util.GregorianCalendar;
 
 public class RepeatAssignment extends AAssignment
 {
-	private int frequency; // in weeks - how often an assignment should occur
-	private boolean[] validDays;
-	private ArrayList<SingleAssignment> assignments;
+	private int frequency; // How often an assignment should occur (in weeks)
+	private boolean[] validDays; // 7-entry boolean array representing repeated days (Sunday - Saturday)
+	private ArrayList<SingleAssignment> assignments; // Holds SingleAssignments created by this RepeatAssignment
 	
 	//-------------------------------------------------
 	// Constructors
