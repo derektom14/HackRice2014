@@ -13,7 +13,6 @@ public class SingleAssignment extends AAssignment
 	private Calendar dueDate; // The date this assignment is due (ignores hours and below)
 	private int progress; // The current progress on the assignment as a percentage (0 <= progress <= 100)
 	private int priority; // The priority of the assignment (1 (low) <= priority <= 5 (high))
-	private boolean completed; // Whether or not the assignment has been completed
 	private RepeatAssignment parent; // The RepeatedAssignment that created this assignment
 	
 	//-------------------------------------------------
@@ -24,7 +23,6 @@ public class SingleAssignment extends AAssignment
 		this.dueDate = dueDate;
 		this.progress = 0;
 		this.priority = 2;
-		this.completed = false;
 		
 		this.parent = parent;
 		
@@ -47,7 +45,7 @@ public class SingleAssignment extends AAssignment
 	public Calendar getDueDate() {return this.dueDate;}
 	public int getProgress()  {return this.progress;}
 	public int getPriority() {return this.priority;}
-	public boolean isCompleted() {return this.completed;}
+	public boolean isCompleted() {return this.priority == 100;}
 	public RepeatAssignment getParentAssignment() {return this.parent;}
 	// Overriden for SingleAssignments
 	public Calendar getStartDate() {return this.dueDate;}
@@ -134,5 +132,5 @@ public class SingleAssignment extends AAssignment
 	public void setDueDate(Calendar d) {this.dueDate = d;}
 	public void setProgress(int p) {this.progress = p;}
 	public void setPriority(int p) {this.priority = p;}
-	public void setCompletion(boolean c) {this.completed = c;}
+	public void setCompletion(boolean c) {this.progress = 100;}
 }
