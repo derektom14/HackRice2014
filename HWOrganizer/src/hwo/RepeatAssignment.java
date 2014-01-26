@@ -32,8 +32,13 @@ public class RepeatAssignment extends AAssignment
 		super.setCompletionTime(null);
 		
 		// Add this to course
-		super.setCourse(course);
-		super.getCourse().addAssignment(this);
+		if (course != null)
+		{
+			super.setCourse(course);
+			super.getCourse().addAssignment(this);
+		}
+		else
+			throw new IllegalArgumentException("Tried to set an assignment's course to null.");
 		
 		// Signals to refer to the parent course
 		super.setAssignmentLoc(null);
@@ -52,8 +57,14 @@ public class RepeatAssignment extends AAssignment
 	public RepeatAssignment (Course course, int frequency, boolean[] validDays, String name, String notes, Duration completionTime,
 			String assignmentLoc, String turninLoc, String resources, String assignmentType, Calendar dueTime, Calendar startDate, Calendar endDate)
 	{
-		this.frequency = frequency;
-		this.validDays = validDays;
+		if (frequency > 1)
+			this.frequency = frequency;
+		else
+			throw new IllegalArgumentException("Tried to set an assignment's frequency to a negative value.");
+		if (validDays.length == 7)
+			this.validDays = validDays;
+		else
+			throw new IllegalArgumentException("Tried to use a validDays array of a length that wasn't 7.");
 		this.assignments = new ArrayList<SingleAssignment>();
 		
 		super.setName(name);
@@ -61,8 +72,13 @@ public class RepeatAssignment extends AAssignment
 		super.setCompletionTime(completionTime);
 		
 		// Add this to course
-		super.setCourse(course);
-		super.getCourse().addAssignment(this);
+		if (course != null)
+		{
+			super.setCourse(course);
+			super.getCourse().addAssignment(this);
+		}
+		else
+			throw new IllegalArgumentException("Tried to set an assignment's course to null.");
 		
 		// Can refer to course
 		super.setAssignmentLoc(assignmentLoc);
@@ -71,6 +87,8 @@ public class RepeatAssignment extends AAssignment
 		super.setAssignmentType(assignmentType);
 		super.setDueTime(dueTime);
 		// Can refer to course / semester
+		if (startDate.after(endDate))
+			throw new IllegalArgumentException("Tried to set an assignment's start date to be later than its end date.");
 		super.setStartDate(startDate);
 		super.setEndDate(endDate);
 		
