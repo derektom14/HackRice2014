@@ -53,20 +53,22 @@ public class Semester implements ISemester
 		else
 			this.endDate = endDate;
 	}
-	public String addCourse(ICourse course) 
+	public void addCourse(ICourse course) 
 	{
 		if (course != null) {
-			if (courses.containsKey(course.getName()))
-				return "There is already a course with the name " + course.getName();
 			System.out.println("Adding " + course + ", name " + course.getName());
 			courses.put(course.getName(), course);
 		}
 		else
 			throw new IllegalArgumentException("Tried to add a null course to a semester.");
-		return null;
 	}
 	public void removeCourse(ICourse course)
 	{
 		this.courses.remove(course);
+	}
+	public String validateCourse(ICourse course) {
+		if (courses.containsKey(course.getName()))
+			return "There is already a course with the name " + course.getName();
+		return null;
 	}
 }
