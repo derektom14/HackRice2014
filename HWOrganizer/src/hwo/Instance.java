@@ -9,7 +9,7 @@ import java.io.IOException;
 public class Instance {
 	private Semester[] semesters;
 	private String name;
-	private Settings settings;
+	private Settings settings = new Settings(null, null, null);
 	private int currentSemester;
 	
 	Instance () {
