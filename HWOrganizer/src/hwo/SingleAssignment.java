@@ -43,6 +43,12 @@ public class SingleAssignment extends AAssignment
 		super.setDueTime(null);
 	}
 	
+	// Shallow Copy Constructor
+	public SingleAssignment(SingleAssignment orig)
+	{
+		this.changeTo(orig);
+	}
+	
 	//-------------------------------------------------
 	// Getter methods
 	//-------------------------------------------------
@@ -177,6 +183,13 @@ public class SingleAssignment extends AAssignment
 	public void removeSelf()
 	{
 		this.parent.removeAssignment(this);
+	}
+	public void changeTo(SingleAssignment from)
+	{
+		super.changeTo(from);
+		this.dueDate = from.dueDate;
+		this.progress = from.progress;
+		this.parent = from.parent;
 	}
 }
 

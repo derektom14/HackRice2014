@@ -72,4 +72,23 @@ public abstract class AAssignment implements IAssignment
 		else
 			this.endDate = date;
 	}
+	
+	//-------------------------------------------------
+	// Class methods
+	//-------------------------------------------------
+	public void changeTo(AAssignment from)
+	{
+		this.name = from.name;
+		this.notes = from.notes;
+		this.completionTime = from.completionTime;
+		this.priority = from.priority;
+		this.course = from.course;
+		this.assignmentLoc = from.assignmentLoc;
+		this.turninLoc = from.turninLoc;
+		this.resources = from.resources;
+		this.assignmentType = from.assignmentType;
+		this.dueTime = from.dueTime;
+		this.startDate = from.startDate;
+		this.endDate = from.endDate;
+	}
 }

@@ -101,6 +101,13 @@ public class RepeatAssignment extends AAssignment
 			createSingleAssignment();
 	}
 	
+	// Shallow Copy Constructor
+	public RepeatAssignment(RepeatAssignment orig)
+	{
+		this.changeTo(orig);
+	}
+	
+	// Creates one SingleAssignment
 	private void createSingleAssignment() {
 		GregorianCalendar g = new GregorianCalendar(getStartDate().get(Calendar.YEAR),
 				getStartDate().get(Calendar.MONTH), getStartDate().get(Calendar.DAY_OF_MONTH));
@@ -209,6 +216,13 @@ public class RepeatAssignment extends AAssignment
 			return this;
 		}
 		return null;
+	}
+	public void changeTo(RepeatAssignment from)
+	{
+		super.changeTo(from);
+		this.frequency = from.frequency;
+		this.validDays = from.validDays;
+		this.assignments = from.assignments;
 	}
 }
 
