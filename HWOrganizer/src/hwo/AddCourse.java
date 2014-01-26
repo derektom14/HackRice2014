@@ -1,9 +1,9 @@
 package hwo;
 
 public class AddCourse extends Change{
-	private Course course;
+	private ICourse course;
 	
-	AddCourse(Course course) {
+	AddCourse(ICourse course) {
 		this.course = course;
 	}
 	

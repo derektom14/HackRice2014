@@ -11,7 +11,7 @@ import java.util.GregorianCalendar;
 import java.util.Stack;
 
 public class Instance {
-	private ArrayList<Semester> semesters;
+	private ArrayList<ISemester> semesters;
 	private String name;
 	private Settings settings = new Settings(null, null, null);
 	private int currentSemester;
@@ -22,9 +22,9 @@ public class Instance {
 		open();
 	}
 	
-	public Semester getCurSemester() {return semesters.get(currentSemester);}
+	public ISemester getCurSemester() {return semesters.get(currentSemester);}
 	
-	public void addSemester(Semester semester, int index)
+	public void addSemester(ISemester semester, int index)
 	{
 		if (index <= semesters.size())
 			semesters.add(semester);
@@ -32,10 +32,10 @@ public class Instance {
 			throw new IllegalArgumentException("Tried to add a semester past the length of the ArrayList.");
 	}
 
-	public Semester deleteSemester(int index)
+	public ISemester deleteSemester(int index)
 	{
 		if (index < semesters.size()) {
-			Semester semester = semesters.get(index);
+			ISemester semester = semesters.get(index);
 			semesters.remove(index);
 			return semester;
 		}
@@ -65,7 +65,7 @@ public class Instance {
 			FileInputStream saveFile = new FileInputStream(".hworganizer.ser");
 			ObjectInputStream in = new ObjectInputStream(saveFile);
 			name = (String) in.readObject();
-			semesters = new ArrayList<Semester>();
+			semesters = new ArrayList<ISemester>();
 			int size = (int) in.readObject();
 			for (int i = 0; i < size; i++)
 				semesters.add((Semester) in.readObject());
@@ -75,7 +75,7 @@ public class Instance {
 			GregorianCalendar now = new GregorianCalendar();
 			GregorianCalendar future = (GregorianCalendar) now.clone();
 			future.add(Calendar.MONTH, 4);
-			semesters = new ArrayList<Semester>();
+			semesters = new ArrayList<ISemester>();
 			semesters.add(new Semester(now, future));
 			name = "Name";
 			currentSemester = 0;

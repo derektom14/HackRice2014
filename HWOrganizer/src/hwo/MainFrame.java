@@ -211,7 +211,7 @@ public class MainFrame extends JFrame {
 	}
 	
 	private void addNewCourse(){
-		instance.addChange(new DeleteCourse(CreateEditCourse.createNewCourse(instance.getCurSemester(), this));
+		instance.addChange(new DeleteCourse(CreateEditCourse.createNewCourse(instance.getCurSemester(), this)));
 	}
 	
 	private boolean sameDay(Calendar c, int year, int day){
