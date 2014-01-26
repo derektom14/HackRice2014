@@ -35,6 +35,7 @@ public interface IAssignment extends Serializable
 	public void setName(String name);
 	public void setNotes(String notes);
 	public void setCompletionTime(Duration time);
+	public void setPriority(int priority);
 	public void setCourse(ICourse course);
 	// Can override value from course
 	public void setAssignmentLoc(String location);
