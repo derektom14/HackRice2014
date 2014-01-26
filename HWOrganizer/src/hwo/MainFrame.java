@@ -191,7 +191,7 @@ public class MainFrame extends JFrame {
 		dayList.setModel(dayListModel);
 		assignmentList.add(new JScrollPane(dayList));
 		
-		assignmentInfo = new AssignmentDisplay();
+		assignmentInfo = new AssignmentDisplay(instance);
 		contentPane.add(assignmentInfo, BorderLayout.EAST);
 		assignmentInfo.setVisible(false);
 		

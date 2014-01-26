@@ -74,7 +74,7 @@ public class CreateEditAssignment extends JDialog {
 		return (RepeatAssignment) dialog.assignment;
 	}
 	
-	public static void editAssignment(SingleAssignment assignment, Frame parent){
+	public static void editAssignment(SingleAssignment assignment, Frame parent, Instance instance){
 		CreateEditAssignment dialog = new CreateEditAssignment(parent, assignment.getCourse().getSemester().getCourses(), assignment);
 		dialog.setModal(true);
 		dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
