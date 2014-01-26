@@ -235,7 +235,7 @@ public class MainFrame extends JFrame {
 	}
 	
 	private void filterAssignments(){
-		new FilterSettings(instance);
+		FilterSettings.changeSettings(instance, this);
 	}
 
 }

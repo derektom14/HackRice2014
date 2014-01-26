@@ -30,8 +30,7 @@ class AssignmentListCellRenderer extends JLabel implements ListCellRenderer<Sing
      {
          String s = assignment.getName() + ' ' + assignment.getTimeString();
          setText(s);
-         System.out.println("Setting icon");
-         if (true || assignment.isCompleted())
+         if (assignment.isCompleted())
         	 setIcon(completeIcon);
          addMouseListener(new MouseAdapter(){
         	 public void mouseClicked(MouseEvent e){

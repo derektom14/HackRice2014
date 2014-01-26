@@ -142,4 +142,13 @@ public class Course implements ICourse, Serializable
 	{
 		this.semester.removeCourse(this);
 	}
+	
+	public String validateAssignment(IAssignment assignment){
+		for (RepeatAssignment a : getAssignments()){
+			if (a != assignment && a.getName().equals(assignment.getName()))
+				return "Cannot have multiple assignments in " + getName() + " with name " + assignment.getName();
+		}
+		return null;
+		
+	}
 } 

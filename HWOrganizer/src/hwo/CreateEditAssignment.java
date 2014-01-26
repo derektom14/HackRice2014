@@ -116,7 +116,7 @@ public class CreateEditAssignment extends JDialog {
 			System.out.println(courseMap);
 			String[] courseNames = new String[courseMap.size() + 1];
 			courseNames[0] = "";
-			int k = 0;
+			int k = 1;
 			for (String cName : courseMap.keySet())
 				courseNames[k++] = cName;
 			System.out.println(Arrays.toString(courseNames));
@@ -143,7 +143,7 @@ public class CreateEditAssignment extends JDialog {
 		}
 		{
 			spnDue = new JSpinner();
-			spnDue.setModel(new SpinnerDateModel(new Date(), new Date(), null, Calendar.MINUTE));
+			spnDue.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.MINUTE));
 			contentPanel.add(spnDue, "cell 1 3");
 		}
 		{
