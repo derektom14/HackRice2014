@@ -18,6 +18,8 @@ public class Instance {
 		currentSemester = 0;
 	}
 	
+	public Semester getCurSemester() {return semesters[currentSemester];}
+	
 	public void save(String fileName) {
 		try{
 			FileOutputStream saveFile = new FileOutputStream(fileName);
