@@ -16,7 +16,7 @@ public interface IAssignment
 	public String getName();
 	public String getNotes();
 	public Duration getCompletionTime();
-	public Course getCourse();
+	public ICourse getCourse();
 	// Can be from course
 	public String getAssignmentLoc();
 	public String getTurninLoc();
@@ -33,7 +33,7 @@ public interface IAssignment
 	public void setName(String name);
 	public void setNotes(String notes);
 	public void setCompletionTime(Duration time);
-	public void setCourse(Course course);
+	public void setCourse(ICourse course);
 	// Can override value from course
 	public void setAssignmentLoc(String location);
 	public void setTurninLoc(String location);

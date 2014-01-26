@@ -56,7 +56,7 @@ public class SingleAssignment extends AAssignment
 	public Calendar getStartDate() {return this.dueDate;}
 	public Calendar getEndDate() {return this.dueDate;}
 	// Can refer to parent RepeatAssignment
-	public Course getCourse()
+	public ICourse getCourse()
 	{
 		if (super.getCourse() == null)
 			return this.parent.getCourse();

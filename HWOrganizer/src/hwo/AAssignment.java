@@ -13,7 +13,7 @@ public abstract class AAssignment implements IAssignment
 	private String name; // Name of the assignment
 	private String notes; // Notes regarding assignment
 	private Duration completionTime; // Estimated amount of time to complete assignment
-	private Course course; // The course which assigned this assignment
+	private ICourse course; // The course which assigned this assignment
 	// Can refer to course
 	private String assignmentLoc;
 	private String turninLoc;
@@ -30,7 +30,7 @@ public abstract class AAssignment implements IAssignment
 	public String getName() {return this.name;}
 	public String getNotes() {return this.notes;}
 	public Duration getCompletionTime() {return this.completionTime;}
-	public Course getCourse() {return this.course;}
+	public ICourse getCourse() {return this.course;}
 	// Can refer to course
 	public String getAssignmentLoc() {return this.assignmentLoc;}
 	public String getTurninLoc() {return this.turninLoc;}
@@ -47,7 +47,7 @@ public abstract class AAssignment implements IAssignment
 	public void setName(String s) {this.name = s;}
 	public void setNotes(String s) {this.notes = s;}
 	public void setCompletionTime(Duration d) {this.completionTime = d;} 
-	public void setCourse(Course c) {this.course = c;}
+	public void setCourse(ICourse c) {this.course = c;}
 	// Overrides value from course
 	public void setAssignmentLoc(String s) {this.assignmentLoc = s;}
 	public void setTurninLoc(String s) {this.turninLoc = s;}
