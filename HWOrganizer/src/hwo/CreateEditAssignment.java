@@ -424,9 +424,11 @@ public class CreateEditAssignment extends JDialog {
 		if (assignment == null){
 			System.out.println("Creating new assignment");
 			assignment = new RepeatAssignment(course, frequency, validDays, hwName, "", null, assignmentLoc, turninLoc, resources, "", dueCal, startCal, endCal, cbRepeating.isSelected(), priority);
+			instance.addChange(new DeleteRepeatAssignment((RepeatAssignment)assignment));
 		}
 		else {
 			System.out.println("Storing into previous assignment");
+			instance.addChange(new EditSingleAssignment((SingleAssignment) assignment, new SingleAssignment((SingleAssignment)assignment)));
 			assignment.setCourse(course);
 			assignment.setDueTime(dueCal);
 			assignment.setEndDate(endCal);
