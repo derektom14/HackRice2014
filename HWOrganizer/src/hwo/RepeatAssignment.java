@@ -121,7 +121,7 @@ public class RepeatAssignment extends AAssignment
 			{
 				int numWeeks = (weekCounter % 7) + 1;
 				if ((numWeeks + 1) % this.frequency == 0){
-					this.assignments.add(new SingleAssignment(this, g));
+					this.assignments.add(new SingleAssignment(this, new GregorianCalendar(g.get(Calendar.YEAR), g.get(Calendar.MONTH), g.get(Calendar.DAY_OF_MONTH))));
 				}
 			}
 			// Increment day and week counter
