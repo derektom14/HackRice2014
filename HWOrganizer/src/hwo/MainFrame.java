@@ -24,6 +24,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
+import javax.swing.KeyStroke;
+import java.awt.event.KeyEvent;
+import java.awt.event.InputEvent;
 
 // Derek
 
@@ -74,6 +77,7 @@ public class MainFrame extends JFrame {
 		menuBar.add(mnFile);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("New Assignment");
+		mntmNewMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				addNewAssignment();
@@ -90,6 +94,7 @@ public class MainFrame extends JFrame {
 		mnFile.add(mntmNewCourse);
 		
 		JMenuItem mntmSave = new JMenuItem("Save");
+		mntmSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
 		mntmSave.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				save();
@@ -98,6 +103,7 @@ public class MainFrame extends JFrame {
 		mnFile.add(mntmSave);
 		
 		JMenuItem mntmSaveAsText = new JMenuItem("Save as Text");
+		mntmSaveAsText.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		mnFile.add(mntmSaveAsText);
 		
 		JMenu mnFilter = new JMenu("Filter");
@@ -110,9 +116,11 @@ public class MainFrame extends JFrame {
 		menuBar.add(mnNewMenu);
 		
 		JMenuItem mntmUndo = new JMenuItem("Undo");
+		mntmUndo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_MASK));
 		mnNewMenu.add(mntmUndo);
 		
 		JMenuItem mntmRedo = new JMenuItem("Re-do");
+		mntmRedo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		mnNewMenu.add(mntmRedo);
 		
 		JMenu mnOptions = new JMenu("Options");
@@ -181,7 +189,7 @@ public class MainFrame extends JFrame {
 		
 		assignmentInfo = new AssignmentDisplay();
 		contentPane.add(assignmentInfo);
-		//assignmentInfo.setVisible(false);
+		assignmentInfo.setVisible(false);
 		
 		addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){

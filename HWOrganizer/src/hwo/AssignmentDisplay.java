@@ -1,12 +1,18 @@
 package hwo;
 
-import javax.swing.JPanel;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.JLabel;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
+
+import net.miginfocom.swing.MigLayout;
 
 public class AssignmentDisplay extends JPanel {
+	
+	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("E, M d");
+	
 	private JLabel lblAssignmentName;
 	private JLabel lblDueVal;
 	private JLabel lblPriorityVal;
@@ -44,9 +50,9 @@ public class AssignmentDisplay extends JPanel {
 
 	public void setAssignment(SingleAssignment assignment) {
 		lblAssignmentName.setText(assignment.getName());
-		lblDueVal.setText(assignment.getDueTime().toString());
+		lblDueVal.setText(dateFormat.format(assignment.getDueTime().getTime()));
 		lblPriorityVal.setText(String.valueOf(assignment.getPriority()));
-		lblInfoVal.setText(assignment.getAssignmentLoc());
+		lblInfoVal.setText(Util.linkify(assignment.getAssignmentLoc()));
 		setVisible(true);
 	}
 

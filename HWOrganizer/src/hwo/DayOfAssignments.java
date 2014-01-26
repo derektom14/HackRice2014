@@ -47,10 +47,6 @@ public class DayOfAssignments extends JPanel {
 		list.setModel(model);
 		list.setCellRenderer(new AssignmentListCellRenderer(assignmentInfo));
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(null);
-		panel.add(lblNewLabel);
-		
 		addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
 				System.out.println("CLICK");
