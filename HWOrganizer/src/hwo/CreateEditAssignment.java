@@ -112,11 +112,17 @@ public class CreateEditAssignment extends JDialog {
 			contentPanel.add(lblCourse, "cell 0 1,alignx trailing");
 		}
 		{
-			String[] courseNames = new String[courses.size()];
+			String[] courseNames = new String[courses.size() + 1];
+			courseNames[0] = "";
 			for (int k = 0; k < courses.size(); k++)
-				courseNames[k] = courses.get(k).getName();
+				courseNames[k + 1] = courses.get(k).getName();
 			System.out.println(courseNames);
 			cbCourse = new JComboBox(courseNames);
+			cbCourse.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e){
+					switchCourse(getCourse((String)cbCourse.getSelectedItem()));
+				}
+			});
 			contentPanel.add(cbCourse, "cell 1 1,growx");
 		}
 		{
@@ -210,7 +216,7 @@ public class CreateEditAssignment extends JDialog {
 				btnBrowse = new JButton("Browse...");
 				btnBrowse.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						browseForFile();
+						Util.browseForFile(tfFileLoc, CreateEditAssignment.this);
 					}
 				});
 				panel.add(btnBrowse);
@@ -285,18 +291,23 @@ public class CreateEditAssignment extends JDialog {
 		}
 	}
 	
-	private void browseForFile(){
-		JFileChooser chooser = new JFileChooser();
-		System.out.println(chooser);
-		File file = chooser.getSelectedFile();
-		System.out.println(file);
-		tfFileLoc.setText(file.getAbsolutePath());
+	private void switchCourse(ICourse course){
+		if (course != null){
+			if (tfFileLoc.getText().equals(""))
+				tfFileLoc.setText(course.getResources());
+			if (tfAssignmentLoc.getText().equals(""))
+				tfAssignmentLoc.setText(course.getAssignmentLoc());
+			if (tfTurnInLoc.getText().equals(""))
+				tfTurnInLoc.setText(course.getTurninLoc());
+		}
 	}
 	
 	private ICourse getCourse(String cName){
 		for (ICourse c : courses)
 			if (c.getName().equals(cName))
 				return c;
+		if (cName.equals(""))
+			return null;
 		throw new IllegalStateException("Chose nonexistent course");
 	}
 	
