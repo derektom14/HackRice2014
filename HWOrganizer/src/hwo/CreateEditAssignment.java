@@ -7,12 +7,13 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -26,15 +27,13 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.xml.datatype.Duration;
 
 import net.miginfocom.swing.MigLayout;
-import javax.swing.DefaultComboBoxModel;
 
 public class CreateEditAssignment extends JDialog {
 	
-	private AAssignment assignment;
-	private Course[] courses;
+	private IAssignment assignment;
+	private ArrayList<ICourse> courses;
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField tfName;
@@ -50,7 +49,7 @@ public class CreateEditAssignment extends JDialog {
 	private JCheckBox cbS;
 	private JComboBox<String> tfWeekFreq;
 	private JSlider progress;
-	private JComboBox<Course> cbCourse;
+	private JComboBox<ICourse> cbCourse;
 	private JSpinner spnDue;
 	private JPanel panel;
 	private JTextField tfFileLoc;
@@ -61,8 +60,8 @@ public class CreateEditAssignment extends JDialog {
 	private JButton btnComplete;
 	private JLabel lblProgress;
 
-	public static RepeatAssignment createNewAssignment(Course[] courses, Frame parent){
-		if (courses.length == 0)
+	public static RepeatAssignment createNewAssignment(ArrayList<ICourse> courses, Frame parent){
+		if (courses.size() == 0)
 			throw new IllegalArgumentException("Cannot create assignment with no courses");
 		CreateEditAssignment dialog = new CreateEditAssignment(parent, courses, null);
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -72,7 +71,7 @@ public class CreateEditAssignment extends JDialog {
 		return (RepeatAssignment) dialog.assignment;
 	}
 	
-	public static void editAssignment(Course[] courses, Frame parent, SingleAssignment assignment){
+	public static void editAssignment(ArrayList<ICourse> courses, Frame parent, SingleAssignment assignment){
 		CreateEditAssignment dialog = new CreateEditAssignment(parent, courses, assignment);
 		dialog.setModal(true);
 		dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
@@ -83,13 +82,13 @@ public class CreateEditAssignment extends JDialog {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		new CreateEditAssignment(null, new Course[0], null).setVisible(true);
+		new CreateEditAssignment(null, new ArrayList<ICourse>(), null).setVisible(true);
 	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public CreateEditAssignment(Frame parent, Course[] courses, SingleAssignment assignment) {
+	public CreateEditAssignment(Frame parent, ArrayList<ICourse> courses, SingleAssignment assignment) {
 		super(parent, true);
 		setTitle("Create New Assignment");
 		this.assignment = assignment;
@@ -109,13 +108,13 @@ public class CreateEditAssignment extends JDialog {
 			tfName.setColumns(10);
 		}
 		{
-			JLabel lblCourse = new JLabel("Course:");
+			JLabel lblCourse = new JLabel("ICourse:");
 			contentPanel.add(lblCourse, "cell 0 1,alignx trailing");
 		}
 		{
-			String[] courseNames = new String[courses.length];
-			for (int k = 0; k < courses.length; k++)
-				courseNames[k] = courses[k].getName();
+			String[] courseNames = new String[courses.size()];
+			for (int k = 0; k < courses.size(); k++)
+				courseNames[k] = courses.get(k).getName();
 			cbCourse = new JComboBox(courseNames);
 			contentPanel.add(cbCourse, "cell 1 1,growx");
 		}
@@ -291,15 +290,15 @@ public class CreateEditAssignment extends JDialog {
 		tfFileLoc.setText(file.getAbsolutePath());
 	}
 	
-	private Course getCourse(String cName){
-		for (Course c : courses)
+	private ICourse getCourse(String cName){
+		for (ICourse c : courses)
 			if (c.getName().equals(cName))
 				return c;
 		throw new IllegalStateException("Chose nonexistent course");
 	}
 	
 	private void storeAssignment(){
-		Course course = getCourse((String)cbCourse.getSelectedItem());
+		ICourse course = getCourse((String)cbCourse.getSelectedItem());
 		boolean[] validDays = {
 				cbSu.isSelected(),
 				cbM.isSelected(),

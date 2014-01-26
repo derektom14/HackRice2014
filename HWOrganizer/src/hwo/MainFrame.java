@@ -169,11 +169,15 @@ public class MainFrame extends JFrame {
 	}
 
 	private void addNewAssignment(){
+		System.out.println(instance);
+		System.out.println(instance.getCurSemester());
+		System.out.println(instance.getCurSemester().getCourses());
 		RepeatAssignment assignment = CreateEditAssignment.createNewAssignment(instance.getCurSemester().getCourses(), this);
 	}
 	
 	private void addNewCourse(){
 		Course course = CreateEditCourse.createNewCourse(instance.getCurSemester(), this);
+		instance.getCurSemester().addCourse(course);
 	}
 	
 	private boolean sameDay(Calendar a, Calendar b){

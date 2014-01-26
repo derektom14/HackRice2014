@@ -13,7 +13,7 @@ public class Semester implements ISemester, java.io.Serializable
 {
 	private Calendar startDate; // The day the semester starts (ignores hours and below)
 	private Calendar endDate; // The day the semester ends (ignores hours and below)
-	private ArrayList<ICourse> courses; // A list of the courses in this semester
+	private ArrayList<ICourse> courses = new ArrayList<ICourse>(); // A list of the courses in this semester
 	
 	//-------------------------------------------------
 	// Constructor
