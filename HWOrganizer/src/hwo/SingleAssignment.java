@@ -6,14 +6,12 @@
 package hwo;
 
 import java.util.Calendar;
-
-import javax.xml.datatype.Duration;
+import java.time.Duration;
 
 public class SingleAssignment extends AAssignment
 {
 	private Calendar dueDate; // The date this assignment is due (ignores hours and below)
 	private int progress; // The current progress on the assignment as a percentage (0 <= progress <= 100, default = 0)
-	private int priority; // The priority of the assignment (1 (low) <= priority <= 5 (high), default = 2)
 	private RepeatAssignment parent; // The RepeatedAssignment that created this assignment
 	
 	//-------------------------------------------------
@@ -25,7 +23,6 @@ public class SingleAssignment extends AAssignment
 	{
 		this.dueDate = dueDate;
 		this.progress = 0;
-		this.priority = 2;
 		
 		if (parent != null)
 			this.parent = parent;
@@ -36,6 +33,7 @@ public class SingleAssignment extends AAssignment
 		super.setName(null);
 		super.setNotes(null);
 		super.setCompletionTime(null);
+		super.setPriority(0);
 		super.setCourse(null);
 		// Signals to refer to the parent RepeatAssignment / course
 		super.setAssignmentLoc(null);
@@ -50,8 +48,7 @@ public class SingleAssignment extends AAssignment
 	//-------------------------------------------------
 	public Calendar getDueDate() {return this.dueDate;}
 	public int getProgress()  {return this.progress;}
-	public int getPriority() {return this.priority;}
-	public boolean isCompleted() {return this.priority == 100;}
+	public boolean isCompleted() {return this.progress == 100;}
 	public RepeatAssignment getParentAssignment() {return this.parent;}
 	// Overriden for SingleAssignments
 	public Calendar getStartDate() {return this.dueDate;}
@@ -80,6 +77,12 @@ public class SingleAssignment extends AAssignment
 		if (super.getCompletionTime() == null)
 			return this.parent.getCompletionTime();
 		return super.getCompletionTime();
+	}
+	public int getPriority()
+	{
+		if (super.getPriority() == 0)
+			return this.parent.getPriority();
+		return super.getPriority();
 	}
 	// Can refer to parent RepeatAssignment / course
 	public String getAssignmentLoc()
@@ -145,14 +148,14 @@ public class SingleAssignment extends AAssignment
 		else
 			this.progress = progress;
 	}
+	public void complete() {this.progress = 100;}
 	public void setPriority(int priority) 
 	{
 		if (priority < 1 || priority > 5)
 			throw new IllegalArgumentException("Tried to set an assignment's priority to a value outside the range 1-5.");
 		else
-			this.priority = priority;
+			super.setPriority(priority);
 	}
-	public void complete() {this.progress = 100;}
 }
 
 
