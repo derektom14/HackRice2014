@@ -46,4 +46,5 @@ public interface ICourse extends Serializable
 	// Class methods
 	//-------------------------------------------------
 	public void removeSelf();
+	public String validateAssignment(int frequency, boolean[] validDays, Calendar startDate, Calendar endDate);
 }

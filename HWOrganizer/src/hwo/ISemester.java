@@ -22,7 +22,7 @@ public interface ISemester extends Serializable
 	//-------------------------------------------------
 	public void setStartDate(Calendar startDate);
 	public void setEndDate(Calendar endDate);
-	public String addCourse(ICourse newCourse);
+	public void addCourse(ICourse newCourse);
 	public void removeCourse(ICourse course);
 	public HashMap<String, ICourse> getCourses();
 }

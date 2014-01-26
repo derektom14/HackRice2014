@@ -143,12 +143,15 @@ public class Course implements ICourse, Serializable
 		this.semester.removeCourse(this);
 	}
 	
-	public String validateAssignment(IAssignment assignment){
-		for (RepeatAssignment a : getAssignments()){
-			if (a != assignment && a.getName().equals(assignment.getName()))
-				return "Cannot have multiple assignments in " + getName() + " with name " + assignment.getName();
-		}
-		return null;
+	public String validateAssignment(int frequency, boolean[] validDays, Calendar startDate, Calendar endDate)
+	{
+		if (frequency < 1)
+			return "Tried to set an assignment's frequency to a negative value.";
+		if (validDays.length != 7)
+			return "Tried to use a validDays array of a length that wasn't 7.";
+		if (startDate.after(endDate))
+			return "Tried to set an assignment's start date to be later than its end date.";
 		
+		return null; // null indicates no errors were found
 	}
 } 
