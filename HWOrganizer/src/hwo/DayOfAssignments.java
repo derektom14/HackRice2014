@@ -7,6 +7,13 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
+import javax.swing.AbstractListModel;
+import javax.swing.BoxLayout;
+import javax.swing.JSplitPane;
+import java.awt.FlowLayout;
+import java.awt.Component;
+import javax.swing.JScrollBar;
+import javax.swing.JButton;
 
 public class DayOfAssignments extends JPanel {
 
@@ -20,12 +27,26 @@ public class DayOfAssignments extends JPanel {
 	public DayOfAssignments(Calendar curDay) {
 		this.day = curDay;
 		setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
+		JPanel panel_1 = new JPanel();
+		add(panel_1);
+		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
 		JLabel lblNameOfDay = new JLabel("Name of Day");
-		add(lblNameOfDay);
+		panel_1.add(lblNameOfDay);
 		
 		model = new DefaultListModel<SingleAssignment>();
+		
+		JPanel panel = new JPanel();
+		add(panel);
 		list = new AssignmentList(model);
-		add(list);
+		panel.add(list);
+		list.setModel(model);
+		list.setCellRenderer(new AssignmentListCellRenderer());
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(null);
+		panel.add(lblNewLabel);
 
 	}
 

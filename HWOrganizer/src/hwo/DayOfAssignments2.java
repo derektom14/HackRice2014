@@ -41,15 +41,8 @@ public class DayOfAssignments2 extends JPanel {
 		add(panel);
 		list = new AssignmentList(model);
 		panel.add(list);
-		list.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Item 1", "Item 2", "a", "b", "c", "d", "e", "f", "g"};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
+		list.setModel(model);
+		list.setCellRenderer(new AssignmentListCellRenderer());
 		
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setIcon(null);
