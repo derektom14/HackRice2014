@@ -134,24 +134,24 @@ public class SingleAssignment extends AAssignment
 	//-------------------------------------------------
 	// Setter methods
 	//-------------------------------------------------
-	public void setDueDate(Calendar d) {this.dueDate = d;}
-	public void setProgress(int p) 
+	public void setDueDate(Calendar date) {this.dueDate = date;}
+	public void setProgress(int progress) 
 	{
-		if (p < 0)
+		if (progress < 0)
 			throw new IllegalArgumentException("Tried to set an assignment's progress to a negative value.");
-		else if (p > 100)
+		else if (progress > 100)
 			throw new IllegalArgumentException("Tried to set an assignment's progress to greater than 100.");
 		else
-			this.progress = p;
+			this.progress = progress;
 	}
-	public void setPriority(int p) 
+	public void setPriority(int priority) 
 	{
-		if (p < 1 || p > 5)
+		if (priority < 1 || priority > 5)
 			throw new IllegalArgumentException("Tried to set an assignment's priority to a value outside the range 1-5.");
 		else
-			this.priority = p;
+			this.priority = priority;
 	}
-	public void setCompletion(boolean c) {this.progress = 100;}
+	public void complete() {this.progress = 100;}
 }
 
 

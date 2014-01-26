@@ -44,17 +44,35 @@ public abstract class AAssignment implements IAssignment
 	//-------------------------------------------------
 	// Setter Methods
 	//-------------------------------------------------
-	public void setName(String s) {this.name = s;}
-	public void setNotes(String s) {this.notes = s;}
-	public void setCompletionTime(Duration d) {this.completionTime = d;} 
-	public void setCourse(ICourse c) {this.course = c;}
+	public void setName(String name) {this.name = name;}
+	public void setNotes(String notes) {this.notes = notes;}
+	public void setCompletionTime(Duration time) {this.completionTime = time;} 
+	public void setCourse(ICourse course) 
+	{
+		if (course != null)
+			this.course = course;
+		else
+			throw new IllegalArgumentException("Tried to set an assignment's course to null.");
+	}
 	// Overrides value from course
-	public void setAssignmentLoc(String s) {this.assignmentLoc = s;}
-	public void setTurninLoc(String s) {this.turninLoc = s;}
-	public void setResources(String s) {this.resources = s;}
-	public void setAssignmentType(String s) {this.assignmentType = s;}
-	public void setDueTime(Calendar t) {this.dueTime = t;}
+	public void setAssignmentLoc(String location) {this.assignmentLoc = location;}
+	public void setTurninLoc(String location) {this.turninLoc = location;}
+	public void setResources(String resources) {this.resources = resources;}
+	public void setAssignmentType(String type) {this.assignmentType = type;}
+	public void setDueTime(Calendar time) {this.dueTime = time;}
 	// Overrides value from course / semester
-	public void setStartDate(Calendar d) {this.startDate = d;}
-	public void setEndDate(Calendar d) {this.endDate = d;}
+	public void setStartDate(Calendar date) 
+	{
+		if (date.after(this.getEndDate()))
+			throw new IllegalArgumentException("Tried to change an assignment's start date to be later than its end date.");
+		else
+			this.startDate = date;
+	}
+	public void setEndDate(Calendar date) 
+	{
+		if (date.before(this.getStartDate()))
+			throw new IllegalArgumentException("Tried to change an assignment's end date to be earlier than its start date.");
+		else
+			this.endDate = date;
+	}
 }
