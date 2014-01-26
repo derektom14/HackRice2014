@@ -36,8 +36,11 @@ public interface ICourse extends Serializable
 	public void setAssignmentType(String type);
 	public void setDueTime(Calendar time);
 	public void addAssignment(RepeatAssignment assignment);
+	public void removeAssignment(RepeatAssignment assignment);
 	public void setSemester(ISemester semester);
 	// Can override value from semester
 	public void setStartDate(Calendar date);
 	public void setEndDate(Calendar date);
+	
+	
 }

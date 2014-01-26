@@ -172,6 +172,10 @@ public class SingleAssignment extends AAssignment
 		s += this.getTimeString();
 		return s;
 	}
+	public void removeSelf()
+	{
+		this.parent.removeAssignment(this);
+	}
 }
 
 

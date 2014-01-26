@@ -168,7 +168,7 @@ public class RepeatAssignment extends AAssignment
 	//-------------------------------------------------
 	// Setter Methods
 	//-------------------------------------------------
-	public void setCourse(Course course)
+	public void setCourse(ICourse course)
 	{
 		if (course != null)
 			super.setCourse(course);
@@ -182,4 +182,17 @@ public class RepeatAssignment extends AAssignment
 		else
 			super.setPriority(priority);
 	}
+	
+	//-------------------------------------------------
+	// Class Methods
+	//-------------------------------------------------
+	public void removeAssignment(SingleAssignment assignment)
+	{
+		this.assignments.remove(assignment);
+		if (this.assignments.size() == 0)
+			this.getCourse().removeAssignment(this);
+	}
 }
+
+
+
