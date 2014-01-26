@@ -36,6 +36,8 @@ public class MultiFileBrowser extends JPanel {
 		FileBrowser file = new FileBrowser(name, null);
 		files.add(file);
 		add(file);
+		file.setLayout(new BoxLayout(file, BoxLayout.X_AXIS));
+		repaint();
 		
 	}
 
@@ -47,7 +49,7 @@ public class MultiFileBrowser extends JPanel {
 		return info;
 	}
 	
-	public void setInfo(ArrayList<FileInfo> infos){
+	public void setInfos(ArrayList<FileInfo> infos){
 		for (FileBrowser file : files)
 			remove(file);
 		files = new ArrayList<FileBrowser>();

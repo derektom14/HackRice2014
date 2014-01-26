@@ -21,12 +21,12 @@ public class CreateEditCourse extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField tfCourseName;
-	private JTextField tfAssignmentLoc;
-	private JTextField tfTurnInLoc;
-	private JTextField tfResources;
 	private ICourse course;
 	private ISemester semester;
 	private boolean complete = false;
+	private FileBrowser locPanel;
+	private FileBrowser turninPanel;
+	private MultiFileBrowser resourcesPanel;
 
 	public static ICourse createNewCourse(ISemester semester, Frame parent){
 		CreateEditCourse dialog = new CreateEditCourse(parent, semester, null);
@@ -60,11 +60,11 @@ public class CreateEditCourse extends JDialog {
 		this.course = course;
 		this.semester = semester;
 		setTitle("Create New Course");
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 653, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(new MigLayout("", "[424px]", "[27px][27px][27px][27px]"));
+		contentPanel.setLayout(new MigLayout("", "[]", "[27px][27px][27px][]"));
 		{
 			JLabel lblCourseName = new JLabel("Course Name:");
 			contentPanel.add(lblCourseName, "flowx,cell 0 0,alignx left,growy");
@@ -87,28 +87,16 @@ public class CreateEditCourse extends JDialog {
 			tfCourseName.setColumns(10);
 		}
 		{
-			tfAssignmentLoc = new JTextField();
-			contentPanel.add(tfAssignmentLoc, "cell 0 1,grow");
-			tfAssignmentLoc.setColumns(10);
+			locPanel = new FileBrowser(null, null);
+			contentPanel.add(locPanel, "cell 0 1");
 		}
 		{
-			tfTurnInLoc = new JTextField();
-			contentPanel.add(tfTurnInLoc, "cell 0 2,grow");
-			tfTurnInLoc.setColumns(10);
+			turninPanel = new FileBrowser(null, null);
+			contentPanel.add(turninPanel, "cell 0 2");
 		}
 		{
-			tfResources = new JTextField();
-			contentPanel.add(tfResources, "cell 0 3,grow");
-			tfResources.setColumns(10);
-		}
-		{
-			JButton btnBrowse = new JButton("Browse...");
-			btnBrowse.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					Util.browseForFile(tfResources, CreateEditCourse.this);
-				}
-			});
-			contentPanel.add(btnBrowse, "cell 0 3");
+			resourcesPanel = new MultiFileBrowser(null, null);
+			contentPanel.add(resourcesPanel, "cell 0 3");
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -144,14 +132,14 @@ public class CreateEditCourse extends JDialog {
 	
 	private void storeCourse(){
 		if (course == null){
-			course = new Course(semester, tfCourseName.getText(), tfAssignmentLoc.getText(), tfTurnInLoc.getText(), tfResources.getText(),
+			course = new Course(semester, tfCourseName.getText(), locPanel.getInfo(), turninPanel.getInfo(), resourcesPanel.getFileInfos(),
 				"", Calendar.getInstance());
 		}
 		else {
 			course.setName(tfCourseName.getText());
-			course.setAssignmentLoc(tfAssignmentLoc.getText());
-			course.setResources(tfResources.getText());
-			course.setTurninLoc(tfTurnInLoc.getText());
+			course.setAssignmentLoc(locPanel.getInfo());
+			course.setTurninLoc(turninPanel.getInfo());
+			course.setResources(resourcesPanel.getFileInfos());
 		}
 	}
 }

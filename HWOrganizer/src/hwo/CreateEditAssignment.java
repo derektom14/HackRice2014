@@ -108,7 +108,7 @@ public class CreateEditAssignment extends JDialog {
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(new MigLayout("hidemode 3", "[][grow][grow][grow]", "[][][][][][center][][][][][grow]"));
+		contentPanel.setLayout(new MigLayout("hidemode 3", "[][grow][grow][grow]", "[][][][][][center][][grow][][][grow]"));
 		{
 			JLabel lblName = new JLabel("Name:");
 			contentPanel.add(lblName, "cell 0 0,alignx trailing");
@@ -292,7 +292,7 @@ public class CreateEditAssignment extends JDialog {
 			tfName.setText(assignment.getName());
 			locPanel.setInfo(assignment.getAssignmentLoc());
 			turninPanel.setInfo(assignment.getTurninLoc());
-			resourcesPanel.setInfo(assignment.getResources());
+			resourcesPanel.setInfos(assignment.getResources());
 			spnPriority.setValue(assignment.getPriority());
 			
 			
