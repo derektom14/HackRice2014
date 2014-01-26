@@ -1,9 +1,13 @@
 package hwo;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class FileBrowser extends JPanel {
 	/**
@@ -37,6 +41,15 @@ public class FileBrowser extends JPanel {
 		textField.setColumns(10);
 		
 		JButton btnBrowse = new JButton("Browse...");
+		btnBrowse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+				int returnVal = chooser.showOpenDialog(FileBrowser.this);
+				if (returnVal == JFileChooser.APPROVE_OPTION)
+					textField.setText(chooser.getSelectedFile().getAbsolutePath());
+			}
+		});
 		add(btnBrowse);
 
 		if (info != null){

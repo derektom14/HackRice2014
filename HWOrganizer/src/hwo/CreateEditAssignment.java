@@ -52,7 +52,7 @@ public class CreateEditAssignment extends JDialog {
 	private JSlider progress;
 	private JComboBox<String> cbCourse;
 	private JSpinner spnDue;
-	private MultiFileBrowser resourcesPanel;
+	private FileBrowser[] resourcesPanels = new FileBrowser[3];
 	private JLabel lblStart;
 	private JSpinner spnStart;
 	private JPanel panel_1;
@@ -108,7 +108,7 @@ public class CreateEditAssignment extends JDialog {
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(new MigLayout("hidemode 3", "[][grow][grow][grow]", "[][][][][][center][][grow][][][grow]"));
+		contentPanel.setLayout(new MigLayout("hidemode 3", "[][grow][grow][grow]", "[][][][][][center][][grow][grow][grow][][][grow]"));
 		{
 			JLabel lblName = new JLabel("Name:");
 			contentPanel.add(lblName, "cell 0 0,alignx trailing");
@@ -215,18 +215,30 @@ public class CreateEditAssignment extends JDialog {
 			contentPanel.add(lblFileLocation, "cell 0 7,alignx trailing");
 		}
 		{
-			resourcesPanel = new MultiFileBrowser(null, null);
-			contentPanel.add(resourcesPanel, "cell 1 7,grow");
-			resourcesPanel.setLayout(new BoxLayout(resourcesPanel, BoxLayout.X_AXIS));
+			resourcesPanels = new MultiFileBrowser(null, null);
+			contentPanel.add(resourcesPanels, "cell 1 7,grow");
+			resourcesPanels.setLayout(new BoxLayout(resourcesPanels, BoxLayout.X_AXIS));
+		}
+		{
+			JPanel rPanel1 = new JPanel();
+			contentPanel.add(rPanel1, "cell 1 7,grow");
+		}
+		{
+			JPanel rPanel2 = new JPanel();
+			contentPanel.add(rPanel2, "cell 1 8,grow");
+		}
+		{
+			JPanel rPanel3 = new JPanel();
+			contentPanel.add(rPanel3, "cell 1 9,grow");
 		}
 		{
 			lblProgress = new JLabel("Progress:");
 			lblProgress.setHorizontalAlignment(SwingConstants.TRAILING);
-			contentPanel.add(lblProgress, "cell 0 8,alignx trailing");
+			contentPanel.add(lblProgress, "cell 0 10,alignx trailing");
 		}
 		{
 			panel_1 = new JPanel();
-			contentPanel.add(panel_1, "cell 1 8,grow");
+			contentPanel.add(panel_1, "cell 1 10,grow");
 			panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
 			{
 				progress = new JSlider();
@@ -245,20 +257,20 @@ public class CreateEditAssignment extends JDialog {
 		}
 		{
 			lblPriority = new JLabel("Priority:");
-			contentPanel.add(lblPriority, "cell 0 9,alignx trailing");
+			contentPanel.add(lblPriority, "cell 0 11,alignx trailing");
 		}
 		{
 			spnPriority = new JSpinner();
 			spnPriority.setModel(new SpinnerNumberModel(2, 1, 5, 1));
-			contentPanel.add(spnPriority, "cell 1 9");
+			contentPanel.add(spnPriority, "cell 1 11");
 		}
 		{
 			lblNotes = new JLabel("Notes:");
-			contentPanel.add(lblNotes, "cell 0 10,alignx trailing");
+			contentPanel.add(lblNotes, "cell 0 12,alignx trailing");
 		}
 		{
 			textNotes = new JTextArea();
-			contentPanel.add(textNotes, "cell 1 10,grow");
+			contentPanel.add(textNotes, "cell 1 12,grow");
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -292,7 +304,7 @@ public class CreateEditAssignment extends JDialog {
 			tfName.setText(assignment.getName());
 			locPanel.setInfo(assignment.getAssignmentLoc());
 			turninPanel.setInfo(assignment.getTurninLoc());
-			resourcesPanel.setInfos(assignment.getResources());
+			resourcesPanels.setInfos(assignment.getResources());
 			spnPriority.setValue(assignment.getPriority());
 			
 			
@@ -316,7 +328,7 @@ public class CreateEditAssignment extends JDialog {
 	private void switchCourse(ICourse course){
 		if (course != null){
 			if (!resourcePanelModified)
-				resourcesPanel.setInfos(course.getResources());
+				resourcesPanels.setInfos(course.getResources());
 			if (!locPanelModified)
 				locPanel.setInfo(course.getAssignmentLoc());
 			if (!turninPanelModified)
@@ -357,7 +369,7 @@ public class CreateEditAssignment extends JDialog {
 		String hwName = tfName.getText();
 		FileInfo assignmentLoc = locPanel.getInfo();
 		FileInfo turninLoc = turninPanel.getInfo();
-		ArrayList<FileInfo> resources = resourcesPanel.getFileInfos();
+		ArrayList<FileInfo> resources = resourcesPanels.getFileInfos();
 		
 		if (assignment == null){
 			assignment = new RepeatAssignment(course, frequency, validDays, hwName, "", null, assignmentLoc, turninLoc, resources, "", dueCal, startCal, dueCal, cbRepeating.isSelected(), priority);
