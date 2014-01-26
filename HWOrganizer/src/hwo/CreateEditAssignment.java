@@ -272,7 +272,7 @@ public class CreateEditAssignment extends JDialog {
 			tfName.setText(assignment.getName());
 			locPanel.setInfo(assignment.getAssignmentLoc());
 			panelTurnInLoc.setInfo(assignment.getTurninLoc());
-			tfFileLoc.setText(assignment.getResources());
+			resourcesPanel.setText(assignment.getResources());
 			spnPriority.setValue(assignment.getPriority());
 			
 			cbRepeating.setVisible(false);
