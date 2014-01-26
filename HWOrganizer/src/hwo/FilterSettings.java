@@ -60,7 +60,7 @@ public class FilterSettings extends JDialog {
 	public FilterSettings(Instance instance, Frame parent) {
 		super(parent, true);
 		this.settings = instance.getSettings();
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 443, 152);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -76,11 +76,11 @@ public class FilterSettings extends JDialog {
 			int k = 1;
 			for (String cName : courseMap.keySet())
 				courseNames[k++] = cName;
-			courseBox = new JComboBox<String>(courseNames);
+			courseBox = new JComboBox<String>(/*courseNames*/);
 			contentPanel.add(courseBox, "cell 1 0,growx");
 		}
 		{
-			JLabel lblEndingBetween = new JLabel("Ending between");
+			JLabel lblEndingBetween = new JLabel("Due between");
 			contentPanel.add(lblEndingBetween, "cell 0 1");
 		}
 		{

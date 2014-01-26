@@ -142,7 +142,14 @@ public class MainFrame extends JFrame {
 		menuBar.add(mnHelp);
 		
 		JMenuItem mntmOpenHelpFile = new JMenuItem("Open Help File");
+
+		mntmOpenHelpFile.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				Util.openFile("Homework Organizer Help.pdf");
+			}
+		});
 		mnHelp.add(mntmOpenHelpFile);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
