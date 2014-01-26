@@ -5,7 +5,7 @@
 
 package hwo;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Calendar;
 import java.io.Serializable;
 
@@ -22,6 +22,6 @@ public interface ISemester extends Serializable
 	//-------------------------------------------------
 	public void setStartDate(Calendar startDate);
 	public void setEndDate(Calendar endDate);
-	public void addCourse(ICourse newCourse);
-	public ArrayList<ICourse> getCourses();
+	public String addCourse(ICourse newCourse);
+	public HashMap<String, ICourse> getCourses();
 }
