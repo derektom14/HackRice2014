@@ -1,5 +1,5 @@
 // ISemester
-// Author: Michael Pierce
+// Author: Michael Peirce
 // Owner: Jenna Netland
 // An interface for Semesters: Semesters are start and end dates used by Courses
 

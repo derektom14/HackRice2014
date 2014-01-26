@@ -1,5 +1,5 @@
 // Semester
-// Author: Michael Pierce
+// Author: Michael Peirce
 // Owner: Jenna Netland
 // Concrete Semester class: Semesters are start and end dates used by Courses
 
