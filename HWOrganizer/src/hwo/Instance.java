@@ -13,13 +13,7 @@ public class Instance {
 	private int currentSemester;
 	
 	Instance () {
-		GregorianCalendar now = new GregorianCalendar();
-		GregorianCalendar future = (GregorianCalendar) now.clone();
-		future.add(Calendar.MONTH, 4);
-		semesters = new Semester[]{new Semester(now, future)};
-		name = "Name";
-		settings = null;
-		currentSemester = 0;
+		open();
 	}
 	
 	public Semester getCurSemester() {return semesters[currentSemester];}
@@ -43,7 +37,7 @@ public class Instance {
 	
 	public void open() {
 		try{
-			FileInputStream saveFile = new FileInputStream("/.hworganizer.ser");
+			FileInputStream saveFile = new FileInputStream(".hworganizer.ser");
 			ObjectInputStream in = new ObjectInputStream(saveFile);
 			name = (String) in.readObject();
 			semesters = new Semester[(int) in.readObject()];

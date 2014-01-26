@@ -6,9 +6,10 @@
 package hwo;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Calendar;
 
-public interface ISemester 
+public interface ISemester extends Serializable 
 {
 	//-------------------------------------------------
 	// Getter methods

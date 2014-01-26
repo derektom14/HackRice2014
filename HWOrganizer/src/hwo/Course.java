@@ -6,9 +6,10 @@
 package hwo;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class Course implements ICourse
+public class Course implements ICourse, Serializable
 {
 	private String name; // Name of the course
 	private String assignmentLoc; // Location of assignment (page number, url...)
