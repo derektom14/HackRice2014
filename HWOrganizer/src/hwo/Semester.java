@@ -55,9 +55,11 @@ public class Semester implements ISemester, java.io.Serializable
 	}
 	public void addCourse(ICourse course) 
 	{
+		System.out.println(course + ", " + courses);
 		if (course != null)
 			courses.add(course);
 		else
 			throw new IllegalArgumentException("Tried to add a null course to a semester.");
+		System.out.println(courses);
 	}
 }

@@ -115,6 +115,7 @@ public class CreateEditAssignment extends JDialog {
 			String[] courseNames = new String[courses.size()];
 			for (int k = 0; k < courses.size(); k++)
 				courseNames[k] = courses.get(k).getName();
+			System.out.println(courseNames);
 			cbCourse = new JComboBox(courseNames);
 			contentPanel.add(cbCourse, "cell 1 1,growx");
 		}
@@ -286,7 +287,9 @@ public class CreateEditAssignment extends JDialog {
 	
 	private void browseForFile(){
 		JFileChooser chooser = new JFileChooser();
+		System.out.println(chooser);
 		File file = chooser.getSelectedFile();
+		System.out.println(file);
 		tfFileLoc.setText(file.getAbsolutePath());
 	}
 	
