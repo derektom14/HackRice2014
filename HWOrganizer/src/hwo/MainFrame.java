@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package hwo;
 
 import java.awt.EventQueue;
@@ -327,4 +326,3 @@ public class MainFrame extends JFrame {
 	}
 
 }
->>>>>>> branch 'master' of https://github.com/derektom14/HackRice2014
