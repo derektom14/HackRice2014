@@ -108,6 +108,10 @@ public class Course implements ICourse, Serializable
 		else
 			throw new IllegalArgumentException("Tried to add a null assignment to a course.");
 	}
+	public void removeAssignment(RepeatAssignment assignment)
+	{
+		this.assignments.remove(assignment);
+	}
 	public void setSemester(ISemester semester) 
 	{
 		if (semester != null)
