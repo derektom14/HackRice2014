@@ -51,7 +51,6 @@ public class Instance {
 			future.add(Calendar.MONTH, 4);
 			semesters = new Semester[]{new Semester(now, future)};
 			name = "Name";
-			settings = null;
 			currentSemester = 0;
 		} catch(ClassNotFoundException e) {
 			e.printStackTrace();

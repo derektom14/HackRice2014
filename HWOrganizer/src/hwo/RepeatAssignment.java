@@ -177,4 +177,15 @@ public class RepeatAssignment extends AAssignment
 			return getCourse().getStartDate();
 		return super.getStartDate();
 	}
+	
+	//-------------------------------------------------
+	// Setter Methods
+	//-------------------------------------------------
+	public void setCourse(Course course)
+	{
+		if (course != null)
+			super.setCourse(course);
+		else
+			throw new IllegalArgumentException("Tried to set a repeated assignment's course to null.");
+	}
 }
