@@ -191,7 +191,11 @@ public class RepeatAssignment extends AAssignment
 	public void setCourse(ICourse course)
 	{
 		if (course != null)
+		{
+			super.getCourse().removeAssignment(this);
 			super.setCourse(course);
+			super.getCourse().addAssignment(this);
+		}
 		else
 			throw new IllegalArgumentException("Tried to set a repeated assignment's course to null.");
 	}
