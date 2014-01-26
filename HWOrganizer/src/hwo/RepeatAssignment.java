@@ -66,6 +66,8 @@ public class RepeatAssignment extends AAssignment
 			this.validDays = validDays;
 		else
 			throw new IllegalArgumentException("Tried to use a validDays array of a length that wasn't 7.");
+		if (startDate.after(endDate))
+			throw new IllegalArgumentException("Tried to set an assignment's start date to be later than its end date.");
 		this.assignments = new ArrayList<SingleAssignment>();
 		
 		super.setName(name);
@@ -88,8 +90,6 @@ public class RepeatAssignment extends AAssignment
 		super.setAssignmentType(assignmentType);
 		super.setDueTime(dueTime);
 		// Can refer to course / semester
-		if (startDate.after(endDate))
-			throw new IllegalArgumentException("Tried to set an assignment's start date to be later than its end date.");
 		super.setStartDate(startDate);
 		super.setEndDate(endDate);
 		
