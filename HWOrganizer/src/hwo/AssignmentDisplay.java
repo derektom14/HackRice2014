@@ -130,13 +130,15 @@ public class AssignmentDisplay extends JPanel {
 		String name = info.getName();
 		boolean isFile = Util.isFile(loc);
 		boolean isURL = Util.isURL(loc);
+		System.out.println(name + " " + name.length());
 		if (isFile || isURL){
+			System.out.println("Linkify!");
 			if (name.isEmpty())
 				if (isFile)
 					name = "File";
 				else
 					name = "Link";
-			label.setText("<html><a href=\"" + loc + "\">" + info.getName() + "</a></html>");
+			label.setText("<html><a href=\"" + loc + "\">" + name + "</a></html>");
 			label.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			if (isURL)
 				label.addMouseListener(new OpenURL(loc));
