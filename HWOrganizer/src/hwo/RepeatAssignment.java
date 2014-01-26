@@ -86,16 +86,16 @@ public class RepeatAssignment extends AAssignment
 				getStartDate().get(Calendar.MONTH), getStartDate().get(Calendar.DAY_OF_MONTH));
 		do {
 			if (validDays[g.get(Calendar.DAY_OF_WEEK) - 1])
-				this.assignments.add(new SingleAssignment(g, this));
+				this.assignments.add(new SingleAssignment(this, g));
 		} while (g.before(getEndDate()));
 	}
 	
 	//-------------------------------------------------
 	// Getter Methods
 	//-------------------------------------------------
-	public int getFrequency(){return this.frequency;}
-	public boolean[] getValidDays(){return this.validDays;}
-	public ArrayList<SingleAssignment> getAssignments(){return this.assignments;}
+	public int getFrequency() {return this.frequency;}
+	public boolean[] getValidDays() {return this.validDays;}
+	public ArrayList<SingleAssignment> getAssignments() {return this.assignments;}
 	// Can refer to course
 	public String getAssignmentLoc()
 	{

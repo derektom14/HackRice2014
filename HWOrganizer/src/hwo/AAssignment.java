@@ -27,34 +27,34 @@ public abstract class AAssignment implements IAssignment
 	//-------------------------------------------------
 	// Getter Methods
 	//-------------------------------------------------
-	public String getName(){return this.name;}
-	public String getNotes(){return this.notes;}
-	public Duration getCompletionTime(){return this.completionTime;}
-	public Course getCourse(){return this.course;}
+	public String getName() {return this.name;}
+	public String getNotes() {return this.notes;}
+	public Duration getCompletionTime() {return this.completionTime;}
+	public Course getCourse() {return this.course;}
 	// Can refer to course
-	public String getAssignmentLoc(){return this.assignmentLoc;}
-	public String getTurninLoc(){return this.turninLoc;}
-	public String getResources(){return this.resources;}
-	public String getAssignmentType(){return this.assignmentType;}
-	public Calendar getDueTime(){return this.dueTime;}
+	public String getAssignmentLoc() {return this.assignmentLoc;}
+	public String getTurninLoc() {return this.turninLoc;}
+	public String getResources() {return this.resources;}
+	public String getAssignmentType() {return this.assignmentType;}
+	public Calendar getDueTime() {return this.dueTime;}
 	// Can refer to course / semester
-	public Calendar getStartDate(){return this.startDate;}
-	public Calendar getEndDate(){return this.endDate;}
+	public Calendar getStartDate() {return this.startDate;}
+	public Calendar getEndDate() {return this.endDate;}
 	
 	//-------------------------------------------------
 	// Setter Methods
 	//-------------------------------------------------
-	public void setName(String s){this.name = s;}
-	public void setNotes(String s){this.notes = s;}
-	public void setCompletionTime(Duration d){this.completionTime = d;} 
-	public void setCourse(Course c){this.course = c;}
+	public void setName(String s) {this.name = s;}
+	public void setNotes(String s) {this.notes = s;}
+	public void setCompletionTime(Duration d) {this.completionTime = d;} 
+	public void setCourse(Course c) {this.course = c;}
 	// Overrides value from course
-	public void setAssignmentLoc(String s){this.assignmentLoc = s;}
-	public void setTurninLoc(String s){this.turninLoc = s;}
-	public void setResources(String s){this.resources = s;}
-	public void setAssignmentType(String s){this.assignmentType = s;}
-	public void setDueTime(Calendar t){this.dueTime = t;}
+	public void setAssignmentLoc(String s) {this.assignmentLoc = s;}
+	public void setTurninLoc(String s) {this.turninLoc = s;}
+	public void setResources(String s) {this.resources = s;}
+	public void setAssignmentType(String s) {this.assignmentType = s;}
+	public void setDueTime(Calendar t) {this.dueTime = t;}
 	// Overrides value from course / semester
-	public void setStartDate(Calendar d){this.startDate = d;}
-	public void setEndDate(Calendar d){this.endDate = d;}
+	public void setStartDate(Calendar d) {this.startDate = d;}
+	public void setEndDate(Calendar d) {this.endDate = d;}
 }
