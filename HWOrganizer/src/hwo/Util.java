@@ -54,9 +54,8 @@ public class Util {
 		try {
 			URI uri = new URI(text);
 			Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
-		    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
-		            desktop.browse(uri);
-		    }
+		    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE))
+		    	desktop.browse(uri);
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -66,7 +65,9 @@ public class Util {
 	
 	public static void openFile(String text) {
 		try {
-			Desktop.getDesktop().open(new File(text));
+			Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+		    if (desktop != null && desktop.isSupported(Desktop.Action.OPEN))
+		    	desktop.open(new File(text));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

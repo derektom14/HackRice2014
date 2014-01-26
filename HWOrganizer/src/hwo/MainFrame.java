@@ -208,12 +208,13 @@ public class MainFrame extends JFrame {
 	}
 
 	private void addNewAssignment(){
-		CreateEditAssignment.createNewAssignment(instance.getCurSemester().getCourses(), this);
+		instance.addChange(new DeleteRepeatAssignment(
+				CreateEditAssignment.createNewAssignment(instance.getCurSemester().getCourses(), this));
 		fillListOfDays();
 	}
 	
 	private void addNewCourse(){
-		CreateEditCourse.createNewCourse(instance.getCurSemester(), this);
+		instance.addChange(new DeleteCourse(CreateEditCourse.createNewCourse(instance.getCurSemester(), this));
 	}
 	
 	private boolean sameDay(Calendar c, int year, int day){

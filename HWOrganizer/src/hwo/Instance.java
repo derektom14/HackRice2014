@@ -128,4 +128,25 @@ public class Instance {
 			undoStack.push(change.act());
 		}
 	}
+	
+	public void addChange(Change change) {
+		undoStack.push(change);
+		redoStack.clear();
+	}
+	
+	public ArrayList<String> getUndoList(){
+		ArrayList<String> textList = new ArrayList<String>();
+		for (Change change : undoStack) {
+			textList.add(change.toString());
+		}
+		return textList;
+	}
+	
+	public ArrayList<String> getRedoList(){
+		ArrayList<String> textList = new ArrayList<String>();
+		for (Change change : redoStack) {
+			textList.add(change.toString());
+		}
+		return textList;
+	}
 }
