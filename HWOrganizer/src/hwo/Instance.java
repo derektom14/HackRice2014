@@ -17,6 +17,7 @@ public class Instance {
 	private int currentSemester;
 	private Stack<Change> undoStack = new Stack<Change>();
 	private Stack<Change> redoStack = new Stack<Change>();
+	private int order; // 0: due date, 1: class, 2: name
 	
 	Instance () {
 		open();
@@ -148,5 +149,16 @@ public class Instance {
 			textList.add(change.toString());
 		}
 		return textList;
+	}
+	
+	public void setOrder(String s) {
+		if (s.equals("Due Date"))
+			order = 0;
+		else if (s.equals("Class"))
+			order = 1;
+		else if (s.equals("Name"))
+			order = 2;
+		else
+			throw new IllegalArgumentException("Invalid Order Input");
 	}
 }
