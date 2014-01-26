@@ -1,5 +1,5 @@
 // ICourse
-// Author: Michael Pierce
+// Author: Michael Peirce
 // Owner: Jenna Netland
 // Interface for Courses: Courses hold default values and assignments
 

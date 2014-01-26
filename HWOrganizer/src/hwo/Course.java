@@ -1,5 +1,5 @@
 // Course
-// Author: Michael Pierce
+// Author: Michael Peirce
 // Owner: Jenna Netland
 // Concrete Course class: Courses hold default values and assignments
 
