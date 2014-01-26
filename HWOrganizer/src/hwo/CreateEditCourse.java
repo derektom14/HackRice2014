@@ -58,7 +58,7 @@ public class CreateEditCourse extends JDialog {
 		this.course = course;
 		this.semester = semester;
 		setTitle("Create New Course");
-		setBounds(100, 100, 653, 300);
+		setBounds(100, 100, 589, 313);
 		getContentPane().setLayout(new BorderLayout());
 		{
 			JPanel contentPanel = new JPanel();
