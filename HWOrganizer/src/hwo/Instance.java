@@ -1,4 +1,5 @@
 package hwo;
+import java.awt.Frame;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -116,21 +117,22 @@ public class Instance {
 		return settings;
 	}
 	
-	public void undo() {
-		System.out.println("undo");
+	public void undo(MainFrame frame) {
 		if (!undoStack.empty()) {
 			Change change = undoStack.pop();
-			System.out.println("pop");
-			System.out.println(change);
 			redoStack.push(change.act());
 		}
+		if (frame != null)
+			frame.fillListOfDays();
 	}
 	
-	public void redo() {
+	public void redo(MainFrame frame) {
 		if (!redoStack.empty()) {
 			Change change = redoStack.pop();
 			undoStack.push(change.act());
 		}
+		if (frame != null)
+			frame.fillListOfDays();
 	}
 	
 	public void addChange(Change change) {
