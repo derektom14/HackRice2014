@@ -152,7 +152,7 @@ public class CreateEditAssignment extends JDialog {
 				curDueDate = dueDate.getTime();
 			}
 			dueTimeSpinner.setModel(new SpinnerDateModel(curDueDate, null, null, Calendar.DAY_OF_YEAR));
-			dueTimeSpinner.setEditor(new DateEditor(dueTimeSpinner, "HH:mm:ss"));
+			dueTimeSpinner.setEditor(new DateEditor(dueTimeSpinner, "hh:mm a"));
 			contentPanel.add(dueTimeSpinner, "cell 1 2");
 		}
 		{
@@ -305,6 +305,17 @@ public class CreateEditAssignment extends JDialog {
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
+			if (assignment != null)
+			{
+				JButton deleteButton = new JButton("Delete");
+				deleteButton.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent e){
+						deleteAssignment();
+						setVisible(false);
+					}
+				});
+				buttonPane.add(deleteButton);
+			}
 			{
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
@@ -425,6 +436,10 @@ public class CreateEditAssignment extends JDialog {
 			((SingleAssignment)assignment).setProgress(prog);
 			System.out.println("Set progress " + prog);
 		}
+	}
+	
+	private void deleteAssignment(){
+		((SingleAssignment)assignment).removeSelf();
 	}
 
 }

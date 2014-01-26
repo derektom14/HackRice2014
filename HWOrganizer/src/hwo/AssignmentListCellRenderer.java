@@ -28,7 +28,7 @@ class AssignmentListCellRenderer extends JLabel implements ListCellRenderer<Sing
        boolean isSelected,      // is the cell selected
        boolean cellHasFocus)    // does the cell have focus
      {
-         String s = assignment.getName() + ' ' + assignment.getTimeString();
+         String s = assignment.getName() + " - " + assignment.getCourse().getName() + " - " + assignment.getTimeString();
          setText(s);
          if (assignment.isCompleted())
         	 setIcon(completeIcon);

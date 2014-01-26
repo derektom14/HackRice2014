@@ -209,7 +209,7 @@ public class MainFrame extends JFrame {
 		assignmentInfo = new AssignmentDisplay(instance, this);
 		assignmentInfo.setMinimumSize(new Dimension(500, 173));
 		contentPane.add(assignmentInfo, BorderLayout.EAST);
-		//assignmentInfo.setVisible(false);
+		assignmentInfo.setVisible(false);
 		
 		addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
@@ -232,13 +232,14 @@ public class MainFrame extends JFrame {
 		ICourse newCourse = CreateEditCourse.createNewCourse(instance.getCurSemester(), this);
 		if (newCourse != null)
 			instance.addChange(new DeleteCourse(newCourse));
+		fillListOfDays();
 	}
 	
 	private boolean sameDay(Calendar c, int year, int day){
 		return c.get(Calendar.YEAR) == year && c.get(Calendar.DAY_OF_YEAR) == day;  
 	}
 	
-	private void fillListOfDays() {
+	public void fillListOfDays() {
 		ArrayList<SingleAssignment> assignments = instance.filter();
 		dayListModel.clear();
 		if (!assignments.isEmpty()){

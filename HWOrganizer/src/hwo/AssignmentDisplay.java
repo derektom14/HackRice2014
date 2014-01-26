@@ -5,6 +5,7 @@ import java.awt.Cursor;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -124,6 +125,20 @@ public class AssignmentDisplay extends JPanel {
 			linkify(resourceVals[k], resources.get(k));
 		setVisible(true);
 	}
+	
+	public void clear(){
+		System.out.println("CLEAR");
+		this.assignment = null;
+		lblAssignmentName.setText("");
+		lblCourseVal.setText("");
+		lblDueVal.setText("");
+		lblPriorityVal.setText("");
+		delinkify(lblInfoVal);
+		delinkify(lblTurninVal);
+		for(int k = 0; k < 3; k++)
+			delinkify(resourceVals[k]);
+		repaint();
+	}
 
 	private void linkify(JLabel label, FileInfo info) {
 		String loc = info.getLoc();
@@ -132,7 +147,6 @@ public class AssignmentDisplay extends JPanel {
 		boolean isURL = Util.isURL(loc);
 		System.out.println(name + " " + name.length());
 		if (isFile || isURL){
-			System.out.println("Linkify!");
 			if (name.isEmpty())
 				if (isFile)
 					name = "File";
@@ -146,15 +160,27 @@ public class AssignmentDisplay extends JPanel {
 				label.addMouseListener(new OpenFile(loc));
 		}
 		else{
-			System.out.println("No linkify...");
 			label.setText(name);
 		}
 	}
 	
+	private void delinkify(JLabel label){
+		label.setText("");
+		label.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+		for (MouseListener listener : label.getMouseListeners())
+			label.removeMouseListener(listener);
+	}
+	
 	public void edit(){
 		CreateEditAssignment.editAssignment(assignment, (Frame)SwingUtilities.windowForComponent(AssignmentDisplay.this), instance);
-		setAssignment(assignment);
+		if (assignment.getParentAssignment() != null)
+			setAssignment(assignment);
+		else{
+			setVisible(false);
+			clear();
+		}
 		mainFrame.repaint();
+		mainFrame.fillListOfDays();
 	}
 
 }
