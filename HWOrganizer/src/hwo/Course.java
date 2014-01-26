@@ -134,4 +134,12 @@ public class Course implements ICourse, Serializable
 		else
 			this.endDate = date;
 	}
+	
+	//-------------------------------------------------
+	// Class methods
+	//-------------------------------------------------
+	public void removeSelf()
+	{
+		this.semester.removeCourse(this);
+	}
 } 

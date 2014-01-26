@@ -65,4 +65,8 @@ public class Semester implements ISemester
 			throw new IllegalArgumentException("Tried to add a null course to a semester.");
 		return null;
 	}
+	public void removeCourse(ICourse course)
+	{
+		this.courses.remove(course);
+	}
 }
