@@ -47,13 +47,7 @@ public abstract class AAssignment implements IAssignment
 	public void setName(String name) {this.name = name;}
 	public void setNotes(String notes) {this.notes = notes;}
 	public void setCompletionTime(Duration time) {this.completionTime = time;} 
-	public void setCourse(ICourse course) 
-	{
-		if (course != null)
-			this.course = course;
-		else
-			throw new IllegalArgumentException("Tried to set an assignment's course to null.");
-	}
+	public void setCourse(ICourse course) {this.course = course;}
 	// Overrides value from course
 	public void setAssignmentLoc(String location) {this.assignmentLoc = location;}
 	public void setTurninLoc(String location) {this.turninLoc = location;}
