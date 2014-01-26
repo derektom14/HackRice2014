@@ -30,6 +30,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Component;
 import javax.swing.Box;
+import javax.swing.UIManager;
+import java.awt.Color;
+import java.awt.SystemColor;
 
 // Derek
 
@@ -220,6 +223,7 @@ public class MainFrame extends JFrame {
 		assignmentList.add(scrollPane);
 		
 		dayList = new JList<DayOfAssignments>();
+		dayList.setBackground(SystemColor.menu);
 		scrollPane.setViewportView(dayList);
 		dayList.setMinimumSize(new Dimension(700, 0));
 		dayList.setModel(dayListModel);
@@ -302,6 +306,7 @@ public class MainFrame extends JFrame {
 	private void editCourses(){
 		ICourse course = CourseSelector.selectCourse(instance.getCurSemester().getCourses(), "Edit");
 		CreateEditCourse.editCourse(course, this, instance);
+		fillListOfDays();
 	}
 }
 

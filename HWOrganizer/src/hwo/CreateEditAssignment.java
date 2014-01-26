@@ -20,6 +20,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
@@ -122,9 +123,10 @@ public class CreateEditAssignment extends JDialog {
 		}
 		{
 			System.out.println(courseMap);
-			String[] courseNames = new String[courseMap.size() + 1];
+			int offset = assignment == null ? 1 : 0;
+			String[] courseNames = new String[courseMap.size() + offset];
 			courseNames[0] = "";
-			int k = 1;
+			int k = offset;
 			for (String cName : courseMap.keySet())
 				courseNames[k++] = cName;
 			System.out.println(Arrays.toString(courseNames));
@@ -300,8 +302,13 @@ public class CreateEditAssignment extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						storeAssignment();
-						setVisible(false);
+						try{
+							storeAssignment();
+							setVisible(false);
+						} catch (Exception ex){
+							JOptionPane.showMessageDialog(CreateEditAssignment.this,
+								ex.getMessage(), "Form Error", JOptionPane.ERROR_MESSAGE);	
+						}
 					}
 				});
 				okButton.setActionCommand("OK");

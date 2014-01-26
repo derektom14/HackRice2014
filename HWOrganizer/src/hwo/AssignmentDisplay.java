@@ -12,15 +12,15 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 
 import net.miginfocom.swing.MigLayout;
-import javax.swing.JProgressBar;
 
 public class AssignmentDisplay extends JPanel {
 	
-	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("E, M/d");
+	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("E, M/d"),  dateFormat2 = new SimpleDateFormat("h:mm a");
 	
 	private JLabel lblAssignmentName;
 	private JLabel lblDueVal;
@@ -44,6 +44,8 @@ public class AssignmentDisplay extends JPanel {
 
 	private Instance instance;
 	private JProgressBar progressBar;
+	private JLabel lblTime;
+	private JLabel lblTimeVal;
 
 	/**
 	 * Create the panel.
@@ -53,7 +55,7 @@ public class AssignmentDisplay extends JPanel {
 		this.instance = instance;
 		this.mainFrame = mainFrame;
 		setBorder(new LineBorder(new Color(0, 0, 0)));
-		setLayout(new MigLayout("", "[][]", "[][][][][][][][][][][]"));
+		setLayout(new MigLayout("", "[][]", "[][][][][][][][][][][][]"));
 		
 		lblAssignmentName = new JLabel("Assignment Name");
 		add(lblAssignmentName, "cell 0 0");
@@ -70,6 +72,12 @@ public class AssignmentDisplay extends JPanel {
 		lblDueVal = new JLabel("");
 		add(lblDueVal, "cell 1 2");
 		
+		lblTime = new JLabel("Time:");
+		add(lblTime, "cell 0 3");
+		
+		lblTimeVal = new JLabel("");
+		add(lblTimeVal, "cell 1 3,alignx left,aligny bottom");
+		
 //		JLabel lblPriority = new JLabel("Priority:");
 //		add(lblPriority, "cell 0 3");
 //		
@@ -77,23 +85,23 @@ public class AssignmentDisplay extends JPanel {
 //		add(lblPriorityVal, "cell 1 3,alignx left,aligny bottom");
 		
 		JLabel lblInformation = new JLabel("Location:");
-		add(lblInformation, "cell 0 4");
+		add(lblInformation, "cell 0 5");
 		
 		lblInfoVal = new JLabel("");
-		add(lblInfoVal, "cell 1 4");
+		add(lblInfoVal, "cell 1 5");
 		
 		lblTurnin = new JLabel("Turn-in:");
-		add(lblTurnin, "cell 0 5");
+		add(lblTurnin, "cell 0 6");
 		
 		lblTurninVal = new JLabel("");
-		add(lblTurninVal, "cell 1 5,alignx right,aligny bottom");
+		add(lblTurninVal, "cell 1 6,alignx right,aligny bottom");
 		
 		lblResources = new JLabel("Resources:");
-		add(lblResources, "cell 0 6");
+		add(lblResources, "cell 0 7");
 		
 		lblRVal1 = new JLabel("");
 		resourceVals[0] = lblRVal1;
-		add(lblRVal1, "cell 1 6");
+		add(lblRVal1, "cell 1 7");
 		
 		btnEdit = new JButton("Edit");
 		btnEdit.addActionListener(new ActionListener() {
@@ -104,15 +112,15 @@ public class AssignmentDisplay extends JPanel {
 		
 		lblRVal2 = new JLabel("");
 		resourceVals[1] = lblRVal2;
-		add(lblRVal2, "cell 1 7");
+		add(lblRVal2, "cell 1 8");
 		
 		lblRVal3 = new JLabel("");
 		resourceVals[2] = lblRVal3;
-		add(lblRVal3, "cell 1 8");
+		add(lblRVal3, "cell 1 9");
 		
 		progressBar = new JProgressBar();
-		add(progressBar, "cell 0 9 2 1");
-		add(btnEdit, "cell 0 10");
+		add(progressBar, "cell 0 10 2 1");
+		add(btnEdit, "cell 0 11");
 
 	}
 
@@ -121,6 +129,7 @@ public class AssignmentDisplay extends JPanel {
 		lblAssignmentName.setText(assignment.getName());
 		lblCourseVal.setText(assignment.getCourse().getName());
 		lblDueVal.setText(dateFormat.format(assignment.getDueDate().getTime()));
+		lblTimeVal.setText(dateFormat2.format(assignment.getDueTime().getTime()));
 		//lblPriorityVal.setText(String.valueOf(assignment.getPriority()));
 		progressBar.setValue(assignment.getProgress());
 		linkify(lblInfoVal, assignment.getAssignmentLoc());
