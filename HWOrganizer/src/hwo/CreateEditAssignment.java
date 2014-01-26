@@ -70,11 +70,13 @@ public class CreateEditAssignment extends JDialog {
 	private JTextArea textNotes;
 	private JLabel lblNewLabel;
 	private JSpinner dueTimeSpinner;
+	
+	private Instance instance;
 
-	public static RepeatAssignment createNewAssignment(ISemester semester, Frame parent){
+	public static RepeatAssignment createNewAssignment(ISemester semester, Frame parent, Instance instance){
 		if (semester.getCourses().size() == 0)
 			throw new IllegalArgumentException("Cannot create assignment with no courses");
-		CreateEditAssignment dialog = new CreateEditAssignment(parent, semester, null);
+		CreateEditAssignment dialog = new CreateEditAssignment(parent, semester, null, instance);
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setModal(true);
 		dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
@@ -84,7 +86,7 @@ public class CreateEditAssignment extends JDialog {
 	}
 	
 	public static void editAssignment(SingleAssignment assignment, Frame parent, Instance instance){
-		CreateEditAssignment dialog = new CreateEditAssignment(parent, assignment.getCourse().getSemester(), assignment);
+		CreateEditAssignment dialog = new CreateEditAssignment(parent, assignment.getCourse().getSemester(), assignment, instance);
 		dialog.setModal(true);
 		dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
 		dialog.setVisible(true);
@@ -93,10 +95,11 @@ public class CreateEditAssignment extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public CreateEditAssignment(Frame parent, ISemester semester, SingleAssignment assignment) {
+	public CreateEditAssignment(Frame parent, ISemester semester, SingleAssignment assignment, Instance instance) {
 		super(parent, true);
 		setTitle(assignment == null ? "Create New Assignment" : "Edit Assignment");
 		this.assignment = assignment;
+		this.instance = instance;
 		this.courseMap = semester.getCourses();
 		System.out.println(courseMap);
 		setBounds(100, 100, 575, 480);
@@ -439,6 +442,7 @@ public class CreateEditAssignment extends JDialog {
 	}
 	
 	private void deleteAssignment(){
+		instance.addChange(new AddSingleAssignment((SingleAssignment)assignment, ((SingleAssignment)assignment).getParentAssignment().getAssignments().indexOf(assignment)));
 		((SingleAssignment)assignment).removeSelf();
 	}
 
