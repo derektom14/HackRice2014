@@ -19,6 +19,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
@@ -169,12 +170,14 @@ public class MainFrame extends JFrame {
 		
 		JPanel assignmentList = new JPanel();
 		contentPane.add(assignmentList, "cell 1 0,grow");
+		dayListModel = new DefaultListModel<DayOfAssignments>();
+		
+		JScrollPane scrollPane = new JScrollPane();
+		assignmentList.add(scrollPane);
 		
 		dayList = new JList<DayOfAssignments>();
-		dayListModel = new DefaultListModel<DayOfAssignments>();
 		dayList.setModel(dayListModel);
-		assignmentList.add(dayList);
-		fillListOfDays();
+		assignmentList.add(new JScrollPane(dayList));
 		
 		assignmentInfo = new AssignmentDisplay();
 		contentPane.add(assignmentInfo);
@@ -185,6 +188,8 @@ public class MainFrame extends JFrame {
 				System.out.println("Click in main frame");
 			}
 		});
+		
+		fillListOfDays();
 	}
 
 	private void addNewAssignment(){
@@ -196,27 +201,27 @@ public class MainFrame extends JFrame {
 		CreateEditCourse.createNewCourse(instance.getCurSemester(), this);
 	}
 	
-	private boolean sameDay(Calendar a, Calendar b){
-		return a.get(Calendar.YEAR) == b.get(Calendar.YEAR) && a.get(Calendar.DAY_OF_YEAR) == b.get(Calendar.DAY_OF_YEAR);  
+	private boolean sameDay(Calendar c, int year, int day){
+		return c.get(Calendar.YEAR) == year && c.get(Calendar.DAY_OF_YEAR) == day;  
 	}
 	
 	private void fillListOfDays() {
 		ArrayList<SingleAssignment> assignments = instance.filter();
-		System.out.println(assignments);
-		System.out.println("Filling list of days");
 		dayListModel.clear();
 		if (!assignments.isEmpty()){
 			Collections.sort(assignments, new AssignmentDateComparator());
 			int index = 0;
 			while(index < assignments.size()){
-				Calendar curDay = assignments.get(0).getDueDate();
-				DayOfAssignments day = new DayOfAssignments(curDay, assignmentInfo);
+				Calendar curDate = assignments.get(index).getDueDate();
+				int year = curDate.get(Calendar.YEAR);
+				int day = curDate.get(Calendar.DAY_OF_YEAR);
+				System.out.println("Assignment info: " + assignmentInfo);
+				DayOfAssignments dayOfAssignments = new DayOfAssignments(curDate, assignmentInfo);
 				do {
-					System.out.println("Adding " + index);
-					day.addAssignment(assignments.get(index));
+					dayOfAssignments.addAssignment(assignments.get(index));
 					index++;
-				} while (index < assignments.size() && sameDay(assignments.get(index).getDueDate(), curDay));
-				dayListModel.addElement(day);
+				} while (index < assignments.size() && sameDay(assignments.get(index).getDueDate(), year, day));
+				dayListModel.addElement(dayOfAssignments);
 			}
 		}
 		dayList.setCellRenderer(new DayRenderer());
@@ -224,7 +229,8 @@ public class MainFrame extends JFrame {
 			public void mouseClicked(MouseEvent e){
 				int index = dayList.locationToIndex(e.getPoint());
 				Point origin = dayList.indexToLocation(index);
-				dayList.getSelectedValue();
+				DayOfAssignments day = dayListModel.elementAt(index);
+				day.mouseClicked(new Point(e.getX() - origin.x, e.getY() - origin.y));
 			}
 		});
 		dayList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -236,6 +242,7 @@ public class MainFrame extends JFrame {
 	
 	private void filterAssignments(){
 		FilterSettings.changeSettings(instance, this);
+		fillListOfDays();
 	}
 
 }

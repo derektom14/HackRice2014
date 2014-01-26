@@ -85,11 +85,13 @@ public class FilterSettings extends JDialog {
 		}
 		{
 			beginSpinner = new JSpinner();
-			beginSpinner.setModel(new SpinnerDateModel(new Date(1390629600000L), null, null, Calendar.DAY_OF_YEAR));
+			Calendar defaultStart = settings.getStartDate();
+			beginSpinner.setModel(new SpinnerDateModel(defaultStart == null ? new Date() : defaultStart.getTime(),
+					null, null, Calendar.DAY_OF_YEAR));
 			contentPanel.add(beginSpinner, "flowx,cell 1 1");
 		}
 		{
-			cbStart = new JCheckBox("");
+			cbStart = new JCheckBox("", settings.getStartDate() != null);
 			contentPanel.add(cbStart, "cell 1 1");
 		}
 		{
@@ -98,11 +100,13 @@ public class FilterSettings extends JDialog {
 		}
 		{
 			endSpinner = new JSpinner();
-			endSpinner.setModel(new SpinnerDateModel(new Date(1390629600000L), null, null, Calendar.DAY_OF_YEAR));
+			Calendar defaultEnd = settings.getStartDate();
+			endSpinner.setModel(new SpinnerDateModel(defaultEnd == null ? new Date() : defaultEnd.getTime(),
+					null, null, Calendar.DAY_OF_YEAR));
 			contentPanel.add(endSpinner, "cell 1 1");
 		}
 		{
-			cbEnd = new JCheckBox("");
+			cbEnd = new JCheckBox("", settings.getEndDate() != null);
 			contentPanel.add(cbEnd, "cell 1 1");
 		}
 		{
