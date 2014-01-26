@@ -25,19 +25,21 @@ public class AssignmentDisplay extends JPanel {
 	private JLabel lblTurnin;
 	private JLabel lblTurninVal;
 	private JLabel lblResources;
-	private JLabel lblResourcesVal;
+	private JLabel lblRVal1;
 	private JButton btnEdit;
 
 	private SingleAssignment assignment;
 	private JLabel lblCourse;
 	private JLabel lblCourseVal;
+	private JLabel lblRVal2;
+	private JLabel lblRVal3;
 
 	/**
 	 * Create the panel.
 	 */
 	public AssignmentDisplay(final Instance instance) {
 		setBorder(new LineBorder(new Color(0, 0, 0)));
-		setLayout(new MigLayout("", "[][]", "[][][][][][][][]"));
+		setLayout(new MigLayout("", "[][]", "[][][][][][][][][][]"));
 		
 		lblAssignmentName = new JLabel("Assignment Name");
 		add(lblAssignmentName, "cell 0 0");
@@ -75,8 +77,8 @@ public class AssignmentDisplay extends JPanel {
 		lblResources = new JLabel("Resources:");
 		add(lblResources, "cell 0 6");
 		
-		lblResourcesVal = new JLabel("");
-		add(lblResourcesVal, "cell 1 6");
+		lblRVal1 = new JLabel("");
+		add(lblRVal1, "cell 1 6");
 		
 		btnEdit = new JButton("Edit");
 		btnEdit.addActionListener(new ActionListener() {
@@ -84,7 +86,13 @@ public class AssignmentDisplay extends JPanel {
 				CreateEditAssignment.editAssignment(assignment, (Frame)SwingUtilities.windowForComponent(AssignmentDisplay.this), instance);
 			}
 		});
-		add(btnEdit, "cell 0 7");
+		
+		lblRVal2 = new JLabel("");
+		add(lblRVal2, "cell 1 7");
+		
+		lblRVal3 = new JLabel("");
+		add(lblRVal3, "cell 1 8");
+		add(btnEdit, "cell 0 9");
 
 	}
 
@@ -96,10 +104,10 @@ public class AssignmentDisplay extends JPanel {
 		lblPriorityVal.setText(String.valueOf(assignment.getPriority()));
 		lblInfoVal.setText(assignment.getAssignmentLoc());
 		lblTurninVal.setText(assignment.getTurninLoc());
-		lblResourcesVal.setText(assignment.getResources());
+		lblRVal1.setText(assignment.getResources());
 		Util.linkify(lblInfoVal);
 		Util.linkify(lblTurninVal);
-		Util.linkify(lblResourcesVal);
+		Util.linkify(lblRVal1);
 		setVisible(true);
 	}
 

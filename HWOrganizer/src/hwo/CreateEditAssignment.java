@@ -52,7 +52,7 @@ public class CreateEditAssignment extends JDialog {
 	private JSlider progress;
 	private JComboBox<String> cbCourse;
 	private JSpinner spnDue;
-	private FileBrowser[] resourcesPanels = new FileBrowser[3];
+	private FileBrowser[] resourcePanels = new FileBrowser[3];
 	private JLabel lblStart;
 	private JSpinner spnStart;
 	private JPanel panel_1;
@@ -104,11 +104,11 @@ public class CreateEditAssignment extends JDialog {
 		this.assignment = assignment;
 		this.courseMap = courseMap;
 		System.out.println(courseMap);
-		setBounds(100, 100, 575, 396);
+		setBounds(100, 100, 575, 480);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(new MigLayout("hidemode 3", "[][grow][grow][grow]", "[][][][][][center][][grow][grow][grow][][][grow]"));
+		contentPanel.setLayout(new MigLayout("hidemode 3", "[][grow][grow][grow]", "[][][][][][center][][][grow][grow][][][grow]"));
 		{
 			JLabel lblName = new JLabel("Name:");
 			contentPanel.add(lblName, "cell 0 0,alignx trailing");
@@ -130,7 +130,7 @@ public class CreateEditAssignment extends JDialog {
 			for (String cName : courseMap.keySet())
 				courseNames[k++] = cName;
 			System.out.println(Arrays.toString(courseNames));
-			cbCourse = new JComboBox();//<String>(courseNames);
+			cbCourse = new JComboBox<String>(courseNames);
 			cbCourse.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					switchCourse(getCourse((String)cbCourse.getSelectedItem()));
@@ -215,20 +215,18 @@ public class CreateEditAssignment extends JDialog {
 			contentPanel.add(lblFileLocation, "cell 0 7,alignx trailing");
 		}
 		{
-			resourcesPanels = new MultiFileBrowser(null, null);
-			contentPanel.add(resourcesPanels, "cell 1 7,grow");
-			resourcesPanels.setLayout(new BoxLayout(resourcesPanels, BoxLayout.X_AXIS));
-		}
-		{
-			JPanel rPanel1 = new JPanel();
+			FileBrowser rPanel1 = new FileBrowser(null, null);
+			resourcePanels[0] = rPanel1;
 			contentPanel.add(rPanel1, "cell 1 7,grow");
 		}
 		{
-			JPanel rPanel2 = new JPanel();
+			FileBrowser rPanel2 = new FileBrowser(null, null);
+			resourcePanels[1] = rPanel2;
 			contentPanel.add(rPanel2, "cell 1 8,grow");
 		}
 		{
-			JPanel rPanel3 = new JPanel();
+			FileBrowser rPanel3 = new FileBrowser(null, null);
+			resourcePanels[2] = rPanel3;
 			contentPanel.add(rPanel3, "cell 1 9,grow");
 		}
 		{
@@ -304,7 +302,9 @@ public class CreateEditAssignment extends JDialog {
 			tfName.setText(assignment.getName());
 			locPanel.setInfo(assignment.getAssignmentLoc());
 			turninPanel.setInfo(assignment.getTurninLoc());
-			resourcesPanels.setInfos(assignment.getResources());
+			ArrayList<FileInfo> resources = assignment.getResources();
+			for (int k = 0; k < 3; k++)
+				resourcePanels[k].setInfo(resources.get(k));
 			spnPriority.setValue(assignment.getPriority());
 			
 			
@@ -327,8 +327,11 @@ public class CreateEditAssignment extends JDialog {
 	
 	private void switchCourse(ICourse course){
 		if (course != null){
-			if (!resourcePanelModified)
-				resourcesPanels.setInfos(course.getResources());
+			if (!resourcePanelModified){
+				ArrayList<FileInfo> resources = course.getResources();
+				for (int k = 0; k < resources.size(); k++)
+					resourcePanels[k].setInfo(resources.get(k));
+			}
 			if (!locPanelModified)
 				locPanel.setInfo(course.getAssignmentLoc());
 			if (!turninPanelModified)
@@ -369,7 +372,9 @@ public class CreateEditAssignment extends JDialog {
 		String hwName = tfName.getText();
 		FileInfo assignmentLoc = locPanel.getInfo();
 		FileInfo turninLoc = turninPanel.getInfo();
-		ArrayList<FileInfo> resources = resourcesPanels.getFileInfos();
+		ArrayList<FileInfo> resources = new ArrayList<FileInfo>();
+		for (int k = 0; k < 3; k++)
+			resources.add(resourcePanels[k].getInfo());
 		
 		if (assignment == null){
 			assignment = new RepeatAssignment(course, frequency, validDays, hwName, "", null, assignmentLoc, turninLoc, resources, "", dueCal, startCal, dueCal, cbRepeating.isSelected(), priority);

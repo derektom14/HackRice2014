@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.swing.JButton;
@@ -13,20 +14,17 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
 
 public class CreateEditCourse extends JDialog {
-
-	private final JPanel contentPanel = new JPanel();
 	private JTextField tfCourseName;
 	private ICourse course;
 	private ISemester semester;
 	private boolean complete = false;
 	private FileBrowser locPanel;
 	private FileBrowser turninPanel;
-	private MultiFileBrowser resourcesPanel;
+	private FileBrowser[] resourcePanels = new FileBrowser[3];
 
 	public static ICourse createNewCourse(ISemester semester, Frame parent){
 		CreateEditCourse dialog = new CreateEditCourse(parent, semester, null);
@@ -62,41 +60,54 @@ public class CreateEditCourse extends JDialog {
 		setTitle("Create New Course");
 		setBounds(100, 100, 653, 300);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(new MigLayout("", "[]", "[27px][27px][27px][]"));
 		{
-			JLabel lblCourseName = new JLabel("Course Name:");
-			contentPanel.add(lblCourseName, "flowx,cell 0 0,alignx left,growy");
-		}
-		{
-			JLabel lblAssignmentLocation = new JLabel("Default Assignment Location:");
-			contentPanel.add(lblAssignmentLocation, "flowx,cell 0 1,alignx left,growy");
-		}
-		{
-			JLabel lblTurninLocation = new JLabel("Default Turn-In Location:");
-			contentPanel.add(lblTurninLocation, "flowx,cell 0 2,alignx left,growy");
-		}
-		{
-			JLabel lblResources = new JLabel("Default Resources:");
-			contentPanel.add(lblResources, "flowx,cell 0 3,alignx left,growy");
-		}
-		{
-			tfCourseName = new JTextField();
-			contentPanel.add(tfCourseName, "cell 0 0,grow");
-			tfCourseName.setColumns(10);
-		}
-		{
-			locPanel = new FileBrowser(null, null);
-			contentPanel.add(locPanel, "cell 0 1");
-		}
-		{
-			turninPanel = new FileBrowser(null, null);
-			contentPanel.add(turninPanel, "cell 0 2");
-		}
-		{
-			resourcesPanel = new MultiFileBrowser(null, null);
-			contentPanel.add(resourcesPanel, "cell 0 3");
+			JPanel contentPanel = new JPanel();
+			getContentPane().add(contentPanel, BorderLayout.NORTH);
+			contentPanel.setLayout(new MigLayout("", "[][grow]", "[][][][grow][grow][grow]"));
+			{
+				JLabel lblCourseName = new JLabel("Course Name:");
+				contentPanel.add(lblCourseName, "cell 0 0");
+			}
+			{
+				tfCourseName = new JTextField();
+				contentPanel.add(tfCourseName, "cell 1 0");
+				tfCourseName.setColumns(10);
+			}
+			{
+				JLabel lblAssignmentLocation = new JLabel("Default Assignment Location:");
+				contentPanel.add(lblAssignmentLocation, "cell 0 1");
+			}
+			{
+				locPanel = new FileBrowser(null, null);
+				contentPanel.add(locPanel, "cell 1 1");
+			}
+			{
+				JLabel lblTurninLocation = new JLabel("Default Turn-In Location:");
+				contentPanel.add(lblTurninLocation, "cell 0 2");
+			}
+			{
+				turninPanel = new FileBrowser(null, null);
+				contentPanel.add(turninPanel, "cell 1 2");
+			}
+			{
+				JLabel lblResources = new JLabel("Default Resources:");
+				contentPanel.add(lblResources, "cell 0 3");
+			}
+			{
+				FileBrowser rPanel1 = new FileBrowser(null, null);
+				resourcePanels[0] = rPanel1;
+				contentPanel.add(rPanel1, "cell 1 3,grow");
+			}
+			{
+				FileBrowser rPanel2 = new FileBrowser(null, null);
+				resourcePanels[1] = rPanel2;
+				contentPanel.add(rPanel2, "cell 1 4,grow");
+			}
+			{
+				FileBrowser rPanel3 = new FileBrowser(null, null);
+				resourcePanels[2] = rPanel3;
+				contentPanel.add(rPanel3, "cell 1 5,grow");
+			}
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -131,15 +142,18 @@ public class CreateEditCourse extends JDialog {
 	
 	
 	private void storeCourse(){
+		ArrayList<FileInfo> resources = new ArrayList<FileInfo>();
+		for (int k = 0; k < 3; k++)
+			resources.add(resourcePanels[k].getInfo());
 		if (course == null){
-			course = new Course(semester, tfCourseName.getText(), locPanel.getInfo(), turninPanel.getInfo(), resourcesPanel.getFileInfos(),
+			course = new Course(semester, tfCourseName.getText(), locPanel.getInfo(), turninPanel.getInfo(), resources,
 				"", Calendar.getInstance());
 		}
 		else {
 			course.setName(tfCourseName.getText());
 			course.setAssignmentLoc(locPanel.getInfo());
 			course.setTurninLoc(turninPanel.getInfo());
-			course.setResources(resourcesPanel.getFileInfos());
+			course.setResources(resources);
 		}
 	}
 }
