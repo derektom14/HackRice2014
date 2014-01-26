@@ -46,12 +46,6 @@ public class DayOfAssignments extends JPanel {
 		panel.add(list);
 		list.setModel(model);
 		list.setCellRenderer(new AssignmentListCellRenderer(assignmentInfo));
-		
-		addMouseListener(new MouseAdapter(){
-			public void mouseClicked(MouseEvent e){
-				System.out.println("CLICK");
-			}
-		});
 
 	}
 

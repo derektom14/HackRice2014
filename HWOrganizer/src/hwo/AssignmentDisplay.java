@@ -1,10 +1,12 @@
 package hwo;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -16,7 +18,7 @@ import net.miginfocom.swing.MigLayout;
 
 public class AssignmentDisplay extends JPanel {
 	
-	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("E, M d");
+	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("E, M/d");
 	
 	private JLabel lblAssignmentName;
 	private JLabel lblDueVal;
@@ -33,11 +35,20 @@ public class AssignmentDisplay extends JPanel {
 	private JLabel lblCourseVal;
 	private JLabel lblRVal2;
 	private JLabel lblRVal3;
+	
+	private JLabel[] resourceVals = new JLabel[3];
+
+	private MainFrame mainFrame;
+
+	private Instance instance;
 
 	/**
 	 * Create the panel.
+	 * @param mainFrame 
 	 */
-	public AssignmentDisplay(final Instance instance) {
+	public AssignmentDisplay(final Instance instance, MainFrame mainFrame) {
+		this.instance = instance;
+		this.mainFrame = mainFrame;
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setLayout(new MigLayout("", "[][]", "[][][][][][][][][][]"));
 		
@@ -78,19 +89,22 @@ public class AssignmentDisplay extends JPanel {
 		add(lblResources, "cell 0 6");
 		
 		lblRVal1 = new JLabel("");
+		resourceVals[0] = lblRVal1;
 		add(lblRVal1, "cell 1 6");
 		
 		btnEdit = new JButton("Edit");
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CreateEditAssignment.editAssignment(assignment, (Frame)SwingUtilities.windowForComponent(AssignmentDisplay.this), instance);
+				edit();
 			}
 		});
 		
 		lblRVal2 = new JLabel("");
+		resourceVals[1] = lblRVal2;
 		add(lblRVal2, "cell 1 7");
 		
 		lblRVal3 = new JLabel("");
+		resourceVals[2] = lblRVal3;
 		add(lblRVal3, "cell 1 8");
 		add(btnEdit, "cell 0 9");
 
@@ -102,13 +116,42 @@ public class AssignmentDisplay extends JPanel {
 		lblCourseVal.setText(assignment.getCourse().getName());
 		lblDueVal.setText(dateFormat.format(assignment.getDueTime().getTime()));
 		lblPriorityVal.setText(String.valueOf(assignment.getPriority()));
-		lblInfoVal.setText(assignment.getAssignmentLoc());
-		lblTurninVal.setText(assignment.getTurninLoc());
-		lblRVal1.setText(assignment.getResources());
-		Util.linkify(lblInfoVal);
-		Util.linkify(lblTurninVal);
-		Util.linkify(lblRVal1);
+		linkify(lblInfoVal, assignment.getAssignmentLoc());
+		linkify(lblTurninVal, assignment.getTurninLoc());
+		
+		ArrayList<FileInfo> resources = assignment.getResources();
+		for (int k = 0; k < resources.size(); k++)
+			linkify(resourceVals[k], resources.get(k));
 		setVisible(true);
+	}
+
+	private void linkify(JLabel label, FileInfo info) {
+		String loc = info.getLoc();
+		String name = info.getName();
+		boolean isFile = Util.isFile(loc);
+		boolean isURL = Util.isURL(loc);
+		if (isFile || isURL){
+			if (name.isEmpty())
+				if (isFile)
+					name = "File";
+				else
+					name = "Link";
+			label.setText("<html><a href=\"" + loc + "\">" + info.getName() + "</a></html>");
+			label.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			if (isURL)
+				label.addMouseListener(new OpenURL(loc));
+			else
+				label.addMouseListener(new OpenFile(loc));
+		}
+		else{
+			label.setText(name);
+		}
+	}
+	
+	public void edit(){
+		CreateEditAssignment.editAssignment(assignment, (Frame)SwingUtilities.windowForComponent(AssignmentDisplay.this), instance);
+		setAssignment(assignment);
+		mainFrame.repaint();
 	}
 
 }

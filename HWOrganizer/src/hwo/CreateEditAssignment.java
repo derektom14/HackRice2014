@@ -11,7 +11,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
@@ -24,14 +23,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JSpinner.DateEditor;
 
 import net.miginfocom.swing.MigLayout;
-import javax.swing.JTextArea;
 
 public class CreateEditAssignment extends JDialog {
 	
@@ -68,11 +68,13 @@ public class CreateEditAssignment extends JDialog {
 	private boolean turninPanelModified = false;
 	private JLabel lblNotes;
 	private JTextArea textNotes;
+	private JLabel lblNewLabel;
+	private JSpinner dueTimeSpinner;
 
-	public static RepeatAssignment createNewAssignment(HashMap<String, ICourse> courseMap, Frame parent){
-		if (courseMap.size() == 0)
+	public static RepeatAssignment createNewAssignment(ISemester semester, Frame parent){
+		if (semester.getCourses().size() == 0)
 			throw new IllegalArgumentException("Cannot create assignment with no courses");
-		CreateEditAssignment dialog = new CreateEditAssignment(parent, courseMap, null);
+		CreateEditAssignment dialog = new CreateEditAssignment(parent, semester, null);
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setModal(true);
 		dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
@@ -82,32 +84,25 @@ public class CreateEditAssignment extends JDialog {
 	}
 	
 	public static void editAssignment(SingleAssignment assignment, Frame parent, Instance instance){
-		CreateEditAssignment dialog = new CreateEditAssignment(parent, assignment.getCourse().getSemester().getCourses(), assignment);
+		CreateEditAssignment dialog = new CreateEditAssignment(parent, assignment.getCourse().getSemester(), assignment);
 		dialog.setModal(true);
 		dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
 		dialog.setVisible(true);
-	}
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		new CreateEditAssignment(null, new HashMap<String, ICourse>(), null).setVisible(true);
 	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public CreateEditAssignment(Frame parent, HashMap<String, ICourse> courseMap, SingleAssignment assignment) {
+	public CreateEditAssignment(Frame parent, ISemester semester, SingleAssignment assignment) {
 		super(parent, true);
 		setTitle(assignment == null ? "Create New Assignment" : "Edit Assignment");
 		this.assignment = assignment;
-		this.courseMap = courseMap;
+		this.courseMap = semester.getCourses();
 		System.out.println(courseMap);
 		setBounds(100, 100, 575, 480);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		getContentPane().add(contentPanel, BorderLayout.NORTH);
 		contentPanel.setLayout(new MigLayout("hidemode 3", "[][grow][grow][grow]", "[][][][][][center][][][grow][grow][][][grow]"));
 		{
 			JLabel lblName = new JLabel("Name:");
@@ -130,7 +125,7 @@ public class CreateEditAssignment extends JDialog {
 			for (String cName : courseMap.keySet())
 				courseNames[k++] = cName;
 			System.out.println(Arrays.toString(courseNames));
-			cbCourse = new JComboBox<String>(courseNames);
+			cbCourse = new JComboBox(courseNames);
 			cbCourse.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					switchCourse(getCourse((String)cbCourse.getSelectedItem()));
@@ -139,22 +134,33 @@ public class CreateEditAssignment extends JDialog {
 			contentPanel.add(cbCourse, "cell 1 1,growx");
 		}
 		{
+			lblNewLabel = new JLabel("Due Time:");
+			contentPanel.add(lblNewLabel, "cell 0 2,alignx trailing");
+		}
+		{
+			dueTimeSpinner = new JSpinner();
+			dueTimeSpinner.setModel(new SpinnerDateModel(new Date(1390716000000L), null, null, Calendar.DAY_OF_YEAR));
+			dueTimeSpinner.setEditor(new DateEditor(dueTimeSpinner, "HH:mm:ss"));
+			contentPanel.add(dueTimeSpinner, "cell 1 2");
+		}
+		{
 			lblStart = new JLabel("Start:");
-			contentPanel.add(lblStart, "cell 0 2,alignx trailing");
+			contentPanel.add(lblStart, "cell 0 3,alignx trailing");
 		}
 		{
 			spnStart = new JSpinner();
 			spnStart.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.DAY_OF_YEAR));
-			contentPanel.add(spnStart, "cell 1 2");
+			spnStart.setEditor(new DateEditor(spnStart, "MM/dd/yy"));
+			contentPanel.add(spnStart, "flowx,cell 1 3");
 		}
 		{
-			JLabel lblDueDate = new JLabel("Due:");
-			contentPanel.add(lblDueDate, "cell 0 3,alignx trailing");
-		}
-		{
-			spnDue = new JSpinner();
-			spnDue.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.MINUTE));
-			contentPanel.add(spnDue, "cell 1 3");
+			Calendar endDate = semester.getEndDate();
+			Calendar endCalendar = Calendar.getInstance();
+			for (int mode : new int[]{Calendar.YEAR, Calendar.DAY_OF_YEAR})
+				endCalendar.set(mode, endDate.get(mode));
+			endCalendar.set(Calendar.HOUR, 23);
+			endCalendar.set(Calendar.MINUTE, 59);
+			endCalendar.set(Calendar.SECOND, 0);
 		}
 		{
 			cbRepeating = new JCheckBox("Repeating");
@@ -271,6 +277,14 @@ public class CreateEditAssignment extends JDialog {
 			contentPanel.add(textNotes, "cell 1 12,grow");
 		}
 		{
+			JLabel lblDueDate = new JLabel("End");
+			contentPanel.add(lblDueDate, "cell 1 3,alignx trailing");
+		}
+		spnDue = new JSpinner();
+		spnDue.setModel(new SpinnerDateModel(semester.getEndDate().getTime(), null, null, Calendar.DAY_OF_YEAR));
+		spnDue.setEditor(new DateEditor(spnDue, "MM/dd/yy"));
+		contentPanel.add(spnDue, "cell 1 3");
+		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
@@ -307,7 +321,8 @@ public class CreateEditAssignment extends JDialog {
 				resourcePanels[k].setInfo(resources.get(k));
 			spnPriority.setValue(assignment.getPriority());
 			
-			
+			lblStart.setVisible(false);
+			spnStart.setVisible(false);
 			cbRepeating.setVisible(false);
 			cbSu.setVisible(false);
 			cbM.setVisible(false);
@@ -381,7 +396,6 @@ public class CreateEditAssignment extends JDialog {
 		}
 		else {
 			assignment.setCourse(course);
-			assignment.setStartDate(startCal);
 			assignment.setDueTime(dueCal);
 			assignment.setEndDate(dueCal);
 			assignment.setName(hwName);

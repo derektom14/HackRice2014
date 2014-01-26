@@ -1,7 +1,7 @@
 package hwo;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.Point;
@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 
-import javax.swing.Box;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -177,23 +176,33 @@ public class MainFrame extends JFrame {
 		});
 		sideBar.add(btnFilterSearch);
 		
-		Component glue = Box.createGlue();
-		sideBar.add(glue);
+		JButton btnOrder = new JButton("Order");
+		btnOrder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				reorder();
+			}
+		});
+		sideBar.add(btnOrder);
 		
 		JPanel assignmentList = new JPanel();
 		contentPane.add(assignmentList);
 		dayListModel = new DefaultListModel<DayOfAssignments>();
+		assignmentList.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(192, 69, 2, 2);
 		assignmentList.add(scrollPane);
 		
 		dayList = new JList<DayOfAssignments>();
+		dayList.setBounds(10, 0, 629, 395);
+		assignmentList.add(dayList);
+		dayList.setMinimumSize(new Dimension(700, 0));
 		dayList.setModel(dayListModel);
-		assignmentList.add(new JScrollPane(dayList));
 		
-		assignmentInfo = new AssignmentDisplay(instance);
+		assignmentInfo = new AssignmentDisplay(instance, this);
+		assignmentInfo.setMinimumSize(new Dimension(500, 173));
 		contentPane.add(assignmentInfo, BorderLayout.EAST);
-		assignmentInfo.setVisible(false);
+		//assignmentInfo.setVisible(false);
 		
 		addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
@@ -206,7 +215,7 @@ public class MainFrame extends JFrame {
 
 	private void addNewAssignment(){
 		RepeatAssignment newAssignment = 
-				CreateEditAssignment.createNewAssignment(instance.getCurSemester().getCourses(), this);
+				CreateEditAssignment.createNewAssignment(instance.getCurSemester(), this);
 		if (newAssignment != null)
 			instance.addChange(new DeleteRepeatAssignment(newAssignment));
 		fillListOfDays();
@@ -260,6 +269,10 @@ public class MainFrame extends JFrame {
 	private void filterAssignments(){
 		FilterSettings.changeSettings(instance, this);
 		fillListOfDays();
+	}
+	
+	private void reorder(){
+		
 	}
 
 }
