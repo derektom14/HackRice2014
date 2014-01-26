@@ -156,6 +156,22 @@ public class SingleAssignment extends AAssignment
 		else
 			super.setPriority(priority);
 	}
+	
+	//-------------------------------------------------
+	// Class methods
+	//-------------------------------------------------
+	public String toString()
+	{
+		String s = "";
+		s += "(" + this.getCourse().getName() + ") ";
+		s += this.getName() + " ";
+		s += "Due: ";
+		s += this.dueDate.get(Calendar.YEAR) + "/";
+		s += this.dueDate.get(Calendar.MONTH) + "/";
+		s += this.dueDate.get(Calendar.DAY_OF_MONTH) + " ";
+		s += this.getTimeString();
+		return s;
+	}
 }
 
 
