@@ -1,10 +1,13 @@
 package hwo;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
-import java.io.IOException;
 
 public class Instance {
 	private Semester[] semesters;
@@ -76,5 +79,9 @@ public class Instance {
 			}
 		}
 		return results;
+	}
+
+	public Settings getSettings() {
+		return settings;
 	}
 }

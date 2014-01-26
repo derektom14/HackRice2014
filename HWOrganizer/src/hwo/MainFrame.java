@@ -1,13 +1,15 @@
 package hwo;
 
 import java.awt.EventQueue;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 
-import javax.swing.AbstractListModel;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -17,6 +19,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
@@ -33,6 +36,8 @@ public class MainFrame extends JFrame {
 	private Instance instance = new Instance();
 	
 	private JList<DayOfAssignments> dayList;
+	
+	private AssignmentDisplay assignmentInfo;
 	
 	/**
 	 * Launch the application.
@@ -155,6 +160,11 @@ public class MainFrame extends JFrame {
 		sideBar.add(btnNewCourse);
 		
 		JButton btnFilterSearch = new JButton("Filter / Search");
+		btnFilterSearch.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				filterAssignments();
+			}
+		})
 		sideBar.add(btnFilterSearch);
 		
 		JPanel assignmentList = new JPanel();
@@ -165,6 +175,16 @@ public class MainFrame extends JFrame {
 		dayList.setModel(dayListModel);
 		assignmentList.add(dayList);
 		fillListOfDays();
+		
+		assignmentInfo = new AssignmentDisplay();
+		contentPane.add(assignmentInfo);
+		//assignmentInfo.setVisible(false);
+		
+		addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				System.out.println("Click");
+			}
+		});
 	}
 
 	private void addNewAssignment(){
@@ -190,7 +210,7 @@ public class MainFrame extends JFrame {
 			int index = 0;
 			while(index < assignments.size()){
 				Calendar curDay = assignments.get(0).getDueDate();
-				DayOfAssignments day = new DayOfAssignments(curDay);
+				DayOfAssignments day = new DayOfAssignments(curDay, assignmentInfo);
 				do {
 					System.out.println("Adding " + index);
 					day.addAssignment(assignments.get(index));
@@ -199,10 +219,23 @@ public class MainFrame extends JFrame {
 				dayListModel.addElement(day);
 			}
 		}
+		dayList.setCellRenderer(new DayRenderer());
+		dayList.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				int index = dayList.locationToIndex(e.getPoint());
+				Point origin = dayList.indexToLocation(index);
+				dayList.getSelectedValue();
+			}
+		});
+		dayList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
 	
 	private void save(){
 		instance.save();
+	}
+	
+	private void filterAssignments(){
+		new FilterSettings(instance.getSettings());
 	}
 
 }

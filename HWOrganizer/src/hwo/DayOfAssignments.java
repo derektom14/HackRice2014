@@ -1,19 +1,15 @@
 package hwo;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Calendar;
 
+import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
-import javax.swing.AbstractListModel;
-import javax.swing.BoxLayout;
-import javax.swing.JSplitPane;
-import java.awt.FlowLayout;
-import java.awt.Component;
-import javax.swing.JScrollBar;
-import javax.swing.JButton;
 
 public class DayOfAssignments extends JPanel {
 
@@ -23,8 +19,9 @@ public class DayOfAssignments extends JPanel {
 	
 	/**
 	 * Create the panel.
+	 * @param assignmentInfo 
 	 */
-	public DayOfAssignments(Calendar curDay) {
+	public DayOfAssignments(Calendar curDay, AssignmentDisplay assignmentInfo) {
 		this.day = curDay;
 		setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -42,11 +39,17 @@ public class DayOfAssignments extends JPanel {
 		list = new AssignmentList(model);
 		panel.add(list);
 		list.setModel(model);
-		list.setCellRenderer(new AssignmentListCellRenderer());
+		list.setCellRenderer(new AssignmentListCellRenderer(assignmentInfo));
 		
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setIcon(null);
 		panel.add(lblNewLabel);
+		
+		addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				System.out.println("CLICK");
+			}
+		});
 
 	}
 
