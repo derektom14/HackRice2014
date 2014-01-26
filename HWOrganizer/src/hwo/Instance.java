@@ -62,9 +62,13 @@ public class Instance {
 	{
 		ArrayList<SingleAssignment> results = new ArrayList<SingleAssignment>();
 		for (ICourse c : semesters[currentSemester].getCourses()) {
+			System.out.println("Course: " + c);
 			if (settings.getCourse() == null || settings.getCourse() == c) {
+				System.out.println("Accepted");
 				for (RepeatAssignment r : c.getAssignments()) {
+					System.out.println("Repeating: " + r);
 					for (SingleAssignment s : r.getAssignments()) {
+						System.out.println("Single: " + s);
 						if (settings.getStartDate() == null || s.getDueDate().after(settings.getStartDate())
 							&& settings.getEndDate() == null || s.getDueDate().before(settings.getEndDate()))
 								results.add(s);
@@ -72,6 +76,6 @@ public class Instance {
 				}
 			}
 		}
-		return null;
+		return results;
 	}
 }

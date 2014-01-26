@@ -5,9 +5,10 @@
 
 package hwo;
 
-import java.util.Calendar;
-import java.time.Duration;
 import java.io.Serializable;
+import java.util.Calendar;
+
+import javax.xml.datatype.Duration;
 
 public interface IAssignment extends Serializable
 {
