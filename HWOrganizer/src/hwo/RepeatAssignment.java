@@ -54,10 +54,11 @@ public class RepeatAssignment extends AAssignment
 	}
 	
 	// Full Constructor
-	public RepeatAssignment (Course course, int frequency, boolean[] validDays, String name, String notes, Duration completionTime,
-			String assignmentLoc, String turninLoc, String resources, String assignmentType, Calendar dueTime, Calendar startDate, Calendar endDate)
+	public RepeatAssignment (ICourse course, int frequency, boolean[] validDays, String name, String notes, Duration completionTime,
+			String assignmentLoc, String turninLoc, String resources, String assignmentType, Calendar dueTime, Calendar startDate, Calendar endDate,
+			boolean repeating, int priority)
 	{
-		if (frequency > 1)
+		if (frequency >= 1)
 			this.frequency = frequency;
 		else
 			throw new IllegalArgumentException("Tried to set an assignment's frequency to a negative value.");

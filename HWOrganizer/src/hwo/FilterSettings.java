@@ -57,10 +57,10 @@ public class FilterSettings extends JDialog {
 		}
 		{
 			courseMap = instance.getCurSemester().getCourses();
-			String[] courseNames = new String[courses.size()];
+			String[] courseNames = new String[courseMap.size() + 1];
 			courseNames[0] = "";
 			int k = 1;
-			for (String cName : courses.keySet())
+			for (String cName : courseMap.keySet())
 				courseNames[k++] = cName;
 			courseBox = new JComboBox<String>(courseNames);
 			contentPanel.add(courseBox, "cell 1 0,growx");
