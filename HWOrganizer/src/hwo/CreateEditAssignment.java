@@ -29,6 +29,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
+import javax.swing.SpinnerNumberModel;
 
 public class CreateEditAssignment extends JDialog {
 	
@@ -59,6 +60,8 @@ public class CreateEditAssignment extends JDialog {
 	private JPanel panel_1;
 	private JButton btnComplete;
 	private JLabel lblProgress;
+	private JLabel lblPriority;
+	private JSpinner spnPriority;
 
 	public static RepeatAssignment createNewAssignment(HashMap<String, ICourse> courseMap, Frame parent){
 		if (courseMap.size() == 0)
@@ -72,8 +75,8 @@ public class CreateEditAssignment extends JDialog {
 		return (RepeatAssignment) dialog.assignment;
 	}
 	
-	public static void editAssignment(HashMap<String, ICourse> courseMap, Frame parent, SingleAssignment assignment){
-		CreateEditAssignment dialog = new CreateEditAssignment(parent, courseMap, assignment);
+	public static void editAssignment(SingleAssignment assignment, Frame parent){
+		CreateEditAssignment dialog = new CreateEditAssignment(parent, assignment.getCourse().getSemester().getCourses(), assignment);
 		dialog.setModal(true);
 		dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
 		dialog.setVisible(true);
@@ -91,14 +94,15 @@ public class CreateEditAssignment extends JDialog {
 	 */
 	public CreateEditAssignment(Frame parent, HashMap<String, ICourse> courseMap, SingleAssignment assignment) {
 		super(parent, true);
-		setTitle("Create New Assignment");
+		setTitle(assignment == null ? "Create New Assignment" : "Edit Assignment");
 		this.assignment = assignment;
 		this.courseMap = courseMap;
+		System.out.println(courseMap);
 		setBounds(100, 100, 575, 396);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(new MigLayout("hidemode 3", "[][grow][grow][grow]", "[][][][][][][][][]"));
+		contentPanel.setLayout(new MigLayout("hidemode 3", "[][grow][grow][grow]", "[][][][][][][][][][]"));
 		{
 			JLabel lblName = new JLabel("Name:");
 			contentPanel.add(lblName, "cell 0 0,alignx trailing");
@@ -245,6 +249,15 @@ public class CreateEditAssignment extends JDialog {
 			}
 		}
 		{
+			lblPriority = new JLabel("Priority:");
+			contentPanel.add(lblPriority, "cell 0 9,alignx trailing");
+		}
+		{
+			spnPriority = new JSpinner();
+			spnPriority.setModel(new SpinnerNumberModel(2, 1, 5, 1));
+			contentPanel.add(spnPriority, "cell 1 9");
+		}
+		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
@@ -277,6 +290,8 @@ public class CreateEditAssignment extends JDialog {
 			tfAssignmentLoc.setText(assignment.getAssignmentLoc());
 			tfTurnInLoc.setText(assignment.getTurninLoc());
 			tfFileLoc.setText(assignment.getResources());
+			spnPriority.setValue(assignment.getPriority());
+			
 			cbRepeating.setVisible(false);
 			cbSu.setVisible(false);
 			cbM.setVisible(false);
@@ -333,6 +348,7 @@ public class CreateEditAssignment extends JDialog {
 		startCal.setTime(startDate);
 		int frequency = tfWeekFreq.getSelectedIndex() + 1;
 		int prog = progress.getValue();
+		int priority = (Integer)spnPriority.getValue();
 		
 		String hwName = tfName.getText();
 		String assignmentLoc = tfAssignmentLoc.getText();
@@ -340,7 +356,7 @@ public class CreateEditAssignment extends JDialog {
 		String resources = tfFileLoc.getText();
 		
 		if (assignment == null){
-			assignment = new RepeatAssignment(course, frequency, validDays, hwName, "", null, assignmentLoc, turninLoc, resources, "", dueCal, startCal, dueCal, cbRepeating.isSelected(), 2);
+			assignment = new RepeatAssignment(course, frequency, validDays, hwName, "", null, assignmentLoc, turninLoc, resources, "", dueCal, startCal, dueCal, cbRepeating.isSelected(), priority);
 		}
 		else {
 			assignment.setAssignmentLoc(assignmentLoc);
@@ -353,6 +369,7 @@ public class CreateEditAssignment extends JDialog {
 			assignment.setName(hwName);
 			assignment.setResources(resources);
 			assignment.setTurninLoc(turninLoc);
+			assignment.setPriority((Integer)spnPriority.getValue());
 		}
 	}
 

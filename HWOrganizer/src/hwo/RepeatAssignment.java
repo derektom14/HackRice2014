@@ -73,6 +73,7 @@ public class RepeatAssignment extends AAssignment
 		super.setName(name);
 		super.setNotes(notes);
 		super.setCompletionTime(completionTime);
+		super.setPriority(priority);
 		
 		// Add this to course
 		if (course != null)
