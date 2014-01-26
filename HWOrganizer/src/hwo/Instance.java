@@ -120,6 +120,8 @@ public class Instance {
 		System.out.println("undo");
 		if (!undoStack.empty()) {
 			Change change = undoStack.pop();
+			System.out.println("pop");
+			System.out.println(change);
 			redoStack.push(change.act());
 		}
 	}

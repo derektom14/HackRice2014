@@ -214,11 +214,12 @@ public class RepeatAssignment extends AAssignment
 	public RepeatAssignment removeAssignment(SingleAssignment assignment)
 	{
 		this.assignments.remove(assignment);
+		/*
 		if (this.assignments.size() == 0)
 		{
 			this.getCourse().removeAssignment(this);
 			return this;
-		}
+		}*/
 		return null;
 	}
 	public void changeTo(RepeatAssignment from)
