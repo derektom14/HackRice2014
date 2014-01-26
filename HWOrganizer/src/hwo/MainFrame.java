@@ -27,6 +27,7 @@ import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
 
 // Derek
 
@@ -200,15 +201,13 @@ public class MainFrame extends JFrame {
 		JPanel assignmentList = new JPanel();
 		contentPane.add(assignmentList);
 		dayListModel = new DefaultListModel<DayOfAssignments>();
-		assignmentList.setLayout(null);
+		assignmentList.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(192, 69, 2, 2);
 		assignmentList.add(scrollPane);
 		
 		dayList = new JList<DayOfAssignments>();
-		dayList.setBounds(10, 0, 629, 395);
-		assignmentList.add(dayList);
+		scrollPane.setViewportView(dayList);
 		dayList.setMinimumSize(new Dimension(700, 0));
 		dayList.setModel(dayListModel);
 		
@@ -287,6 +286,5 @@ public class MainFrame extends JFrame {
 	private void reorder(){
 		new OrderDialog(instance);
 	}
-
 }
 
