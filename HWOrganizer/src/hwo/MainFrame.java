@@ -1,17 +1,17 @@
 package hwo;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -20,12 +20,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
-
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 // Derek
 
@@ -38,7 +32,6 @@ public class MainFrame extends JFrame {
 
 	private Instance instance = new Instance();
 	
-	Vector<SingleAssignment> assignments = getSingleAssignments();
 	private JList<DayOfAssignments> dayList;
 	
 	/**
@@ -57,9 +50,8 @@ public class MainFrame extends JFrame {
 		});
 	}
 
-	private Vector<SingleAssignment> getSingleAssignments() {
-		// TODO Auto-generated method stub
-		return new Vector<SingleAssignment>();
+	private ArrayList<SingleAssignment> getSingleAssignments() {
+		return instance.filter();
 	}
 
 	/**
@@ -165,7 +157,7 @@ public class MainFrame extends JFrame {
 		JButton btnFilterSearch = new JButton("Filter / Search");
 		sideBar.add(btnFilterSearch);
 		
-		JPanel assignmentList = new DayOfAssignments(Calendar.getInstance());
+		JPanel assignmentList = new JPanel();
 		contentPane.add(assignmentList, "cell 1 0,grow");
 		
 		dayList = new JList<DayOfAssignments>();
@@ -175,6 +167,7 @@ public class MainFrame extends JFrame {
 
 	private void addNewAssignment(){
 		CreateEditAssignment.createNewAssignment(instance.getCurSemester().getCourses(), this);
+		fillListOfDays();
 	}
 	
 	private void addNewCourse(){
@@ -186,6 +179,9 @@ public class MainFrame extends JFrame {
 	}
 	
 	private void fillListOfDays() {
+		ArrayList<SingleAssignment> assignments = instance.filter();
+		System.out.println("Filling list of days");
+		dayListModel.clear();
 		if (!assignments.isEmpty()){
 			Collections.sort(assignments, new AssignmentDateComparator());
 			int index = 0;

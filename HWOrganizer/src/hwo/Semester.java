@@ -9,7 +9,7 @@ import java.lang.IllegalArgumentException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class Semester implements ISemester, java.io.Serializable
+public class Semester implements ISemester
 {
 	private Calendar startDate; // The day the semester starts (ignores hours and below)
 	private Calendar endDate; // The day the semester ends (ignores hours and below)

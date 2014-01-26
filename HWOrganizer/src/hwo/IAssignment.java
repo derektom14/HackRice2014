@@ -7,8 +7,9 @@ package hwo;
 
 import java.util.Calendar;
 import java.time.Duration;
+import java.io.Serializable;
 
-public interface IAssignment 
+public interface IAssignment extends Serializable
 {
 	//-------------------------------------------------
 	// Getter Methods
