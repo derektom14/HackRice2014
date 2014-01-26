@@ -58,6 +58,7 @@ public class Semester implements ISemester
 		if (course != null) {
 			if (courses.containsKey(course.getName()))
 				return "There is already a course with the name " + course.getName();
+			System.out.println("Adding " + course + ", name " + course.getName());
 			courses.put(course.getName(), course);
 		}
 		else

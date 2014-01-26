@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -23,19 +24,18 @@ public class CreateEditCourse extends JDialog {
 	private JTextField tfAssignmentLoc;
 	private JTextField tfTurnInLoc;
 	private JTextField tfResources;
-	private Course course;
+	private ICourse course;
+	private ISemester semester;
 	private boolean complete = false;
 
-	public static Course createNewCourse(Semester semester, Frame parent){
-		CreateEditCourse dialog = new CreateEditCourse(course, null);
+	public static ICourse createNewCourse(ISemester semester, Frame parent){
+		CreateEditCourse dialog = new CreateEditCourse(parent, semester, null);
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		dialog.setVisible(true);
 		dialog.setModal(true);
 		dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-		if (dialog.complete)
-			return course;
-		else
-			return null;
+		dialog.setVisible(true);
+		System.out.println("new course: " + dialog.course.getName() + dialog.course);
+		return dialog.course;
 	}
 	
 	/**
@@ -43,11 +43,10 @@ public class CreateEditCourse extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			Course course = new Course(new Instance().getCurSemester(), "Name");
-			CreateEditCourse dialog = new CreateEditCourse(course, null);
+			CreateEditCourse dialog = new CreateEditCourse(null, new Instance().getCurSemester(), null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
-			System.out.println(course);
+			System.out.println(dialog.course);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -56,9 +55,10 @@ public class CreateEditCourse extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public CreateEditCourse(Course course, Frame parent) {
+	public CreateEditCourse(Frame parent, ISemester semester, Course course) {
 		super(parent, true);
 		this.course = course;
+		this.semester = semester;
 		setTitle("Create New Course");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -143,9 +143,15 @@ public class CreateEditCourse extends JDialog {
 	
 	
 	private void storeCourse(){
-		course.setName(tfCourseName.getText());
-		course.setAssignmentLoc(tfAssignmentLoc.getText());
-		course.setResources(tfResources.getText());
-		course.setTurninLoc(tfTurnInLoc.getText());
+		if (course == null){
+			course = new Course(semester, tfCourseName.getText(), tfAssignmentLoc.getText(), tfTurnInLoc.getText(), tfResources.getText(),
+				"", Calendar.getInstance());
+		}
+		else {
+			course.setName(tfCourseName.getText());
+			course.setAssignmentLoc(tfAssignmentLoc.getText());
+			course.setResources(tfResources.getText());
+			course.setTurninLoc(tfTurnInLoc.getText());
+		}
 	}
 }

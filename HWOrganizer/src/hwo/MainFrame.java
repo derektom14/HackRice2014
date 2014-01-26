@@ -182,7 +182,7 @@ public class MainFrame extends JFrame {
 		
 		addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
-				System.out.println("Click");
+				System.out.println("Click in main frame");
 			}
 		});
 	}

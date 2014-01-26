@@ -94,9 +94,18 @@ public class RepeatAssignment extends AAssignment
 		super.setEndDate(endDate);
 		
 		// Populates single assignments
-		createSingleAssignments();
+		if (repeating)
+			createSingleAssignments();
+		else
+			createSingleAssignment();
 	}
 	
+	private void createSingleAssignment() {
+		GregorianCalendar g = new GregorianCalendar(getStartDate().get(Calendar.YEAR),
+				getStartDate().get(Calendar.MONTH), getStartDate().get(Calendar.DAY_OF_MONTH));
+		this.assignments.add(new SingleAssignment(this, g));
+	}
+
 	// Creates SingleAssignments - used by full constructor
 	public void createSingleAssignments()
 	{
@@ -111,8 +120,9 @@ public class RepeatAssignment extends AAssignment
 			if (validDays[g.get(Calendar.DAY_OF_WEEK) - 1]) // Day of week goes from 1-7, array goes from 0-6
 			{
 				int numWeeks = (weekCounter % 7) + 1;
-				if ((numWeeks + 1) % this.frequency == 0)
+				if ((numWeeks + 1) % this.frequency == 0){
 					this.assignments.add(new SingleAssignment(this, g));
+				}
 			}
 			// Increment day and week counter
 			g.add(Calendar.DAY_OF_MONTH, 1);
