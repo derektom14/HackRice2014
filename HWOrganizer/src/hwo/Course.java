@@ -89,7 +89,7 @@ public class Course implements ICourse
 	public void setDueTime(Calendar time) {this.dueTime = time;}
 	public void addAssignment(RepeatAssignment assignment) {this.assignments.add(assignment);}
 	public void setSemester(ISemester semester) {this.semester = semester;}
-	// Overrides link to semester
+	// Overrides value from semester
 	public void setStartDate(Calendar date) {this.startDate = date;}
 	public void setEndDate(Calendar date) {this.endDate = date;}
 } 
