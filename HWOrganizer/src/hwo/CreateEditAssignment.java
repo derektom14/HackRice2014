@@ -103,7 +103,7 @@ public class CreateEditAssignment extends JDialog {
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.NORTH);
-		contentPanel.setLayout(new MigLayout("hidemode 3", "[][grow][grow][grow]", "[][][][][][center][][][grow][grow][][][grow]"));
+		contentPanel.setLayout(new MigLayout("hidemode 3", "[][grow][][grow][grow]", "[][][][][][center][][][grow][grow][][][grow]"));
 		{
 			JLabel lblName = new JLabel("Name:");
 			contentPanel.add(lblName, "cell 0 0,alignx trailing");
@@ -131,7 +131,7 @@ public class CreateEditAssignment extends JDialog {
 					switchCourse(getCourse((String)cbCourse.getSelectedItem()));
 				}
 			});
-			contentPanel.add(cbCourse, "cell 1 1,growx");
+			contentPanel.add(cbCourse, "flowx,cell 1 1,growx");
 		}
 		{
 			lblNewLabel = new JLabel("Due Time:");

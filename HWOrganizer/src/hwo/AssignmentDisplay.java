@@ -16,6 +16,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 
 import net.miginfocom.swing.MigLayout;
+import javax.swing.JProgressBar;
 
 public class AssignmentDisplay extends JPanel {
 	
@@ -42,6 +43,7 @@ public class AssignmentDisplay extends JPanel {
 	private MainFrame mainFrame;
 
 	private Instance instance;
+	private JProgressBar progressBar;
 
 	/**
 	 * Create the panel.
@@ -51,7 +53,7 @@ public class AssignmentDisplay extends JPanel {
 		this.instance = instance;
 		this.mainFrame = mainFrame;
 		setBorder(new LineBorder(new Color(0, 0, 0)));
-		setLayout(new MigLayout("", "[][]", "[][][][][][][][][][]"));
+		setLayout(new MigLayout("", "[][]", "[][][][][][][][][][][]"));
 		
 		lblAssignmentName = new JLabel("Assignment Name");
 		add(lblAssignmentName, "cell 0 0");
@@ -107,7 +109,10 @@ public class AssignmentDisplay extends JPanel {
 		lblRVal3 = new JLabel("");
 		resourceVals[2] = lblRVal3;
 		add(lblRVal3, "cell 1 8");
-		add(btnEdit, "cell 0 9");
+		
+		progressBar = new JProgressBar();
+		add(progressBar, "cell 0 9 2 1");
+		add(btnEdit, "cell 0 10");
 
 	}
 
@@ -117,6 +122,7 @@ public class AssignmentDisplay extends JPanel {
 		lblCourseVal.setText(assignment.getCourse().getName());
 		lblDueVal.setText(dateFormat.format(assignment.getDueDate().getTime()));
 		lblPriorityVal.setText(String.valueOf(assignment.getPriority()));
+		progressBar.setValue(assignment.getProgress());
 		linkify(lblInfoVal, assignment.getAssignmentLoc());
 		linkify(lblTurninVal, assignment.getTurninLoc());
 		
@@ -133,6 +139,7 @@ public class AssignmentDisplay extends JPanel {
 		lblCourseVal.setText("");
 		lblDueVal.setText("");
 		lblPriorityVal.setText("");
+		progressBar.setValue(0);
 		delinkify(lblInfoVal);
 		delinkify(lblTurninVal);
 		for(int k = 0; k < 3; k++)

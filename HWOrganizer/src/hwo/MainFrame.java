@@ -28,6 +28,8 @@ import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import java.awt.Component;
+import javax.swing.Box;
 
 // Derek
 
@@ -102,17 +104,19 @@ public class MainFrame extends JFrame {
 				save();
 			}
 		});
+		
+		JMenuItem mntmNewSemester = new JMenuItem("New Semester");
+		mntmNewSemester.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		mnFile.add(mntmNewSemester);
 		mnFile.add(mntmSave);
 		
 		JMenuItem mntmSaveAsText = new JMenuItem("Save as Text");
 		mntmSaveAsText.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		mnFile.add(mntmSaveAsText);
-		
-		JMenu mnFilter = new JMenu("Filter");
-		mnFile.add(mnFilter);
-		
-		JMenu mnOrder = new JMenu("Order");
-		mnFile.add(mnOrder);
 		
 		JMenu mnNewMenu = new JMenu("Edit\r\n");
 		menuBar.add(mnNewMenu);
@@ -190,13 +194,8 @@ public class MainFrame extends JFrame {
 		});
 		sideBar.add(btnFilterSearch);
 		
-		JButton btnOrder = new JButton("Order");
-		btnOrder.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				reorder();
-			}
-		});
-		sideBar.add(btnOrder);
+		Component glue = Box.createGlue();
+		sideBar.add(glue);
 		
 		JPanel assignmentList = new JPanel();
 		contentPane.add(assignmentList);
@@ -267,9 +266,11 @@ public class MainFrame extends JFrame {
 		dayList.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
 				int index = dayList.locationToIndex(e.getPoint());
-				Point origin = dayList.indexToLocation(index);
-				DayOfAssignments day = dayListModel.elementAt(index);
-				day.mouseClicked(new Point(e.getX() - origin.x, e.getY() - origin.y));
+				if (index >= 0){
+					Point origin = dayList.indexToLocation(index);
+					DayOfAssignments day = dayListModel.elementAt(index);
+					day.mouseClicked(new Point(e.getX() - origin.x, e.getY() - origin.y));
+				}
 			}
 		});
 		dayList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -282,10 +283,6 @@ public class MainFrame extends JFrame {
 	private void filterAssignments(){
 		FilterSettings.changeSettings(instance, this);
 		fillListOfDays();
-	}
-	
-	private void reorder(){
-		new OrderDialog(instance);
 	}
 }
 
