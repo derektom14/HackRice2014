@@ -104,18 +104,18 @@ public class RepeatAssignment extends AAssignment
 				getStartDate().get(Calendar.MONTH), getStartDate().get(Calendar.DAY_OF_MONTH));
 		
 		// Go through all dates from start to end, adding SingleAssignments when a valid date is reached
-		int week_counter = 0;
+		int weekCounter = 0;
 		do {
 			// Check if valid
 			if (validDays[g.get(Calendar.DAY_OF_WEEK) - 1]) // Day of week goes from 1-7, array goes from 0-6
 			{
-				int num_weeks = (week_counter % 7) + 1;
-				if ((num_weeks + 1) % this.frequency == 0)
+				int numWeeks = (weekCounter % 7) + 1;
+				if ((numWeeks + 1) % this.frequency == 0)
 					this.assignments.add(new SingleAssignment(this, g));
 			}
 			// Increment day and week counter
 			g.add(Calendar.DAY_OF_MONTH, 1);
-			week_counter += 1;
+			weekCounter += 1;
 		} while (g.before(getEndDate()));
 	}
 	
