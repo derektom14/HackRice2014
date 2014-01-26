@@ -6,14 +6,14 @@
 package hwo;
 
 import java.lang.IllegalArgumentException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Calendar;
 
 public class Semester implements ISemester
 {
 	private Calendar startDate; // The day the semester starts (ignores hours and below)
 	private Calendar endDate; // The day the semester ends (ignores hours and below)
-	private ArrayList<ICourse> courses = new ArrayList<ICourse>(); // A list of the courses in this semester
+	private HashMap<String, ICourse> courses = new HashMap<String, ICourse>(); // A list of the courses in this semester
 	
 	//-------------------------------------------------
 	// Constructor
@@ -34,7 +34,7 @@ public class Semester implements ISemester
 	//-------------------------------------------------
 	public Calendar getStartDate(){return startDate;}
 	public Calendar getEndDate() {return endDate;}
-	public ArrayList<ICourse> getCourses() {return courses;}
+	public HashMap<String, ICourse> getCourses() {return courses;}
 	
 	//-------------------------------------------------
 	// Setter methods
@@ -53,13 +53,15 @@ public class Semester implements ISemester
 		else
 			this.endDate = endDate;
 	}
-	public void addCourse(ICourse course) 
+	public String addCourse(ICourse course) 
 	{
-		System.out.println(course + ", " + courses);
-		if (course != null)
-			courses.add(course);
+		if (course != null) {
+			if (courses.containsKey(course.getName()))
+				return "There is already a course with the name " + course.getName();
+			courses.put(course.getName(), course);
+		}
 		else
 			throw new IllegalArgumentException("Tried to add a null course to a semester.");
-		System.out.println(courses);
+		return null;
 	}
 }

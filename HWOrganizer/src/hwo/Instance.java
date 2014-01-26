@@ -63,7 +63,7 @@ public class Instance {
 	public ArrayList<SingleAssignment> filter()
 	{
 		ArrayList<SingleAssignment> results = new ArrayList<SingleAssignment>();
-		for (ICourse c : semesters[currentSemester].getCourses()) {
+		for (ICourse c : semesters[currentSemester].getCourses().values()) {
 			System.out.println("Course: " + c);
 			if (settings.getCourse() == null || settings.getCourse() == c) {
 				System.out.println("Accepted");
