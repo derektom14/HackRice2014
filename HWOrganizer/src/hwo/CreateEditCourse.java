@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package hwo;
 
 import java.awt.BorderLayout;
@@ -290,4 +289,3 @@ public class CreateEditCourse extends JDialog {
 		course.setTurninLoc(tfTurnInLoc.getText());
 	}
 }
->>>>>>> branch 'master' of https://github.com/derektom14/HackRice2014
