@@ -17,19 +17,6 @@ public class OrderDialog extends JDialog {
 	private JComboBox comboBox;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			OrderDialog dialog = new OrderDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 */
 	public OrderDialog(final Instance instance) {
