@@ -120,13 +120,18 @@ public class MainFrame extends JFrame {
 		JMenuItem mntmUndo = new JMenuItem("Undo");
 		mntmUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				instance.undo();
+				instance.undo(MainFrame.this);
 			}
 		});
 		mntmUndo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_MASK));
 		mnNewMenu.add(mntmUndo);
 		
 		JMenuItem mntmRedo = new JMenuItem("Re-do");
+		mntmRedo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				instance.redo(MainFrame.this);
+			}
+		});
 		mntmRedo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		mnNewMenu.add(mntmRedo);
 		

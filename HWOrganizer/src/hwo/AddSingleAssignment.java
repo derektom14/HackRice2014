@@ -11,7 +11,6 @@ public class AddSingleAssignment extends Change{
 	
 	public Change act () {
 		sAssignment.getParentAssignment().addAssignment(sAssignment);
-		System.out.println(sAssignment.getParentAssignment().getCourse().getSemester().getCourses().get(0).getAssignments().get(0).getName());
 		return new DeleteSingleAssignment(sAssignment, index);
 	}
 	
