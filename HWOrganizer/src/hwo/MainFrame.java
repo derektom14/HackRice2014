@@ -117,6 +117,11 @@ public class MainFrame extends JFrame {
 		menuBar.add(mnNewMenu);
 		
 		JMenuItem mntmUndo = new JMenuItem("Undo");
+		mntmUndo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				instance.undo();
+			}
+		});
 		mntmUndo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_MASK));
 		mnNewMenu.add(mntmUndo);
 		
