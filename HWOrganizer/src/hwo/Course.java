@@ -67,6 +67,12 @@ public class Course implements ICourse, Serializable
 		
 	}
 	
+	// Shallow Copy Constructor
+	public Course (Course orig)
+	{
+		this.changeTo(orig);
+	}
+	
 	//-------------------------------------------------
 	// Getter Methods
 	//-------------------------------------------------
@@ -142,7 +148,6 @@ public class Course implements ICourse, Serializable
 	{
 		this.semester.removeCourse(this);
 	}
-	
 	public String validateAssignment(int frequency, boolean[] validDays, Calendar startDate, Calendar endDate)
 	{
 		if (frequency < 1)
@@ -153,5 +158,18 @@ public class Course implements ICourse, Serializable
 			return "Tried to set an assignment's start date to be later than its end date.";
 		
 		return null; // null indicates no errors were found
+	}
+	public void changeTo(Course from)
+	{
+		this.name = from.name;
+		this.assignmentLoc = from.assignmentLoc;
+		this.turninLoc = from.turninLoc;
+		this.resources = from.resources;
+		this.assignmentType = from.assignmentType;
+		this.dueTime = from.dueTime;
+		this.assignments = from.assignments;
+		this.semester = from.semester;
+		this.startDate = from.startDate;
+		this.endDate = from.endDate;
 	}
 } 
