@@ -1,6 +1,7 @@
 package hwo;
 
 import java.awt.EventQueue;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Vector;
@@ -17,7 +18,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import net.miginfocom.swing.MigLayout;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -52,7 +55,7 @@ public class MainFrame extends JFrame {
 
 	private Vector<SingleAssignment> getSingleAssignments() {
 		// TODO Auto-generated method stub
-		return null;
+		return new Vector<SingleAssignment>();
 	}
 
 	/**
@@ -60,7 +63,7 @@ public class MainFrame extends JFrame {
 	 */
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 548, 387);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -118,10 +121,10 @@ public class MainFrame extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("", "[grow][grow]", "[grow]"));
+		contentPane.setLayout(new MigLayout("", "[111px][201px]", "[303px]"));
 		
 		JPanel sideBar = new JPanel();
-		contentPane.add(sideBar, "flowx,cell 0 0,alignx left,growy");
+		contentPane.add(sideBar, "cell 0 0,alignx left,growy");
 		sideBar.setLayout(new BoxLayout(sideBar, BoxLayout.Y_AXIS));
 		
 		JButton btnNewAssignment = new JButton("New Assignment");
@@ -136,22 +139,26 @@ public class MainFrame extends JFrame {
 		JPanel assignmentList = new JPanel();
 		contentPane.add(assignmentList, "cell 1 0,grow");
 		
-		dayList = new JList();
+		dayList = new JList<DayOfAssignments>();
 		assignmentList.add(dayList);
 		fillListOfDays();
 	}
 
+	private boolean sameDay(Calendar a, Calendar b){
+		return a.get(Calendar.YEAR) == b.get(Calendar.YEAR) && a.get(Calendar.DAY_OF_YEAR) == b.get(Calendar.DAY_OF_YEAR);  
+	}
+	
 	private void fillListOfDays() {
 		if (!assignments.isEmpty()){
-			Collections.sort(assignments);
+			Collections.sort(assignments, new AssignmentDateComparator());
 			int index = 0;
 			while(index < assignments.size()){
-				Date curDay = assignments.get(0).getDueDate();
+				Calendar curDay = assignments.get(0).getDueDate();
 				DayOfAssignments day = new DayOfAssignments(curDay);
 				do {
 					day.addAssignment(assignments.get(index));
 					index++;
-				} while (index < assignments.size() && assignments.get(index).getDueDate().equals(curDay));
+				} while (index < assignments.size() && sameDay(assignments.get(index).getDueDate(), curDay));
 				dayListModel.addElement(day);
 			}
 		}

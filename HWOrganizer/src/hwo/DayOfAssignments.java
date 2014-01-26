@@ -1,5 +1,6 @@
 package hwo;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.DefaultListModel;
@@ -13,13 +14,13 @@ public class DayOfAssignments extends JPanel {
 
 	private JList<SingleAssignment> list;
 	private DefaultListModel<SingleAssignment> model;
-	private Date date;
+	private Calendar day;
 	
 	/**
 	 * Create the panel.
 	 */
-	public DayOfAssignments(Date date) {
-		this.date = date;
+	public DayOfAssignments(Calendar curDay) {
+		this.day = curDay;
 		setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
 		JLabel lblNameOfDay = new JLabel("Name of Day");

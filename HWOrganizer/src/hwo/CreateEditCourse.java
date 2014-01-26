@@ -28,8 +28,8 @@ public class CreateEditCourse extends JDialog {
 	private Course course;
 	private boolean complete = false;
 
-	public static Course createNewCourse(Frame parent){
-		Course course = new Course();
+	public static Course createNewCourse(Semester semester, Frame parent){
+		Course course = new Course(semester, "");
 		CreateEditCourse dialog = new CreateEditCourse(course, null);
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setVisible(true);
@@ -41,20 +41,20 @@ public class CreateEditCourse extends JDialog {
 			return null;
 	}
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			Course course = new Course();
-			CreateEditCourse dialog = new CreateEditCourse(course, null);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-			System.out.println(course);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		try {
+//			Course course = new Course();
+//			CreateEditCourse dialog = new CreateEditCourse(course, null);
+//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			dialog.setVisible(true);
+//			System.out.println(course);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * Create the dialog.
