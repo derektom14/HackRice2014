@@ -28,6 +28,8 @@ public class OrderDialog extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		{
 			comboBox = new JComboBox(new String[]{"Due Date", "Class", "Name"});
+			if (instance.getOrder() >= 0 && instance.getOrder() < 3)
+				comboBox.setSelectedIndex(instance.getOrder());
 			contentPanel.add(comboBox);
 		}
 		{
@@ -39,6 +41,7 @@ public class OrderDialog extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						instance.setOrder((String)comboBox.getSelectedItem());
+						setVisible(false);
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -51,6 +54,7 @@ public class OrderDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		setVisible(true);
 	}
 
 }

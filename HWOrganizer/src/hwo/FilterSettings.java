@@ -77,6 +77,17 @@ public class FilterSettings extends JDialog {
 			for (String cName : courseMap.keySet())
 				courseNames[k++] = cName;
 			courseBox = new JComboBox<String>(courseNames);
+			int index = -1;
+			if (instance.getSettings().getCourse() != null) {
+				for (int i = 0; i < courseNames.length; i++) {
+					if (courseNames[i].equals(instance.getSettings().getCourse().getName())){
+						index = i;
+						break;
+					}
+				}
+			}
+			if (index != -1)
+				courseBox.setSelectedIndex(index);
 			contentPanel.add(courseBox, "cell 1 0,growx");
 		}
 		{

@@ -161,4 +161,8 @@ public class Instance {
 		else
 			throw new IllegalArgumentException("Invalid Order Input");
 	}
+	
+	public int getOrder(){
+		return order;
+	}
 }

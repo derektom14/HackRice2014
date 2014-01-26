@@ -280,7 +280,7 @@ public class MainFrame extends JFrame {
 	}
 	
 	private void reorder(){
-		
+		new OrderDialog(instance);
 	}
 
 }
