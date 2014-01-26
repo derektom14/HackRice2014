@@ -1,10 +1,10 @@
 package hwo;
 
-public class DeletedSemester extends Change{
+public class AddSemester extends Change{
 	private Semester semester;
 	private int semesterIndex;
 	
-	DeletedSemester(Semester semester, int semesterIndex) {
+	AddSemester(Semester semester, int semesterIndex) {
 		this.semester = semester;
 		this.semesterIndex = semesterIndex;
 	}
@@ -15,5 +15,9 @@ public class DeletedSemester extends Change{
 	
 	public String toString() {
 		return "Deleted a semester";
+	}
+	
+	public Change getReverse() {
+		return new DeleteSemester();
 	}
 }

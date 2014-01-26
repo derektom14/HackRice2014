@@ -8,24 +8,36 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Stack;
 
 public class Instance {
 	private ArrayList<Semester> semesters;
 	private String name;
 	private Settings settings = new Settings(null, null, null);
 	private int currentSemester;
+	private Stack<Change> undoStack = new Stack<Change>();
+	private Stack<Change> redoStack = new Stack<Change>();
 	
 	Instance () {
 		open();
 	}
 	
 	public Semester getCurSemester() {return semesters.get(currentSemester);}
+	
 	public void addSemester(Semester semester, int index)
 	{
 		if (index <= semesters.size())
 			semesters.add(semester);
 		else
 			throw new IllegalArgumentException("Tried to add a semester past the length of the ArrayList.");
+	}
+
+	public void deleteSemester(int index)
+	{
+		if (index < semesters.size())
+			semesters.remove(index);
+		else
+			throw new IllegalArgumentException("Tried to remove a semester past the length of the ArrayList.");
 	}
 	
 	public void save() {
@@ -90,7 +102,7 @@ public class Instance {
 		return results;
 	}
 	
-	public void delete() {
+	public void deleteAssignments() {
 		ArrayList<SingleAssignment> toDelete = filter();
 		for (SingleAssignment a : toDelete)
 			a.removeSelf();
@@ -98,5 +110,13 @@ public class Instance {
 
 	public Settings getSettings() {
 		return settings;
+	}
+	
+	public void undo() {
+		if (!undoStack.empty()) {
+			Change change = undoStack.pop();
+			change.act(this);
+			redoStack.push(change.getReverse());
+		}
 	}
 }

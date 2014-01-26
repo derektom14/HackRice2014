@@ -1,9 +1,9 @@
 package hwo;
 
-public class DeletedRepeatAssignment extends Change{
+public class AddRepeatAssignment extends Change{
 	private RepeatAssignment rAssignment;
 	
-	DeletedRepeatAssignment(RepeatAssignment rAssignment) {
+	AddRepeatAssignment(RepeatAssignment rAssignment) {
 		this.rAssignment = rAssignment;
 	}
 	
@@ -13,5 +13,9 @@ public class DeletedRepeatAssignment extends Change{
 	
 	public String toString() {
 		return "Deleted the repeated assignment " + rAssignment.getName();
+	}
+	
+	public Change getReverse() {
+		return new DeleteRepeatAssignment(rAssignment);
 	}
 }

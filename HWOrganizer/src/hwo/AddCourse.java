@@ -1,9 +1,9 @@
 package hwo;
 
-public class DeletedCourse extends Change{
+public class AddCourse extends Change{
 	private Course course;
 	
-	DeletedCourse(Course course) {
+	AddCourse(Course course) {
 		this.course = course;
 	}
 	
@@ -13,5 +13,9 @@ public class DeletedCourse extends Change{
 	
 	public String toString() {
 		return "Deleted the course " + course.getName();
+	}
+	
+	public Change getReverse() {
+		return new DeleteCourse(course);
 	}
 }
