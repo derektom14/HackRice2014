@@ -164,7 +164,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e){
 				filterAssignments();
 			}
-		})
+		});
 		sideBar.add(btnFilterSearch);
 		
 		JPanel assignmentList = new JPanel();
