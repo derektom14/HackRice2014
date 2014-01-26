@@ -27,6 +27,10 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.KeyStroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.InputEvent;
+import java.awt.GridLayout;
+import java.awt.Component;
+import javax.swing.Box;
+import java.awt.BorderLayout;
 
 // Derek
 
@@ -68,7 +72,7 @@ public class MainFrame extends JFrame {
 	 */
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 548, 387);
+		setBounds(100, 100, 916, 476);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -146,11 +150,10 @@ public class MainFrame extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("", "[111px][201px]", "[303px]"));
+		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		JPanel sideBar = new JPanel();
-		contentPane.add(sideBar, "cell 0 0,alignx left,growy");
-		sideBar.setLayout(new BoxLayout(sideBar, BoxLayout.Y_AXIS));
+		contentPane.add(sideBar, BorderLayout.WEST);
 		
 		JButton btnNewAssignment = new JButton("New Assignment");
 		btnNewAssignment.addActionListener(new ActionListener() {
@@ -158,6 +161,7 @@ public class MainFrame extends JFrame {
 				addNewAssignment();
 			}
 		});
+		sideBar.setLayout(new GridLayout(0, 1, 0, 0));
 		sideBar.add(btnNewAssignment);
 		
 		JButton btnNewCourse = new JButton("New Course");
@@ -176,8 +180,11 @@ public class MainFrame extends JFrame {
 		});
 		sideBar.add(btnFilterSearch);
 		
+		Component glue = Box.createGlue();
+		sideBar.add(glue);
+		
 		JPanel assignmentList = new JPanel();
-		contentPane.add(assignmentList, "cell 1 0,grow");
+		contentPane.add(assignmentList);
 		dayListModel = new DefaultListModel<DayOfAssignments>();
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -188,7 +195,7 @@ public class MainFrame extends JFrame {
 		assignmentList.add(new JScrollPane(dayList));
 		
 		assignmentInfo = new AssignmentDisplay();
-		contentPane.add(assignmentInfo);
+		contentPane.add(assignmentInfo, BorderLayout.EAST);
 		assignmentInfo.setVisible(false);
 		
 		addMouseListener(new MouseAdapter(){
