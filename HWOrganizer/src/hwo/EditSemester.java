@@ -16,6 +16,6 @@ public class EditSemester extends Change{
 	}
 	
 	public String toString() {
-		return "Deleted a semester";
+		return "Edited a semester";
 	}
 }
