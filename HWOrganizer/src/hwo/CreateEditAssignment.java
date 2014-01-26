@@ -139,7 +139,19 @@ public class CreateEditAssignment extends JDialog {
 		}
 		{
 			dueTimeSpinner = new JSpinner();
-			dueTimeSpinner.setModel(new SpinnerDateModel(new Date(1390716000000L), null, null, Calendar.DAY_OF_YEAR));
+			Date curDueDate;
+			if (assignment == null){
+				Calendar dueDate = new GregorianCalendar();
+				dueDate.set(Calendar.HOUR, 23);
+				dueDate.set(Calendar.MINUTE, 59);
+				dueDate.set(Calendar.SECOND, 0);
+				curDueDate = dueDate.getTime();
+			} else {
+				Calendar dueDate = assignment.getDueTime();
+				System.out.println(dueDate.get(Calendar.HOUR_OF_DAY) + ", " + assignment.getTimeString());
+				curDueDate = dueDate.getTime();
+			}
+			dueTimeSpinner.setModel(new SpinnerDateModel(curDueDate, null, null, Calendar.DAY_OF_YEAR));
 			dueTimeSpinner.setEditor(new DateEditor(dueTimeSpinner, "HH:mm:ss"));
 			contentPanel.add(dueTimeSpinner, "cell 1 2");
 		}
@@ -154,13 +166,6 @@ public class CreateEditAssignment extends JDialog {
 			contentPanel.add(spnStart, "flowx,cell 1 3");
 		}
 		{
-			Calendar endDate = semester.getEndDate();
-			Calendar endCalendar = Calendar.getInstance();
-			for (int mode : new int[]{Calendar.YEAR, Calendar.DAY_OF_YEAR})
-				endCalendar.set(mode, endDate.get(mode));
-			endCalendar.set(Calendar.HOUR, 23);
-			endCalendar.set(Calendar.MINUTE, 59);
-			endCalendar.set(Calendar.SECOND, 0);
 		}
 		{
 			cbRepeating = new JCheckBox("Repeating");

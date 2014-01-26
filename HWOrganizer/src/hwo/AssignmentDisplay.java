@@ -131,7 +131,7 @@ public class AssignmentDisplay extends JPanel {
 		boolean isFile = Util.isFile(loc);
 		boolean isURL = Util.isURL(loc);
 		if (isFile || isURL){
-			System.out.println("Linkify!"));
+			System.out.println("Linkify!");
 			if (name.isEmpty())
 				if (isFile)
 					name = "File";
