@@ -2,6 +2,7 @@ package hwo;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import java.io.IOException;
 
@@ -12,7 +13,10 @@ public class Instance {
 	private int currentSemester;
 	
 	Instance () {
-		semesters = new Semester[]{new Semester(null, null)};
+		GregorianCalendar now = new GregorianCalendar();
+		GregorianCalendar future = (GregorianCalendar) now.clone();
+		future.add(Calendar.MONTH, 4);
+		semesters = new Semester[]{new Semester(now, future)};
 		name = "Name";
 		settings = null;
 		currentSemester = 0;
