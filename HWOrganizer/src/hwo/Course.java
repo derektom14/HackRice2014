@@ -28,7 +28,7 @@ public class Course implements ICourse, Serializable
 	//-------------------------------------------------
 	
 	// Partial Constructor
-	public Course (ISemester semester, String name)
+	private Course (ISemester semester, String name)
 	{
 		this.assignments = new ArrayList<RepeatAssignment>();
 		
@@ -50,6 +50,13 @@ public class Course implements ICourse, Serializable
 	// Complete Constructor
 	public Course (ISemester semester, String name, String assignmentLoc, String turninLoc, String resources, String assignmentType, Calendar dueTime)
 	{
+		this.assignments = new ArrayList<RepeatAssignment>();
+		this.name = name;
+		this.assignmentLoc = assignmentLoc;
+		this.turninLoc = turninLoc;
+		this.resources = resources;
+		this.assignmentType = assignmentType;
+		this.dueTime = dueTime;
 		if (semester != null)
 		{
 			this.semester = semester;
@@ -58,12 +65,6 @@ public class Course implements ICourse, Serializable
 		else
 			throw new IllegalArgumentException("Tried to use a null semester to create a course.");
 		
-		this.name = name;
-		this.assignmentLoc = assignmentLoc;
-		this.turninLoc = turninLoc;
-		this.resources = resources;
-		this.assignmentType = assignmentType;
-		this.dueTime = dueTime;
 	}
 	
 	//-------------------------------------------------
