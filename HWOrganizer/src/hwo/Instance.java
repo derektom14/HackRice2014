@@ -8,6 +8,7 @@ import java.io.IOException;
 public class Instance {
 	private Semester[] semesters;
 	private String name;
+	private Settings settings;
 	
 	public void save(String fileName) {
 		try{
@@ -41,15 +42,15 @@ public class Instance {
 		}
 	}
 	
-	public ArrayList<SingleAssignment> filter(int semesterIndex, Calendar startDate, Calendar endDate, Course course)
+	public ArrayList<SingleAssignment> filter(int semesterIndex)
 	{
 		ArrayList<SingleAssignment> results = new ArrayList<SingleAssignment>();
 		for (ICourse c : semesters[semesterIndex].getCourses()) {
-			if (course == null || course == c) {
+			if (settings.getCourse() == null || settings.getCourse() == c) {
 				for (RepeatAssignment r : c.getAssignments()) {
 					for (SingleAssignment s : r.getAssignments()) {
-						if (startDate == null || s.getDueDate().after(startDate)) {
-							if (endDate == null || s.getDueDate().before(endDate)) {
+						if (settings.getStartDate() == null || s.getDueDate().after(settings.getStartDate())) {
+							if (settings.getEndDate() == null || s.getDueDate().before(settings.getEndDate())) {
 								results.add(s);
 							}
 						}
