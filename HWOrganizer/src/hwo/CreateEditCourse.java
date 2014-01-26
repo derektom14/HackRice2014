@@ -39,20 +39,20 @@ public class CreateEditCourse extends JDialog {
 			return null;
 	}
 	
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		try {
-//			Course course = new Course();
-//			CreateEditCourse dialog = new CreateEditCourse(course, null);
-//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//			dialog.setVisible(true);
-//			System.out.println(course);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			Course course = new Course(new Instance().getCurSemester(), "Name");
+			CreateEditCourse dialog = new CreateEditCourse(course, null);
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+			System.out.println(course);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Create the dialog.
@@ -71,15 +71,15 @@ public class CreateEditCourse extends JDialog {
 			contentPanel.add(lblCourseName, "flowx,cell 0 0,alignx left,growy");
 		}
 		{
-			JLabel lblAssignmentLocation = new JLabel("Assignment Location:");
+			JLabel lblAssignmentLocation = new JLabel("Default Assignment Location:");
 			contentPanel.add(lblAssignmentLocation, "flowx,cell 0 1,alignx left,growy");
 		}
 		{
-			JLabel lblTurninLocation = new JLabel("Turn-In Location:");
+			JLabel lblTurninLocation = new JLabel("Default Turn-In Location:");
 			contentPanel.add(lblTurninLocation, "flowx,cell 0 2,alignx left,growy");
 		}
 		{
-			JLabel lblResources = new JLabel("Resources:");
+			JLabel lblResources = new JLabel("Default Resources:");
 			contentPanel.add(lblResources, "flowx,cell 0 3,alignx left,growy");
 		}
 		{

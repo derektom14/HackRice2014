@@ -92,6 +92,11 @@ public class MainFrame extends JFrame {
 		mnFile.add(mntmNewCourse);
 		
 		JMenuItem mntmSave = new JMenuItem("Save");
+		mntmSave.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				save();
+			}
+		});
 		mnFile.add(mntmSave);
 		
 		JMenuItem mntmSaveAsText = new JMenuItem("Save as Text");
@@ -169,15 +174,11 @@ public class MainFrame extends JFrame {
 	}
 
 	private void addNewAssignment(){
-		System.out.println(instance);
-		System.out.println(instance.getCurSemester());
-		System.out.println(instance.getCurSemester().getCourses());
-		RepeatAssignment assignment = CreateEditAssignment.createNewAssignment(instance.getCurSemester().getCourses(), this);
+		CreateEditAssignment.createNewAssignment(instance.getCurSemester().getCourses(), this);
 	}
 	
 	private void addNewCourse(){
-		Course course = CreateEditCourse.createNewCourse(instance.getCurSemester(), this);
-		instance.getCurSemester().addCourse(course);
+		CreateEditCourse.createNewCourse(instance.getCurSemester(), this);
 	}
 	
 	private boolean sameDay(Calendar a, Calendar b){
@@ -198,6 +199,10 @@ public class MainFrame extends JFrame {
 				dayListModel.addElement(day);
 			}
 		}
+	}
+	
+	private void save(){
+		instance.save();
 	}
 
 }

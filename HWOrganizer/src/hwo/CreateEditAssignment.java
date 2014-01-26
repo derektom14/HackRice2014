@@ -108,7 +108,7 @@ public class CreateEditAssignment extends JDialog {
 			tfName.setColumns(10);
 		}
 		{
-			JLabel lblCourse = new JLabel("ICourse:");
+			JLabel lblCourse = new JLabel("Course:");
 			contentPanel.add(lblCourse, "cell 0 1,alignx trailing");
 		}
 		{
