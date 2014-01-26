@@ -343,6 +343,7 @@ public class CreateEditAssignment extends JDialog {
 			//spnPriority.setValue(assignment.getPriority());
 			cbCourse.setSelectedItem(assignment.getCourse().getName());
 			progress.setValue(((SingleAssignment)assignment).getProgress());
+			textNotes.setText(assignment.getNotes());
 			lblStart.setVisible(false);
 			spnStart.setVisible(false);
 			cbRepeating.setVisible(false);
@@ -418,9 +419,10 @@ public class CreateEditAssignment extends JDialog {
 		ArrayList<FileInfo> resources = new ArrayList<FileInfo>();
 		for (int k = 0; k < 3; k++)
 			resources.add(resourcePanels[k].getInfo());
+		String notes = textNotes.getText();
 		
 		if (assignment == null){
-			assignment = new RepeatAssignment(course, frequency, validDays, hwName, "", null, assignmentLoc, turninLoc, resources, "", dueCal, startCal, endCal, cbRepeating.isSelected(), priority);
+			assignment = new RepeatAssignment(course, frequency, validDays, hwName, notes, null, assignmentLoc, turninLoc, resources, "", dueCal, startCal, endCal, cbRepeating.isSelected(), priority);
 			instance.addChange(new DeleteRepeatAssignment((RepeatAssignment)assignment));
 		}
 		else {
@@ -431,6 +433,7 @@ public class CreateEditAssignment extends JDialog {
 			assignment.setName(hwName);
 			assignment.setAssignmentLoc(assignmentLoc);
 			assignment.setName(hwName);
+			assignment.setNotes(notes);
 			assignment.setResources(resources);
 			assignment.setTurninLoc(turninLoc);
 			//assignment.setPriority((Integer)spnPriority.getValue());
