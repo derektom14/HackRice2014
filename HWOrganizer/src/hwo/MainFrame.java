@@ -146,7 +146,7 @@ public class MainFrame extends JFrame {
 
 		mntmOpenHelpFile.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				Util.openFile("Homework Organizer Help.pdf");
+				Util.openFile("resources/Homework Organizer Help.pdf");
 			}
 		});
 		mnHelp.add(mntmOpenHelpFile);

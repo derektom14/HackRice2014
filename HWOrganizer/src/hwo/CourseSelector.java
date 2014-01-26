@@ -64,7 +64,7 @@ public class CourseSelector extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 						chosenCourse = courses.get(comboBox.getSelectedItem());
 						setVisible(false);
-					}
+					} 
 				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
