@@ -97,6 +97,7 @@ public class FilterSettings extends JDialog {
 		{
 			beginSpinner = new JSpinner();
 			Calendar defaultStart = settings.getStartDate();
+			System.out.println("startDate: " + defaultStart);
 			beginSpinner.setModel(new SpinnerDateModel(defaultStart == null ? new Date() : defaultStart.getTime(),
 					null, null, Calendar.DAY_OF_YEAR));
 			contentPanel.add(beginSpinner, "flowx,cell 1 1");
@@ -111,7 +112,7 @@ public class FilterSettings extends JDialog {
 		}
 		{
 			endSpinner = new JSpinner();
-			Calendar defaultEnd = settings.getStartDate();
+			Calendar defaultEnd = settings.getEndDate();
 			endSpinner.setModel(new SpinnerDateModel(defaultEnd == null ? new Date() : defaultEnd.getTime(),
 					null, null, Calendar.DAY_OF_YEAR));
 			contentPanel.add(endSpinner, "cell 1 1");
