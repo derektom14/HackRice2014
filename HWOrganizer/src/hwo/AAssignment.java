@@ -5,6 +5,7 @@
 
 package hwo;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import javax.xml.datatype.Duration;
 
@@ -16,9 +17,9 @@ public abstract class AAssignment implements IAssignment
 	private int priority; // The priority of the assignment (1 (low) <= priority <= 5 (high), default = 2)
 	private ICourse course; // The course which assigned this assignment
 	// Can refer to course
-	private String assignmentLoc;
-	private String turninLoc;
-	private String resources;
+	private FileInfo assignmentLoc;
+	private FileInfo turninLoc;
+	private ArrayList<FileInfo> resources;
 	private String assignmentType;
 	private Calendar dueTime;
 	// Can refer to course / semester
@@ -34,9 +35,9 @@ public abstract class AAssignment implements IAssignment
 	public int getPriority() {return this.priority;}
 	public ICourse getCourse() {return this.course;}
 	// Can refer to course
-	public String getAssignmentLoc() {return this.assignmentLoc;}
-	public String getTurninLoc() {return this.turninLoc;}
-	public String getResources() {return this.resources;}
+	public FileInfo getAssignmentLoc() {return this.assignmentLoc;}
+	public FileInfo getTurninLoc() {return this.turninLoc;}
+	public ArrayList<FileInfo> getResources() {return this.resources;}
 	public String getAssignmentType() {return this.assignmentType;}
 	public Calendar getDueTime() {return this.dueTime;}
 	// Can refer to course / semester
@@ -52,9 +53,9 @@ public abstract class AAssignment implements IAssignment
 	public void setPriority(int priority) {this.priority = priority;}
 	public void setCourse(ICourse course) {this.course = course;}
 	// Overrides value from course
-	public void setAssignmentLoc(String location) {this.assignmentLoc = location;}
-	public void setTurninLoc(String location) {this.turninLoc = location;}
-	public void setResources(String resources) {this.resources = resources;}
+	public void setAssignmentLoc(FileInfo location) {this.assignmentLoc = location;}
+	public void setTurninLoc(FileInfo location) {this.turninLoc = location;}
+	public void setResources(ArrayList<FileInfo> resources) {this.resources = resources;}
 	public void setAssignmentType(String type) {this.assignmentType = type;}
 	public void setDueTime(Calendar time) {this.dueTime = time;}
 	// Overrides value from course / semester

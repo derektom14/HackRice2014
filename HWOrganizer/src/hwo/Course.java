@@ -12,9 +12,9 @@ import java.util.Calendar;
 public class Course implements ICourse, Serializable
 {
 	private String name; // Name of the course
-	private String assignmentLoc; // Location of assignment (page number, url...)
-	private String turninLoc; // Location where assignment should be turned in (building, website...)
-	private String resources; // Location of additional resources for assignment (handouts, forums...)
+	private FileInfo assignmentLoc; // Location of assignment (page number, url...)
+	private FileInfo turninLoc; // Location where assignment should be turned in (building, website...)
+	private ArrayList<FileInfo> resources; // Location of additional resources for assignment (handouts, forums...)
 	private String assignmentType; // Type of assignment (reading, P-set, studying)
 	private Calendar dueTime; // Time at which the assignment is due (only concerned with hours / minutes)
 	private ArrayList<RepeatAssignment> assignments; // A list of assignments for this course
@@ -41,14 +41,14 @@ public class Course implements ICourse, Serializable
 			throw new IllegalArgumentException("Tried to use a null semester to create a course.");
 		
 		this.name = name;
-		this.assignmentLoc = "";
-		this.turninLoc = "";
-		this.resources = "";
+		this.assignmentLoc = null;
+		this.turninLoc = null;
+		this.resources = null;
 		this.assignmentType = "";
 	}
 	
 	// Complete Constructor
-	public Course (ISemester semester, String name, String assignmentLoc, String turninLoc, String resources, String assignmentType, Calendar dueTime)
+	public Course (ISemester semester, String name, FileInfo assignmentLoc, FileInfo turninLoc, ArrayList<FileInfo> resources, String assignmentType, Calendar dueTime)
 	{
 		this.assignments = new ArrayList<RepeatAssignment>();
 		this.name = name;
@@ -77,9 +77,9 @@ public class Course implements ICourse, Serializable
 	// Getter Methods
 	//-------------------------------------------------
 	public String getName() {return name;}
-	public String getAssignmentLoc() {return assignmentLoc;}
-	public String getTurninLoc() {return turninLoc;}
-	public String getResources() {return resources;}
+	public FileInfo getAssignmentLoc() {return assignmentLoc;}
+	public FileInfo getTurninLoc() {return turninLoc;}
+	public ArrayList<FileInfo> getResources() {return resources;}
 	public String getAssignmentType() {return assignmentType;}
 	public Calendar getDueTime() {return dueTime;}
 	public ArrayList<RepeatAssignment> getAssignments() {return assignments;}
@@ -102,9 +102,9 @@ public class Course implements ICourse, Serializable
 	// Setter methods
 	//-------------------------------------------------
 	public void setName(String name) {this.name = name;}
-	public void setAssignmentLoc(String location) {this.assignmentLoc = location;}
-	public void setTurninLoc(String location) {this.turninLoc = location;}
-	public void setResources(String resources) {this.resources = resources;}
+	public void setAssignmentLoc(FileInfo location) {this.assignmentLoc = location;}
+	public void setTurninLoc(FileInfo location) {this.turninLoc = location;}
+	public void setResources(ArrayList<FileInfo> resources) {this.resources = resources;}
 	public void setAssignmentType(String type) {this.assignmentType = type;}
 	public void setDueTime(Calendar time) {this.dueTime = time;}
 	public void addAssignment(RepeatAssignment assignment) 
@@ -121,7 +121,11 @@ public class Course implements ICourse, Serializable
 	public void setSemester(ISemester semester) 
 	{
 		if (semester != null)
+		{
+			this.semester.removeCourse(this);
 			this.semester = semester;
+			this.semester.addCourse(this);
+		}
 		else
 			throw new IllegalArgumentException("Tried to assign a course to a null semester.");
 	}

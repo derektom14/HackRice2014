@@ -5,6 +5,7 @@
 
 package hwo;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.io.Serializable;
 
@@ -20,9 +21,9 @@ public interface IAssignment extends Serializable
 	public Duration getCompletionTime();
 	public ICourse getCourse();
 	// Can be from course
-	public String getAssignmentLoc();
-	public String getTurninLoc();
-	public String getResources();
+	public FileInfo getAssignmentLoc();
+	public FileInfo getTurninLoc();
+	public ArrayList<FileInfo> getResources();
 	public String getAssignmentType();
 	public Calendar getDueTime();
 	// Can be from course / semester
@@ -38,9 +39,9 @@ public interface IAssignment extends Serializable
 	public void setPriority(int priority);
 	public void setCourse(ICourse course);
 	// Can override value from course
-	public void setAssignmentLoc(String location);
-	public void setTurninLoc(String location);
-	public void setResources(String resources);
+	public void setAssignmentLoc(FileInfo location);
+	public void setTurninLoc(FileInfo location);
+	public void setResources(ArrayList<FileInfo> resources);
 	public void setAssignmentType(String type);
 	public void setDueTime(Calendar time);
 	// Can override value from course / semester

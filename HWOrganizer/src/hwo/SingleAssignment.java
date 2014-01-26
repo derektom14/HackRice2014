@@ -5,6 +5,7 @@
 
 package hwo;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import javax.xml.datatype.Duration;
 
@@ -91,19 +92,19 @@ public class SingleAssignment extends AAssignment
 		return super.getPriority();
 	}
 	// Can refer to parent RepeatAssignment / course
-	public String getAssignmentLoc()
+	public FileInfo getAssignmentLoc()
 	{
 		if (super.getAssignmentLoc() == null)
 			return this.parent.getAssignmentLoc();
 		return super.getAssignmentLoc();
 	}
-	public String getTurninLoc()
+	public FileInfo getTurninLoc()
 	{
 		if (super.getTurninLoc() == null)
 			return this.parent.getTurninLoc();
 		return super.getTurninLoc();
 	}
-	public String getResources()
+	public ArrayList<FileInfo> getResources()
 	{
 		if (super.getResources() == null)
 			return this.parent.getResources();

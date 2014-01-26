@@ -11,7 +11,7 @@ public class AddRepeatAssignment extends Change{
 	
 	public Change act () {
 		rAssignment.getCourse().addAssignment(rAssignment);
-		return new DeleteRepeatAssignment(rAssignment, index);
+		return new DeleteRepeatAssignment(rAssignment);
 	}
 	
 	public String toString() {

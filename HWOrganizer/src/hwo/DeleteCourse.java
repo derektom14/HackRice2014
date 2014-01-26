@@ -1,9 +1,9 @@
 package hwo;
 
 public class DeleteCourse extends Change{
-	private Course course;
+	private ICourse course;
 	
-	DeleteCourse(Course course) {
+	DeleteCourse(ICourse course) {
 		this.course = course;
 	}
 	

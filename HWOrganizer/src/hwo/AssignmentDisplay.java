@@ -35,7 +35,7 @@ public class AssignmentDisplay extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public AssignmentDisplay() {
+	public AssignmentDisplay(final Instance instance) {
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setLayout(new MigLayout("", "[][]", "[][][][][][][][]"));
 		
@@ -81,7 +81,7 @@ public class AssignmentDisplay extends JPanel {
 		btnEdit = new JButton("Edit");
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CreateEditAssignment.editAssignment(assignment, (Frame)SwingUtilities.windowForComponent(AssignmentDisplay.this));
+				CreateEditAssignment.editAssignment(assignment, (Frame)SwingUtilities.windowForComponent(AssignmentDisplay.this), instance);
 			}
 		});
 		add(btnEdit, "cell 0 7");

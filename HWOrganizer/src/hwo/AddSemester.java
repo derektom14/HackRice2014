@@ -1,11 +1,11 @@
 package hwo;
 
 public class AddSemester extends Change{
-	private Semester semester;
+	private ISemester semester;
 	private int semesterIndex;
 	private Instance instance;
 	
-	AddSemester(Semester semester, int semesterIndex, Instance instance) {
+	AddSemester(ISemester semester, int semesterIndex, Instance instance) {
 		this.semester = semester;
 		this.semesterIndex = semesterIndex;
 		this.instance = instance;

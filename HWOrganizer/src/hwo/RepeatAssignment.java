@@ -55,7 +55,7 @@ public class RepeatAssignment extends AAssignment
 	
 	// Full Constructor
 	public RepeatAssignment (ICourse course, int frequency, boolean[] validDays, String name, String notes, Duration completionTime,
-			String assignmentLoc, String turninLoc, String resources, String assignmentType, Calendar dueTime, Calendar startDate, Calendar endDate,
+			FileInfo assignmentLoc, FileInfo turninLoc, ArrayList<FileInfo> resources, String assignmentType, Calendar dueTime, Calendar startDate, Calendar endDate,
 			boolean repeating, int priority)
 	{
 		if (frequency >= 1)
@@ -147,19 +147,19 @@ public class RepeatAssignment extends AAssignment
 	public boolean[] getValidDays() {return this.validDays;}
 	public ArrayList<SingleAssignment> getAssignments() {return this.assignments;}
 	// Can refer to course
-	public String getAssignmentLoc()
+	public FileInfo getAssignmentLoc()
 	{
 		if (super.getAssignmentLoc() == null)
 			return getCourse().getAssignmentLoc();
 		return super.getAssignmentLoc();
 	}
-	public String getTurninLoc()
+	public FileInfo getTurninLoc()
 	{
 		if (super.getTurninLoc() == null)
 			return getCourse().getTurninLoc();
 		return super.getTurninLoc();
 	}
-	public String getResources()
+	public ArrayList<FileInfo> getResources()
 	{
 		if (super.getResources() == null)
 			return getCourse().getResources();
@@ -191,7 +191,11 @@ public class RepeatAssignment extends AAssignment
 	public void setCourse(ICourse course)
 	{
 		if (course != null)
+		{
+			super.getCourse().removeAssignment(this);
 			super.setCourse(course);
+			super.getCourse().addAssignment(this);
+		}
 		else
 			throw new IllegalArgumentException("Tried to set a repeated assignment's course to null.");
 	}
