@@ -32,10 +32,13 @@ public class Instance {
 			throw new IllegalArgumentException("Tried to add a semester past the length of the ArrayList.");
 	}
 
-	public void deleteSemester(int index)
+	public Semester deleteSemester(int index)
 	{
-		if (index < semesters.size())
+		if (index < semesters.size()) {
+			Semester semester = semesters.get(index);
 			semesters.remove(index);
+			return semester;
+		}
 		else
 			throw new IllegalArgumentException("Tried to remove a semester past the length of the ArrayList.");
 	}
@@ -115,14 +118,14 @@ public class Instance {
 	public void undo() {
 		if (!undoStack.empty()) {
 			Change change = undoStack.pop();
-			redoStack.push(change.act(this));
+			redoStack.push(change.act());
 		}
 	}
 	
 	public void redo() {
 		if (!redoStack.empty()) {
 			Change change = redoStack.pop();
-			undoStack.push(change.act(this));
+			undoStack.push(change.act());
 		}
 	}
 }

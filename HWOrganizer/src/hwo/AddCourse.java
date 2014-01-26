@@ -7,7 +7,7 @@ public class AddCourse extends Change{
 		this.course = course;
 	}
 	
-	public Change act (Instance instance) {
+	public Change act () {
 		course.getSemester().addCourse(course);
 		return new DeleteCourse(course);
 	}
