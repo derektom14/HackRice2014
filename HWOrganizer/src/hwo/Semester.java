@@ -71,4 +71,14 @@ public class Semester implements ISemester
 			return "There is already a course with the name " + course.getName();
 		return null;
 	}
+	
+	//-------------------------------------------------
+	// Class methods
+	//-------------------------------------------------
+	public Semester shallowCopy()
+	{
+		Semester newSemester = new Semester(this.startDate, this.endDate);
+		newSemester.courses = this.courses;
+		return newSemester;
+	}
 }
