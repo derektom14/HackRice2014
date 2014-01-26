@@ -7,15 +7,12 @@ public class AddCourse extends Change{
 		this.course = course;
 	}
 	
-	public void act (Instance instance) {
+	public Change act (Instance instance) {
 		course.getSemester().addCourse(course);
+		return new DeleteCourse(course);
 	}
 	
 	public String toString() {
 		return "Deleted the course " + course.getName();
-	}
-	
-	public Change getReverse() {
-		return new DeleteCourse(course);
 	}
 }

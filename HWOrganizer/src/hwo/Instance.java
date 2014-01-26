@@ -115,8 +115,14 @@ public class Instance {
 	public void undo() {
 		if (!undoStack.empty()) {
 			Change change = undoStack.pop();
-			change.act(this);
-			redoStack.push(change.getReverse());
+			redoStack.push(change.act(this));
+		}
+	}
+	
+	public void redo() {
+		if (!redoStack.empty()) {
+			Change change = redoStack.pop();
+			undoStack.push(change.act(this));
 		}
 	}
 }

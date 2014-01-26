@@ -3,7 +3,5 @@
 package hwo;
 
 public abstract class Change {
-	
-	public abstract void act(Instance instance);
-	public abstract Change getReverse();
+	public abstract Change act();
 }
