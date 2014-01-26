@@ -5,6 +5,7 @@
 
 package hwo;
 
+import java.lang.IllegalArgumentException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -19,8 +20,13 @@ public class Semester implements ISemester, java.io.Serializable
 	//-------------------------------------------------
 	public Semester(Calendar startDate, Calendar endDate)
 	{
-		this.startDate = startDate;
-		this.endDate = endDate;
+		if (startDate.after(endDate))
+			throw new IllegalArgumentException("Tried to create a semester whose start date was not befor its end date.");
+		else
+		{
+			this.startDate = startDate;
+			this.endDate = endDate;
+		}
 	}
 	
 	//-------------------------------------------------
@@ -28,12 +34,30 @@ public class Semester implements ISemester, java.io.Serializable
 	//-------------------------------------------------
 	public Calendar getStartDate(){return startDate;}
 	public Calendar getEndDate() {return endDate;}
+	public ArrayList<ICourse> getCourses() {return courses;}
 	
 	//-------------------------------------------------
 	// Setter methods
 	//-------------------------------------------------
-	public void setStartDate(Calendar startDate){this.startDate = startDate;}
-	public void setEndDate(Calendar endDate) {this.endDate = endDate;}
-	public void addCourse(ICourse course) {courses.add(course);}
-	public ArrayList<ICourse> getCourses() {return courses;}
+	public void setStartDate(Calendar startDate) 
+	{
+		if (startDate.after(this.endDate))
+			throw new IllegalArgumentException("Tried to change a semester's start date to be later than its end date.");
+		else
+			this.startDate = startDate;
+	}
+	public void setEndDate(Calendar endDate) 
+	{
+		if (endDate.before(this.startDate))
+			throw new IllegalArgumentException("Tried to change a semester's end date to be earlier than its start date.");
+		else
+			this.endDate = endDate;
+	}
+	public void addCourse(ICourse course) 
+	{
+		if (course != null)
+			courses.add(course);
+		else
+			throw new IllegalArgumentException("Tried to add a null course to a semester.");
+	}
 }

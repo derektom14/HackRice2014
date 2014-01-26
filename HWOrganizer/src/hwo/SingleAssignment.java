@@ -11,13 +11,15 @@ import java.time.Duration;
 public class SingleAssignment extends AAssignment
 {
 	private Calendar dueDate; // The date this assignment is due (ignores hours and below)
-	private int progress; // The current progress on the assignment as a percentage (0 <= progress <= 100)
-	private int priority; // The priority of the assignment (1 (low) <= priority <= 5 (high))
+	private int progress; // The current progress on the assignment as a percentage (0 <= progress <= 100, default = 0)
+	private int priority; // The priority of the assignment (1 (low) <= priority <= 5 (high), default = 2)
 	private RepeatAssignment parent; // The RepeatedAssignment that created this assignment
 	
 	//-------------------------------------------------
 	// Constructors
 	//-------------------------------------------------
+	
+	// MUST be given a valid RepeatAssignment - many things fail otherwise
 	public SingleAssignment(RepeatAssignment parent, Calendar dueDate)
 	{
 		this.dueDate = dueDate;

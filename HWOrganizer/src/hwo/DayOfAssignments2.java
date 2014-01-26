@@ -15,7 +15,7 @@ import java.awt.Component;
 import javax.swing.JScrollBar;
 import javax.swing.JButton;
 
-public class DayOfAssignments extends JPanel {
+public class DayOfAssignments2 extends JPanel {
 
 	private JList<SingleAssignment> list;
 	private DefaultListModel<SingleAssignment> model;
@@ -24,7 +24,7 @@ public class DayOfAssignments extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public DayOfAssignments(Calendar curDay) {
+	public DayOfAssignments2(Calendar curDay) {
 		this.day = curDay;
 		setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
