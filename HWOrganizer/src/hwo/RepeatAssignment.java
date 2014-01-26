@@ -174,4 +174,11 @@ public class RepeatAssignment extends AAssignment
 		else
 			throw new IllegalArgumentException("Tried to set a repeated assignment's course to null.");
 	}
+	public void setPriority(int priority) 
+	{
+		if (priority < 1 || priority > 5)
+			throw new IllegalArgumentException("Tried to set an assignment's priority to a value outside the range 1-5.");
+		else
+			this.priority = priority;
+	}
 }

@@ -13,6 +13,7 @@ public abstract class AAssignment implements IAssignment
 	private String name; // Name of the assignment
 	private String notes; // Notes regarding assignment
 	private Duration completionTime; // Estimated amount of time to complete assignment
+	private int priority; // The priority of the assignment (1 (low) <= priority <= 5 (high), default = 2)
 	private ICourse course; // The course which assigned this assignment
 	// Can refer to course
 	private String assignmentLoc;
@@ -30,6 +31,7 @@ public abstract class AAssignment implements IAssignment
 	public String getName() {return this.name;}
 	public String getNotes() {return this.notes;}
 	public Duration getCompletionTime() {return this.completionTime;}
+	public int getPriority() {return this.priority;}
 	public ICourse getCourse() {return this.course;}
 	// Can refer to course
 	public String getAssignmentLoc() {return this.assignmentLoc;}
@@ -47,6 +49,7 @@ public abstract class AAssignment implements IAssignment
 	public void setName(String name) {this.name = name;}
 	public void setNotes(String notes) {this.notes = notes;}
 	public void setCompletionTime(Duration time) {this.completionTime = time;} 
+	public void setPriority(int priority) {this.priority = priority;}
 	public void setCourse(ICourse course) {this.course = course;}
 	// Overrides value from course
 	public void setAssignmentLoc(String location) {this.assignmentLoc = location;}
