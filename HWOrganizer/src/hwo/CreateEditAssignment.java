@@ -34,6 +34,7 @@ import javax.swing.DefaultComboBoxModel;
 public class CreateEditAssignment extends JDialog {
 	
 	private AAssignment assignment;
+	private Course[] courses;
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField tfName;
@@ -54,14 +55,16 @@ public class CreateEditAssignment extends JDialog {
 	private JPanel panel;
 	private JTextField tfFileLoc;
 	private JButton btnBrowse;
-	private static Course[] courses;
 	private JLabel lblStart;
 	private JSpinner spnStart;
+	private JPanel panel_1;
+	private JButton btnComplete;
+	private JLabel lblProgress;
 
 	public static RepeatAssignment createNewAssignment(Course[] courses, Frame parent){
 		if (courses.length == 0)
 			throw new IllegalArgumentException("Cannot create assignment with no courses");
-		CreateEditAssignment dialog = new CreateEditAssignment(parent, null);
+		CreateEditAssignment dialog = new CreateEditAssignment(parent, courses, null);
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setModal(true);
 		dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
@@ -70,27 +73,27 @@ public class CreateEditAssignment extends JDialog {
 	}
 	
 	public static void editAssignment(Course[] courses, Frame parent, SingleAssignment assignment){
-		CreateEditAssignment dialog = new CreateEditAssignment(parent, assignment);
+		CreateEditAssignment dialog = new CreateEditAssignment(parent, courses, assignment);
 		dialog.setModal(true);
 		dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
 		dialog.setVisible(true);
 	}
 	
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		Course course = new Course(null, title);
-//		System.out.println(createNewAssignment(new Course[]{course}, null));
-//	}
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		new CreateEditAssignment(null, new Course[0], null).setVisible(true);
+	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public CreateEditAssignment(Frame parent, SingleAssignment assignment) {
+	public CreateEditAssignment(Frame parent, Course[] courses, SingleAssignment assignment) {
 		super(parent, true);
 		setTitle("Create New Assignment");
 		this.assignment = assignment;
+		this.courses = courses;
 		setBounds(100, 100, 575, 396);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -106,11 +109,14 @@ public class CreateEditAssignment extends JDialog {
 			tfName.setColumns(10);
 		}
 		{
-			JLabel lblCourse = new JLabel("Class:");
+			JLabel lblCourse = new JLabel("Course:");
 			contentPanel.add(lblCourse, "cell 0 1,alignx trailing");
 		}
 		{
-			cbCourse = new JComboBox();
+			String[] courseNames = new String[courses.length];
+			for (int k = 0; k < courses.length; k++)
+				courseNames[k] = courses[k].getName();
+			cbCourse = new JComboBox(courseNames);
 			contentPanel.add(cbCourse, "cell 1 1,growx");
 		}
 		{
@@ -211,14 +217,23 @@ public class CreateEditAssignment extends JDialog {
 			}
 		}
 		{
-			JLabel lblProgress = new JLabel("Progress:");
+			lblProgress = new JLabel("Progress:");
 			lblProgress.setHorizontalAlignment(SwingConstants.TRAILING);
 			contentPanel.add(lblProgress, "cell 0 8,alignx trailing");
 		}
 		{
-			progress = new JSlider();
-			progress.setValue(0);
-			contentPanel.add(progress, "cell 1 8");
+			panel_1 = new JPanel();
+			contentPanel.add(panel_1, "cell 1 8,grow");
+			panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
+			{
+				progress = new JSlider();
+				panel_1.add(progress);
+				progress.setValue(0);
+			}
+			{
+				btnComplete = new JButton("Complete!");
+				panel_1.add(btnComplete);
+			}
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -249,7 +264,7 @@ public class CreateEditAssignment extends JDialog {
 		}
 		
 		if (assignment != null){
-			tfName.setText(assignment.getHWName());
+			tfName.setText(assignment.getName());
 			tfAssignmentLoc.setText(assignment.getAssignmentLoc());
 			tfTurnInLoc.setText(assignment.getTurninLoc());
 			tfFileLoc.setText(assignment.getResources());
@@ -262,6 +277,11 @@ public class CreateEditAssignment extends JDialog {
 			cbF.setVisible(false);
 			cbS.setVisible(false);
 			tfWeekFreq.setVisible(false);
+		}
+		else {
+			progress.setVisible(false);
+			lblProgress.setVisible(false);
+			btnComplete.setVisible(false);
 		}
 	}
 	
@@ -296,6 +316,7 @@ public class CreateEditAssignment extends JDialog {
 		Calendar startCal = new GregorianCalendar();
 		startCal.setTime(startDate);
 		int frequency = tfWeekFreq.getSelectedIndex() + 1;
+		int prog = progress.getValue();
 		
 		String hwName = tfName.getText();
 		String assignmentLoc = tfAssignmentLoc.getText();
@@ -303,7 +324,7 @@ public class CreateEditAssignment extends JDialog {
 		String resources = tfFileLoc.getText();
 		
 		if (assignment == null){
-			assignment = new RepeatAssignment(course, frequency, validDays, hwName, "", new Duration(), assignmentLoc, turninLoc, resources, "", dueCal, startCal, dueCal);
+			//assignment = new RepeatAssignment(course, frequency, validDays, hwName, "", new Duration(), assignmentLoc, turninLoc, resources, "", dueCal, startCal, dueCal);
 		}
 		else {
 			assignment.setAssignmentLoc(assignmentLoc);

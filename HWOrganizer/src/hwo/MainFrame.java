@@ -24,6 +24,8 @@ import net.miginfocom.swing.MigLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 // Derek
 
@@ -34,6 +36,8 @@ public class MainFrame extends JFrame {
 	private JPanel contentPane;
 	private DefaultListModel<DayOfAssignments> dayListModel;
 
+	private Instance instance = new Instance();
+	
 	Vector<SingleAssignment> assignments = getSingleAssignments();
 	private JList<DayOfAssignments> dayList;
 	
@@ -72,10 +76,20 @@ public class MainFrame extends JFrame {
 		menuBar.add(mnFile);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("New Assignment");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addNewAssignment();
+			}
+		});
 		mnFile.add(mntmNewMenuItem);
 		
-		JMenuItem mntmNewClass = new JMenuItem("New Class");
-		mnFile.add(mntmNewClass);
+		JMenuItem mntmNewCourse = new JMenuItem("New Course");
+		mntmNewCourse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addNewCourse();
+			}
+		});
+		mnFile.add(mntmNewCourse);
 		
 		JMenuItem mntmSave = new JMenuItem("Save");
 		mnFile.add(mntmSave);
@@ -128,10 +142,20 @@ public class MainFrame extends JFrame {
 		sideBar.setLayout(new BoxLayout(sideBar, BoxLayout.Y_AXIS));
 		
 		JButton btnNewAssignment = new JButton("New Assignment");
+		btnNewAssignment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				addNewAssignment();
+			}
+		});
 		sideBar.add(btnNewAssignment);
 		
-		JButton btnNewClass = new JButton("New Class");
-		sideBar.add(btnNewClass);
+		JButton btnNewCourse = new JButton("New Course");
+		btnNewCourse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addNewCourse();
+			}
+		});
+		sideBar.add(btnNewCourse);
 		
 		JButton btnFilterSearch = new JButton("Filter / Search");
 		sideBar.add(btnFilterSearch);
@@ -144,6 +168,14 @@ public class MainFrame extends JFrame {
 		fillListOfDays();
 	}
 
+	private void addNewAssignment(){
+		RepeatAssignment assignment = CreateEditAssignment.createNewAssignment(instance.getCurSemester().getCourses(), this);
+	}
+	
+	private void addNewCourse(){
+		Course course = CreateEditCourse.createNewCourse(instance.getCurSemester(), this);
+	}
+	
 	private boolean sameDay(Calendar a, Calendar b){
 		return a.get(Calendar.YEAR) == b.get(Calendar.YEAR) && a.get(Calendar.DAY_OF_YEAR) == b.get(Calendar.DAY_OF_YEAR);  
 	}
