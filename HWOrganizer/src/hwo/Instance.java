@@ -46,7 +46,13 @@ public class Instance {
 			in.close();
 			saveFile.close();
 		} catch(IOException e) {
-			e.printStackTrace();
+			GregorianCalendar now = new GregorianCalendar();
+			GregorianCalendar future = (GregorianCalendar) now.clone();
+			future.add(Calendar.MONTH, 4);
+			semesters = new Semester[]{new Semester(now, future)};
+			name = "Name";
+			settings = null;
+			currentSemester = 0;
 		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
 		}
