@@ -121,7 +121,9 @@ public class SingleAssignment extends AAssignment
 		// Isolate parts of time
 		Calendar time = this.getDueTime();
 		int hours = time.get(Calendar.HOUR_OF_DAY);
-		int minutes = time.get(Calendar.MINUTE);
+		String minutes = "" + time.get(Calendar.MINUTE);
+		if (minutes.length() < 2)
+			minutes = "0" + minutes;
 		String am_pm = "am";
 		// Convert to 12-hour clock
 		if (hours == 0)
