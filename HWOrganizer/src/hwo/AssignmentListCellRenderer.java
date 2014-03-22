@@ -35,6 +35,8 @@ class AssignmentListCellRenderer extends JLabel implements ListCellRenderer<Sing
          setBackground(color);
          if (assignment.isCompleted())
         	 setIcon(completeIcon);
+         else
+        	 setIcon(null);
          
          return this;
      }

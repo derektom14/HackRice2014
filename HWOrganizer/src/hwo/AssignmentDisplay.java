@@ -132,12 +132,16 @@ public class AssignmentDisplay extends JPanel {
 		lblTimeVal.setText(dateFormat2.format(assignment.getDueTime().getTime()));
 		//lblPriorityVal.setText(String.valueOf(assignment.getPriority()));
 		progressBar.setValue(assignment.getProgress());
+		delinkify(lblInfoVal);
+		delinkify(lblTurninVal);
 		linkify(lblInfoVal, assignment.getAssignmentLoc());
 		linkify(lblTurninVal, assignment.getTurninLoc());
 		
 		ArrayList<FileInfo> resources = assignment.getResources();
-		for (int k = 0; k < resources.size(); k++)
+		for (int k = 0; k < resources.size(); k++) {
+			delinkify(resourceVals[k]);
 			linkify(resourceVals[k], resources.get(k));
+		}
 		setVisible(true);
 	}
 	
